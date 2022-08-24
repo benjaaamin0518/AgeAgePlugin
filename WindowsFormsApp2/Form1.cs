@@ -181,8 +181,8 @@ namespace WindowsFormsApp2
                 {
                     e.Cancel = true;
                     InvokeButton2();
-
-                    Stop(PsInfo); 
+                    Stop(PsInfo);
+ 
                     break;
 
                 }
@@ -193,7 +193,10 @@ namespace WindowsFormsApp2
             //PsInfo.Dispose();
             Console.WriteLine(worker.CancellationPending);
 
-            Flag = worker.CancellationPending;
+            Flag =true;
+            await ButtonUp();
+
+
 
             //form1.Text += "end!";
 
