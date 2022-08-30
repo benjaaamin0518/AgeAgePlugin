@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,10 +27,14 @@ namespace WindowsFormsApp2
         private string output { get; set; }
         CancellationTokenSource tokenSource;
         CancellationToken cancelToken;
+        public List<FormData> test { get; set; }
+        public List<FormData> fd { get; set; }
 
         public おじょじょじょじょぼじゅぼぼ()
         {
             InitializeComponent();
+            test = new List<FormData>();
+            
 
 
         }
@@ -81,7 +87,12 @@ namespace WindowsFormsApp2
             Default.username = textBox3.Text;
             Default.url = textBox2.Text;
             Default.directory = textBox5.Text;
+            test.Add(new FormData() { password = textBox4.Text, url = textBox2.Text });
+            Default.fd = test;
             Default.Save();
+            Console.WriteLine(Default.fd.Count);
+
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
