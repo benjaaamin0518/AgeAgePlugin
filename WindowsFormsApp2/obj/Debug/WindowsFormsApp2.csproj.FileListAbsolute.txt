@@ -12,9 +12,10 @@ C:\Users\nishikawa\Documents\TestApplication\WindowsFormsApp2\bin\Debug\WindowsF
 C:\Users\nishikawa\Documents\TestApplication\WindowsFormsApp2\bin\Debug\WindowsFormsApp2.exe
 C:\Users\nishikawa\Documents\TestApplication\WindowsFormsApp2\bin\Debug\WindowsFormsApp2.pdb
 C:\Users\nishikawa\Documents\TestApplication\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.csprojAssemblyReference.cache
-C:\Users\nishikawa\Documents\TestApplication\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.おじょじょじょじょぼじゅぼぼ.resources
 C:\Users\nishikawa\Documents\TestApplication\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.Properties.Resources.resources
 C:\Users\nishikawa\Documents\TestApplication\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.csproj.GenerateResource.cache
 C:\Users\nishikawa\Documents\TestApplication\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.csproj.CoreCompileInputs.cache
 C:\Users\nishikawa\Documents\TestApplication\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.exe
 C:\Users\nishikawa\Documents\TestApplication\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.pdb
+C:\Users\nishikawa\Documents\TestApplication\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.おじょじょぼじゅぼぼ.resources
+C:\Users\nishikawa\Documents\TestApplication\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.Form2.resources
