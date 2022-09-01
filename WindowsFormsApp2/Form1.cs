@@ -13,14 +13,18 @@ namespace WindowsFormsApp2
     public partial class おじょじょぼじゅぼぼ : Form
     {
         private string Direct { get; set; }
+        private string Direct2 { get; set; }
         private string Arguments { get; set; }
         private FolderBrowserDialog Fbd { get; set; }
         private Properties.Settings Default { get; set; }
         private ComandProcess comandprocess { get; set; }
         private bool Flag { get; set; }
+        private bool Flag2 { get; set; }
         private string output { get; set; }
         CancellationTokenSource tokenSource;
         CancellationToken cancelToken;
+        CancellationTokenSource tokenSource2;
+        CancellationToken cancelToken2;
         public List<FormData> test { get; set; }
         public List<FormData> fd { get; set; }
         public おじょじょぼじゅぼぼ()
@@ -70,7 +74,7 @@ namespace WindowsFormsApp2
         {
 
             Default.fd.RemoveAll(x => x.name == comboBox1.Text);
-            Default.fd.Add(new FormData { url = textBox2.Text, username = textBox3.Text, password = textBox4.Text, Direct = textBox5.Text, name = comboBox1.Text});
+            Default.fd.Add(new FormData { url = textBox2.Text, username = textBox3.Text, password = textBox4.Text, Direct = textBox5.Text, name = comboBox1.Text });
             Default.Save();
             Console.WriteLine(textBox5.Text);
         }
@@ -87,6 +91,7 @@ namespace WindowsFormsApp2
             {
                 button3.Enabled = false;
                 comboBox1.Enabled = false;
+                button7.Enabled = false;
                 textBox1.Text = (checkBox2.Checked) ? "" : textBox1.Text;
                 Controller Controller = new Controller();
                 Controller.Direct = textBox5.Text;
@@ -98,12 +103,19 @@ namespace WindowsFormsApp2
                 button4.Text = "実行中";
                 tokenSource = new CancellationTokenSource();
                 cancelToken = tokenSource.Token;
+                tokenSource2 = new CancellationTokenSource();
+                cancelToken2 = tokenSource2.Token;
                 backgroundWorker1.RunWorkerAsync();
+                backgroundWorker2.RunWorkerAsync();
             }
             else
             {
+               
+
                 Flag = false;
+                Flag2 = false;
                 backgroundWorker1.CancelAsync();
+                backgroundWorker2.CancelAsync();
                 await ButtonUp();
             }
         }
@@ -113,11 +125,12 @@ namespace WindowsFormsApp2
             {
                 while (true)
                 {
-                    if (Flag)
+                    if (Flag && Flag2)
                     {
                         InvokeButton();
                         break;
                     }
+                    InvokeButton2();
                 }
                 return "Stop";
             });
@@ -156,8 +169,8 @@ namespace WindowsFormsApp2
                 if (worker.CancellationPending)
                 {
                     e.Cancel = true;
-                    InvokeButton2();
-                    Stop(PsInfo);
+                    
+                    await Stop(PsInfo);
                     break;
                 }
             }
@@ -170,6 +183,18 @@ namespace WindowsFormsApp2
         public async Task<string> Ho(Process PsInfo)
         {
             if (cancelToken.IsCancellationRequested)
+            {
+                // キャンセルされたらTaskを終了する.
+                return "Canceled";
+            }
+            output = PsInfo.StandardOutput.ReadLine();
+            output = output?.Replace("\r\r\n", "\n"); // 改行コードの修正
+            if (output != "") Invoke(output);
+            return output;
+        }
+        public async Task<string> Ho2(Process PsInfo)
+        {
+            if (cancelToken2.IsCancellationRequested)
             {
                 // キャンセルされたらTaskを終了する.
                 return "Canceled";
@@ -207,6 +232,8 @@ namespace WindowsFormsApp2
             button4.Enabled = true;
             button3.Enabled = true;
             comboBox1.Enabled = true;
+            button7.Enabled = true;
+
         }
         public string InvokeButton2()
         {
@@ -217,6 +244,7 @@ namespace WindowsFormsApp2
             }
             else
             {
+                this.ButtonUpdate2();
                 return "out";
             }
         }
@@ -236,12 +264,27 @@ namespace WindowsFormsApp2
             //カレット位置までスクロール
             textBox1.ScrollToCaret();
         }
-        public string Stop(Process PsInfo)
+        public Task<string> Stop(Process PsInfo)
         {
-            tokenSource.Cancel();
-            PsInfo.Kill();
-            PsInfo.WaitForExit();
-            return "stop";
+            Task<string> task2=Task.Run(() =>
+            {
+                tokenSource.Cancel();
+                PsInfo.Kill();
+                PsInfo.WaitForExit();
+                return "stop";
+            });
+            return task2;
+        }
+        public Task<string> Stop2(Process PsInfo)
+        {
+            Task<string> task=Task.Run(() =>
+            {
+                tokenSource2.Cancel();
+                PsInfo.Kill();
+                PsInfo.WaitForExit();
+                return "stop";
+            });
+            return task;
         }
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
@@ -324,7 +367,7 @@ namespace WindowsFormsApp2
             FormData SettingValue = Default.fd.Find(x => x.name == comboBox1.Text);
             if (SettingValue != null)
             {
-                textBox2.Text = SettingValue.url; 
+                textBox2.Text = SettingValue.url;
                 textBox3.Text = SettingValue.username;
                 textBox4.Text = SettingValue.password;
                 textBox5.Text = SettingValue.Direct;
@@ -335,6 +378,8 @@ namespace WindowsFormsApp2
                 button3.Enabled = true;
                 button4.Enabled = true;
                 button1.Enabled = true;
+                button7.Enabled = true;
+
             }
             else
             {
@@ -348,8 +393,75 @@ namespace WindowsFormsApp2
                 textBox5.Enabled = false;
                 button3.Enabled = false;
                 button4.Enabled = false;
+                button7.Enabled = false;
                 button1.Enabled = false;
             }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            FormData SettingValue = Default.fd.Find(x => x.name == comboBox1.Text);
+            if (SettingValue != null)
+            {
+                if (MessageBox.Show("削除しますか？", "プラグインの設定の削除", MessageBoxButtons.YesNo) == DialogResult.No) { return; }
+                Default.fd.RemoveAll(x => x.name == comboBox1.Text);
+                Default.Save();
+                comboBox1.SelectedIndex = comboBox1.SelectedIndex - 1;
+                CreatePluginList();
+                LoadPluginListValue();
+
+
+
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        private async void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Direct2 = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+            Direct2 = Direct2 + @"\echo2.bat";
+            string command = Direct2;
+            string arguments = Arguments;
+            Console.WriteLine(arguments);
+            ProcessStartInfo p = new ProcessStartInfo();
+            p.Arguments = arguments;
+            p.CreateNoWindow = true; // コンソールを開かない
+            p.UseShellExecute = false; // シェル機能を使用しない
+            p.FileName = command;
+            BackgroundWorker worker = (BackgroundWorker)sender;
+            p.RedirectStandardOutput = true; // 標準出力をリダイレクト
+            Process PsInfo = Process.Start(p);
+            output = "";
+            Invoke(output);
+            Task<string> task;
+            while (!PsInfo.HasExited)
+            {
+                task = Task.Run(async () =>
+                {
+                    return await Ho2(PsInfo);
+                });
+                worker = (BackgroundWorker)sender;
+                //キャンセル判定
+                // senderの値はbgWorkerの値と同じ
+                Console.WriteLine(worker.CancellationPending);
+                // 時間のかかる処理
+                // キャンセルされてないか定期的にチェック
+                if (worker.CancellationPending)
+                {
+                    e.Cancel = true;
+
+                    await Stop2(PsInfo);
+                    break;
+                }
+            }
+            //PsInfo.Dispose();
+            Console.WriteLine(worker.CancellationPending);
+            Flag2 = true;
+            await ButtonUp();
+            //form1.Text += "end!";
         }
     }
 }
