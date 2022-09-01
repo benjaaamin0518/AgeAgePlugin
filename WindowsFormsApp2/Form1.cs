@@ -68,30 +68,25 @@ namespace WindowsFormsApp2
         }
         private void button3_Click(object sender, EventArgs e)
         {
-            Default.password = textBox4.Text;
-            Default.username = textBox3.Text;
-            Default.username = textBox3.Text;
-            Default.url = textBox2.Text;
-            Default.directory = textBox5.Text;
+
             Default.fd.RemoveAll(x => x.name == comboBox1.Text);
-            //test.Add(new FormData() { password = textBox4.Text, url = textBox2.Text });
-            Default.fd = test;
+            Default.fd.Add(new FormData { url = textBox2.Text, username = textBox3.Text, password = textBox4.Text, Direct = textBox5.Text, name = comboBox1.Text});
             Default.Save();
-            Console.WriteLine(Default.fd.Count);
+            Console.WriteLine(textBox5.Text);
         }
         private void Form1_Load(object sender, EventArgs e)
         {
             Default = Properties.Settings.Default;
-            textBox2.Text = Default.url;
-            textBox3.Text = Default.username;
-            textBox4.Text = Default.password;
-            textBox5.Text = Default.directory;
             CreatePluginList();
+            LoadPluginListValue();
+            comboBox1.SelectedItem = Default.PluginName;
         }
         private async void button4_Click(object sender, EventArgs e)
         {
             if (button4.Text == "実行")
             {
+                button3.Enabled = false;
+                comboBox1.Enabled = false;
                 textBox1.Text = (checkBox2.Checked) ? "" : textBox1.Text;
                 Controller Controller = new Controller();
                 Controller.Direct = textBox5.Text;
@@ -184,9 +179,6 @@ namespace WindowsFormsApp2
             if (output != "") Invoke(output);
             return output;
         }
-        public void CreOutput(Process PsInfo)
-        {
-        }
         public void Invoke(string output)
         {
             if (this.InvokeRequired)
@@ -213,6 +205,8 @@ namespace WindowsFormsApp2
         {
             button4.Text = "実行";
             button4.Enabled = true;
+            button3.Enabled = true;
+            comboBox1.Enabled = true;
         }
         public string InvokeButton2()
         {
@@ -270,6 +264,10 @@ namespace WindowsFormsApp2
             {
                 comboBox1.Items.Add(data.name);
             }
+            if (Default.PluginName != null)
+            {
+                comboBox1.SelectedItem = Default.PluginName;
+            }
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -312,6 +310,45 @@ namespace WindowsFormsApp2
             catch (IOException error)
             {
                 Console.WriteLine(error.Message);
+            }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Default.PluginName = comboBox1.Text;
+            Default.Save();
+            LoadPluginListValue();
+        }
+        private void LoadPluginListValue()
+        {
+            FormData SettingValue = Default.fd.Find(x => x.name == comboBox1.Text);
+            if (SettingValue != null)
+            {
+                textBox2.Text = SettingValue.url; 
+                textBox3.Text = SettingValue.username;
+                textBox4.Text = SettingValue.password;
+                textBox5.Text = SettingValue.Direct;
+                textBox2.Enabled = true;
+                textBox3.Enabled = true;
+                textBox4.Enabled = true;
+                textBox5.Enabled = true;
+                button3.Enabled = true;
+                button4.Enabled = true;
+                button1.Enabled = true;
+            }
+            else
+            {
+                textBox2.Text = "";
+                textBox3.Text = "";
+                textBox4.Text = "";
+                textBox5.Text = "";
+                textBox2.Enabled = false;
+                textBox3.Enabled = false;
+                textBox4.Enabled = false;
+                textBox5.Enabled = false;
+                button3.Enabled = false;
+                button4.Enabled = false;
+                button1.Enabled = false;
             }
         }
     }
