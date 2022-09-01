@@ -3,4 +3,5 @@ kintone-plugin-uploaderとkintone-plugin-packerを指定した値を使って行
 現時点ではkintone-plugin-uploaderのみ。
 
 # 画面
-![スクリーンショット 2022-08-30 094117](https://user-images.githubusercontent.com/102705383/187323257-72663ee8-9329-4fbe-88ee-676a2817b3ea.png)
+
+![スクリーンショット 2022-09-01 115534](https://user-images.githubusercontent.com/102705383/187822286-3c0486b6-e9ee-4d95-9cfd-1c11dd0d7cac.png)
