@@ -5,9 +5,12 @@ using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.Json;
+using Newtonsoft.Json;
 namespace WindowsFormsApp2
 {
     public partial class おじょじょぼじゅぼぼ : Form
@@ -53,6 +56,7 @@ namespace WindowsFormsApp2
                 //選択されたフォルダを表示する
                 Console.WriteLine(Fbd.SelectedPath);
                 textBox5.Text = Fbd.SelectedPath;
+                GetManifestVersion();
             }
         }
         private void button2_Click(object sender, EventArgs e)
@@ -462,6 +466,22 @@ namespace WindowsFormsApp2
             Flag2 = true;
             await ButtonUp();
             //form1.Text += "end!";
+        }
+        private string GetManifestVersion()
+        {
+            string version = "";
+            if (textBox5.Text != "") {
+                using (var sr = new StreamReader(textBox5.Text+@"\src\manifest.json"))
+                {
+                    var jsonData = sr.ReadToEnd();
+                    ManifestJsonData jsonData2 = System.Text.Json.JsonSerializer.Deserialize<ManifestJsonData>(jsonData);
+
+                    Console.WriteLine(jsonData2.version);
+                    label6.Text = "ver:" + jsonData2.version;
+                }
+
+            }
+            return "";
         }
     }
 }
