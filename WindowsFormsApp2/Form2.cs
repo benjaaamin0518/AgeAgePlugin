@@ -45,7 +45,7 @@ namespace WindowsFormsApp2
         private void CreateSettingPlugin()
         {
             List<FormData> formData = new List<FormData>();
-            formData.Add(new FormData { name = textBox1.Text });
+            formData.Add(new FormData { name = textBox1.Text,plusBool=false });
             Default.fd.AddRange(formData);
             form1.CreatePluginList();
             Default.Save();

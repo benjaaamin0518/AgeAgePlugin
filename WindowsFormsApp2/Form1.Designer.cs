@@ -46,6 +46,8 @@ namespace WindowsFormsApp2
             this.label5 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button8 = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button5 = new System.Windows.Forms.Button();
@@ -53,8 +55,6 @@ namespace WindowsFormsApp2
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
-            this.label7 = new System.Windows.Forms.Label();
-            this.button8 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -225,10 +225,30 @@ namespace WindowsFormsApp2
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "詳細情報";
             // 
+            // button8
+            // 
+            this.button8.Font = new System.Drawing.Font("MS UI Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button8.Location = new System.Drawing.Point(391, 135);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(95, 23);
+            this.button8.TabIndex = 14;
+            this.button8.Text = "マニフェスト変更";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.label7.Location = new System.Drawing.Point(420, 140);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(0, 12);
+            this.label7.TabIndex = 13;
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(495, 140);
+            this.label6.Location = new System.Drawing.Point(487, 140);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(23, 12);
             this.label6.TabIndex = 12;
@@ -295,26 +315,6 @@ namespace WindowsFormsApp2
             // 
             this.backgroundWorker2.WorkerSupportsCancellation = true;
             this.backgroundWorker2.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker2_DoWork);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.label7.Location = new System.Drawing.Point(420, 140);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(0, 12);
-            this.label7.TabIndex = 13;
-            // 
-            // button8
-            // 
-            this.button8.Font = new System.Drawing.Font("MS UI Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button8.Location = new System.Drawing.Point(391, 135);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(95, 23);
-            this.button8.TabIndex = 14;
-            this.button8.Text = "マニフェスト変更";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // おじょじょぼじゅぼぼ
             // 

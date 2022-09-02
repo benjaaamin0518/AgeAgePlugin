@@ -12,9 +12,10 @@ namespace WindowsFormsApp2
 {
     public partial class おじょじょぼじゅぼぼ : Form
     {
+        public Form3 form3 { get; set; }
         private string Direct { get; set; }
         private string Direct2 { get; set; }
-        public static decimal PluginSet { get; set; }
+        public static FormData PluginSet { get; set; }
         public static ManifestJsonData Json { get; set; }
         private string Arguments { get; set; }
         private FolderBrowserDialog Fbd { get; set; }
@@ -23,6 +24,7 @@ namespace WindowsFormsApp2
         private bool Flag { get; set; }
         private bool Flag2 { get; set; }
         private string output { get; set; }
+        private decimal PlusVersion { get; set; }
         CancellationTokenSource tokenSource;
         CancellationToken cancelToken;
         CancellationTokenSource tokenSource2;
@@ -56,6 +58,10 @@ namespace WindowsFormsApp2
                 Console.WriteLine(Fbd.SelectedPath);
                 textBox5.Text = Fbd.SelectedPath;
                 GetManifestVersion();
+                if (textBox5.Text != "")
+                {
+                    button8.Enabled = true;
+                }
             }
         }
         private void button2_Click(object sender, EventArgs e)
@@ -109,6 +115,7 @@ namespace WindowsFormsApp2
                 cancelToken = tokenSource.Token;
                 tokenSource2 = new CancellationTokenSource();
                 cancelToken2 = tokenSource2.Token;
+                SaveManifestJson(true);
                 backgroundWorker1.RunWorkerAsync();
                 backgroundWorker2.RunWorkerAsync();
             }
@@ -132,6 +139,7 @@ namespace WindowsFormsApp2
                     if (Flag && Flag2)
                     {
                         InvokeButton();
+
                         break;
                     }
                     InvokeButton2();
@@ -237,6 +245,7 @@ namespace WindowsFormsApp2
             button3.Enabled = true;
             comboBox1.Enabled = true;
             button7.Enabled = true;
+            GetManifestVersion();
 
         }
         public string InvokeButton2()
@@ -375,7 +384,7 @@ namespace WindowsFormsApp2
                 textBox3.Text = SettingValue.username;
                 textBox4.Text = SettingValue.password;
                 textBox5.Text = SettingValue.Direct;
-                PluginSet = SettingValue.plus;
+                PluginSet = SettingValue;
                 textBox2.Enabled = true;
                 textBox3.Enabled = true;
                 textBox4.Enabled = true;
@@ -384,6 +393,10 @@ namespace WindowsFormsApp2
                 button4.Enabled = true;
                 button1.Enabled = true;
                 button7.Enabled = true;
+                if (textBox5.Text != "")
+                {
+                    button8.Enabled = true;
+                }
 
             }
             else
@@ -400,6 +413,7 @@ namespace WindowsFormsApp2
                 button4.Enabled = false;
                 button7.Enabled = false;
                 button1.Enabled = false;
+                button8.Enabled = false;
             }
         }
 
@@ -415,7 +429,7 @@ namespace WindowsFormsApp2
                 CreatePluginList();
                 LoadPluginListValue();
 
-
+                GetManifestVersion();
 
             }
             else
@@ -468,31 +482,47 @@ namespace WindowsFormsApp2
             await ButtonUp();
             //form1.Text += "end!";
         }
-        private string GetManifestVersion()
+        public ManifestJsonData GetManifestVersion()
         {
+            PluginSet = Default.fd.Find(x => x.name == comboBox1.Text);
+
             string version = "";
             if (textBox5.Text != "") {
                 using (var sr = new StreamReader(textBox5.Text+@"\src\manifest.json"))
                 {
                     var jsonData = sr.ReadToEnd();
                     Json = System.Text.Json.JsonSerializer.Deserialize<ManifestJsonData>(jsonData);
-
-                    Console.WriteLine(Json.version);
-                    label6.Text = "ver:" + Json.version;
+                    if (PluginSet.plusBool)
+                    {
+                        PlusVersion = (Json.version + PluginSet.plus);
+                        label6.Text = "ver:" + Json.version+" →"+PlusVersion;
+                    }
+                    else
+                    {
+                        label6.Text = "ver:" + Json.version;
+                    }
+                    Console.WriteLine(Json.name.ja);
+                    return Json;
                 }
             }
-            return "";
+            label6.Text = "ver:";
+
+            return Json;
         }
-        public void SaveManifestJson()
+        public void SaveManifestJson(bool executionBool)
         {
+            if (executionBool&&PluginSet.plusBool)
+            {
+                Json.version = PlusVersion;
+            }
             try
             {
-                Json.version = 6;
                 string JsonStr = System.Text.Json.JsonSerializer.Serialize<ManifestJsonData>(Json);
                         // テキストファイル出力（新規作成）
                     using (StreamWriter sw = new StreamWriter(textBox5.Text + @"\src\manifest.json", false))
                         {
-                            sw.WriteLine(JsonStr);
+                    sw.WriteLine(JsonStr);
+                    Console.WriteLine(JsonStr);
                         }
             }
             // 例外処理
@@ -504,9 +534,20 @@ namespace WindowsFormsApp2
 
         private void button8_Click(object sender, EventArgs e)
         {
-            Form3 form3 = new Form3();
+            PluginSet = Default.fd.Find(x => x.name == comboBox1.Text);
+            Console.WriteLine(PluginSet.plusBool);
+            form3 = new Form3();
+            form3.form1 = this;
             form3.Show();
             this.Enabled = false;
+        }
+        public void SaveDefault()
+        {
+            PluginSet = Default.fd.Find(x => x.name == comboBox1.Text);
+            Default.fd.RemoveAll(x => x.name == おじょじょぼじゅぼぼ.PluginSet.name);
+            Default.fd.Add(new FormData { url = textBox2.Text, username = textBox3.Text, password = textBox4.Text, Direct = textBox5.Text, name = comboBox1.Text,plus=form3.formData.plus,plusBool=form3.formData.plusBool });
+            Default.Save();
+
         }
     }
 }

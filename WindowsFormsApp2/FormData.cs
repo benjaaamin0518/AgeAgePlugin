@@ -16,6 +16,7 @@ namespace WindowsFormsApp2
         public string username { get; set; }
         public string name { get; set; }
         public decimal plus { get; set; }
+        public bool plusBool { get; set; }
 
 
     }

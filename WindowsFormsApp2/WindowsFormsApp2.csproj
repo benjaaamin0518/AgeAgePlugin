@@ -100,6 +100,9 @@
       <DependentUpon>Form3.cs</DependentUpon>
     </Compile>
     <Compile Include="FormData.cs" />
+    <Compile Include="JsonObjectConfig.cs" />
+    <Compile Include="JsonObjectCustom.cs" />
+    <Compile Include="JsonObjectLanguage.cs" />
     <Compile Include="ManifestJsonData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
