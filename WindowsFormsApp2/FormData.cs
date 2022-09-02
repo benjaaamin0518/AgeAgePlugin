@@ -15,6 +15,7 @@ namespace WindowsFormsApp2
         public string Direct { get; set; }
         public string username { get; set; }
         public string name { get; set; }
+        public decimal plus { get; set; }
 
 
     }

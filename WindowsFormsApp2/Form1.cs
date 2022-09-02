@@ -5,18 +5,17 @@ using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Text.Json;
-using Newtonsoft.Json;
 namespace WindowsFormsApp2
 {
     public partial class おじょじょぼじゅぼぼ : Form
     {
         private string Direct { get; set; }
         private string Direct2 { get; set; }
+        public static decimal PluginSet { get; set; }
+        public static ManifestJsonData Json { get; set; }
         private string Arguments { get; set; }
         private FolderBrowserDialog Fbd { get; set; }
         private Properties.Settings Default { get; set; }
@@ -88,6 +87,7 @@ namespace WindowsFormsApp2
             CreatePluginList();
             LoadPluginListValue();
             comboBox1.SelectedItem = Default.PluginName;
+            GetManifestVersion();
         }
         private async void button4_Click(object sender, EventArgs e)
         {
@@ -375,6 +375,7 @@ namespace WindowsFormsApp2
                 textBox3.Text = SettingValue.username;
                 textBox4.Text = SettingValue.password;
                 textBox5.Text = SettingValue.Direct;
+                PluginSet = SettingValue.plus;
                 textBox2.Enabled = true;
                 textBox3.Enabled = true;
                 textBox4.Enabled = true;
@@ -474,14 +475,38 @@ namespace WindowsFormsApp2
                 using (var sr = new StreamReader(textBox5.Text+@"\src\manifest.json"))
                 {
                     var jsonData = sr.ReadToEnd();
-                    ManifestJsonData jsonData2 = System.Text.Json.JsonSerializer.Deserialize<ManifestJsonData>(jsonData);
+                    Json = System.Text.Json.JsonSerializer.Deserialize<ManifestJsonData>(jsonData);
 
-                    Console.WriteLine(jsonData2.version);
-                    label6.Text = "ver:" + jsonData2.version;
+                    Console.WriteLine(Json.version);
+                    label6.Text = "ver:" + Json.version;
                 }
-
             }
             return "";
+        }
+        public void SaveManifestJson()
+        {
+            try
+            {
+                Json.version = 6;
+                string JsonStr = System.Text.Json.JsonSerializer.Serialize<ManifestJsonData>(Json);
+                        // テキストファイル出力（新規作成）
+                    using (StreamWriter sw = new StreamWriter(textBox5.Text + @"\src\manifest.json", false))
+                        {
+                            sw.WriteLine(JsonStr);
+                        }
+            }
+            // 例外処理
+            catch (IOException error)
+            {
+                Console.WriteLine(error.Message);
+            }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            Form3 form3 = new Form3();
+            form3.Show();
+            this.Enabled = false;
         }
     }
 }
