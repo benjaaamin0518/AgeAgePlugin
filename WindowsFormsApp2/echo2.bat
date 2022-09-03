@@ -1,3 +1,2 @@
 cd %1
-kintone-plugin-packer --watch %2
-exit %errorlevel% 
+kintone-plugin-uploader --watch --base-url %2 --username %3 --password %4 plugin.zip
