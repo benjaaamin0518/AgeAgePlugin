@@ -5,6 +5,7 @@ using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -180,6 +181,7 @@ namespace AgeAgePlugin
             p.Arguments = arguments;
             p.CreateNoWindow = true; // コンソールを開かない
             p.UseShellExecute = false; // シェル機能を使用しない
+            p.StandardOutputEncoding = Encoding.Default; // エンコーディング設定
             p.FileName = command;
             BackgroundWorker worker = (BackgroundWorker)sender;
             p.RedirectStandardOutput = true; // 標準出力をリダイレクト
@@ -481,6 +483,7 @@ namespace AgeAgePlugin
             p.Arguments = arguments;
             p.CreateNoWindow = true; // コンソールを開かない
             p.UseShellExecute = false; // シェル機能を使用しない
+            p.StandardOutputEncoding = Encoding.Default; // エンコーディング設定
             p.FileName = command;
             BackgroundWorker worker = (BackgroundWorker)sender;
             p.RedirectStandardOutput = true; // 標準出力をリダイレクト
