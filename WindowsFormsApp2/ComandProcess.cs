@@ -15,9 +15,14 @@ namespace WindowsFormsApp2
     {
         private string Arguments { get; set; }
   
-        public string CreateArguments(Controller controller)
+        public string CreateUploaderArguments(Controller controller)
         {
             Arguments = controller.Direct+" "+controller.Url+" "+controller.Username+" "+controller.Password;
+            return Arguments;
+        }
+        public string CreatePackerArguments(Controller controller)
+        {
+            Arguments = controller.Direct + " " + "src";
             return Arguments;
         }
     }

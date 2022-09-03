@@ -41,9 +41,6 @@ C:\Users\nishikawa\Documents\TestApplication\WindowsFormsApp2\obj\Debug\WindowsF
 C:\Users\nishikawa\Documents\TestApplication\WindowsFormsApp2\bin\Debug\Newtonsoft.Json.dll
 C:\Users\nishikawa\Documents\TestApplication\WindowsFormsApp2\bin\Debug\Newtonsoft.Json.xml
 C:\Users\pntas\Desktop\TestApplication-main\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.csprojAssemblyReference.cache
-C:\Users\pntas\Desktop\TestApplication-main\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.おじょじょぼじゅぼぼ.resources
-C:\Users\pntas\Desktop\TestApplication-main\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.Form2.resources
-C:\Users\pntas\Desktop\TestApplication-main\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.Form3.resources
 C:\Users\pntas\Desktop\TestApplication-main\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.Properties.Resources.resources
 C:\Users\pntas\Desktop\TestApplication-main\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.csproj.GenerateResource.cache
 C:\Users\pntas\Desktop\TestApplication-main\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.exe
@@ -72,3 +69,6 @@ C:\Users\pntas\Desktop\TestApplication-main\WindowsFormsApp2\bin\Debug\System.Te
 C:\Users\pntas\Desktop\TestApplication-main\WindowsFormsApp2\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\pntas\Desktop\TestApplication-main\WindowsFormsApp2\bin\Debug\System.ValueTuple.xml
 C:\Users\pntas\Desktop\TestApplication-main\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.csproj.CopyComplete
+C:\Users\pntas\Desktop\TestApplication-main\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.MainForm.resources
+C:\Users\pntas\Desktop\TestApplication-main\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.PluginNameSettingForm.resources
+C:\Users\pntas\Desktop\TestApplication-main\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.ManifestVisibleForm.resources
