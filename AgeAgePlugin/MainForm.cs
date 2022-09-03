@@ -22,6 +22,7 @@ namespace AgeAgePlugin
         public static ManifestJsonData Json { get; set; }
         private string UploaderArguments { get; set; }
         private string PackerArguments { get; set; }
+        private string PackerPpkArguments { get; set; }
         private FolderBrowserDialog Fbd { get; set; }
         private Properties.Settings Default { get; set; }
         private ComandProcess comandprocess { get; set; }
@@ -87,7 +88,7 @@ namespace AgeAgePlugin
         {
 
             Default.fd.RemoveAll(x => x.name == comboBox1.Text);
-            Default.fd.Add(new FormData { url = textBox2.Text, username = textBox3.Text, password = textBox4.Text, Direct = textBox5.Text, name = comboBox1.Text });
+            Default.fd.Add(new FormData { url = textBox2.Text, username = textBox3.Text, password = textBox4.Text, Direct = textBox5.Text, name = comboBox1.Text, ppk = textBox6.Text });
             Default.Save();
             Console.WriteLine(textBox5.Text);
         }
@@ -103,13 +104,13 @@ namespace AgeAgePlugin
         private void LoadExecution()
         {
             ExecutionCondition executionCondition = new ExecutionCondition();
-            string npmErr = (executionCondition.NpmExecution()!=9009) ? "" : "・npmがインストールされていません\n\n";
+            string npmErr = (executionCondition.NpmExecution() != 9009) ? "" : "・npmがインストールされていません\n\n";
             string createErr = (executionCondition.CreateExecution() != 9009) ? "" : "・create-pluginがインストールされていません\n\n";
-            string uploderErr = (executionCondition.UploaderExecution()!=9009) ? "" : "・kintone-plugin-uploaderがインストールされていません\n\n";
-            string PackerErr = (executionCondition.PackerExecution()!=9009) ? "" : "・kintone-plugin-packerがインストールされていません"; 
-            if (npmErr !="" || uploderErr != "" || PackerErr != "")
+            string uploderErr = (executionCondition.UploaderExecution() != 9009) ? "" : "・kintone-plugin-uploaderがインストールされていません\n\n";
+            string PackerErr = (executionCondition.PackerExecution() != 9009) ? "" : "・kintone-plugin-packerがインストールされていません";
+            if (npmErr != "" || uploderErr != "" || PackerErr != "")
             {
-                MessageBox.Show(npmErr+ createErr + uploderErr+PackerErr,
+                MessageBox.Show(npmErr + createErr + uploderErr + PackerErr,
                                 "インストールしてください",
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Warning);
@@ -130,8 +131,10 @@ namespace AgeAgePlugin
                 Controller.Url = textBox2.Text;
                 Controller.Username = textBox3.Text;
                 Controller.Password = textBox4.Text;
+                Controller.ppk = textBox6.Text;
                 comandprocess = new ComandProcess();
                 UploaderArguments = comandprocess.CreateUploaderArguments(Controller);
+                PackerPpkArguments = comandprocess.CreatePackerPpkArguments(Controller);
                 PackerArguments = comandprocess.CreatePackerArguments(Controller);
                 button4.Text = "実行中";
                 tokenSource = new CancellationTokenSource();
@@ -144,7 +147,7 @@ namespace AgeAgePlugin
             }
             else
             {
-               
+
 
                 Flag = false;
                 Flag2 = false;
@@ -276,7 +279,7 @@ namespace AgeAgePlugin
             }
             else
             {
-               Json.version=beforeVersion;
+                Json.version = beforeVersion;
                 SaveManifestJson(false);
 
             }
@@ -313,24 +316,24 @@ namespace AgeAgePlugin
         }
         public Task<string> Stop(Process PsInfo)
         {
-            Task<string> task2=Task.Run(() =>
-            {
-                tokenSource.Cancel();
-                PsInfo.Kill();
-                PsInfo.WaitForExit();
-                return "stop";
-            });
+            Task<string> task2 = Task.Run(() =>
+              {
+                  tokenSource.Cancel();
+                  PsInfo.Kill();
+                  PsInfo.WaitForExit();
+                  return "stop";
+              });
             return task2;
         }
         public Task<string> Stop2(Process PsInfo)
         {
-            Task<string> task=Task.Run(() =>
-            {
-                tokenSource2.Cancel();
-                PsInfo.Kill();
-                PsInfo.WaitForExit();
-                return "stop";
-            });
+            Task<string> task = Task.Run(() =>
+              {
+                  tokenSource2.Cancel();
+                  PsInfo.Kill();
+                  PsInfo.WaitForExit();
+                  return "stop";
+              });
             return task;
         }
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -428,11 +431,19 @@ namespace AgeAgePlugin
                 button4.Enabled = true;
                 button1.Enabled = true;
                 button7.Enabled = true;
+                textBox6.Text = SettingValue.ppk;
                 if (textBox5.Text != "" && PluginSet.plusBool)
                 {
                     button8.Enabled = true;
                 }
-
+                if (textBox5.Text != "")
+                {
+                    button9.Enabled = true;
+                }
+                else
+                {
+                    button9.Enabled = false;
+                }
             }
             else
             {
@@ -440,15 +451,18 @@ namespace AgeAgePlugin
                 textBox3.Text = "";
                 textBox4.Text = "";
                 textBox5.Text = "";
+                textBox6.Text = "";
                 textBox2.Enabled = false;
                 textBox3.Enabled = false;
                 textBox4.Enabled = false;
                 textBox5.Enabled = false;
+                textBox6.Enabled = false;
                 button3.Enabled = false;
                 button4.Enabled = false;
                 button7.Enabled = false;
                 button1.Enabled = false;
                 button8.Enabled = false;
+                button9.Enabled = false;
             }
         }
 
@@ -476,9 +490,16 @@ namespace AgeAgePlugin
         private async void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
         {
             Direct2 = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
-            Direct2 = Direct2 + @"\echo2.bat";
+            if (textBox6.Text != "")
+            {
+                Direct2 = Direct2 + @"\echo8.bat";
+            }
+            else
+            {
+                Direct2 = Direct2 + @"\echo2.bat";
+            }
             string command = Direct2;
-            string arguments = PackerArguments;
+            string arguments = (textBox6.Text != "") ? PackerPpkArguments : PackerArguments;
             Console.WriteLine(arguments);
             ProcessStartInfo p = new ProcessStartInfo();
             p.Arguments = arguments;
@@ -525,7 +546,8 @@ namespace AgeAgePlugin
             PluginSet = Default.fd.Find(x => x.name == comboBox1.Text);
 
             string version = "";
-            if (textBox5.Text != "") {
+            if (textBox5.Text != "")
+            {
                 try
                 {
                     using (var sr = new StreamReader(textBox5.Text + @"\src\manifest.json"))
@@ -534,7 +556,7 @@ namespace AgeAgePlugin
                         Json = System.Text.Json.JsonSerializer.Deserialize<ManifestJsonData>(jsonData);
                         if (PluginSet.plusBool)
                         {
-                            PlusVersion = (Json.version + PluginSet.plus);                           
+                            PlusVersion = (Json.version + PluginSet.plus);
                             label6.Text = "ver:" + Json.version + " →" + PlusVersion;
                         }
                         else
@@ -559,7 +581,7 @@ namespace AgeAgePlugin
             else
             {
                 button8.Enabled = false;
-                if (comboBox1.Text!="")
+                if (comboBox1.Text != "")
                 {
                     PluginSet.plusBool = false;
                 }
@@ -570,19 +592,19 @@ namespace AgeAgePlugin
         }
         public void SaveManifestJson(bool executionBool)
         {
-            if (executionBool&&PluginSet.plusBool)
+            if (executionBool && PluginSet.plusBool)
             {
                 Json.version = PlusVersion;
             }
             try
             {
                 string JsonStr = System.Text.Json.JsonSerializer.Serialize<ManifestJsonData>(Json);
-                        // テキストファイル出力（新規作成）
-                    using (StreamWriter sw = new StreamWriter(textBox5.Text + @"\src\manifest.json", false))
-                        {
+                // テキストファイル出力（新規作成）
+                using (StreamWriter sw = new StreamWriter(textBox5.Text + @"\src\manifest.json", false))
+                {
                     sw.WriteLine(JsonStr);
                     Console.WriteLine(JsonStr);
-                        }
+                }
             }
             // 例外処理
             catch (IOException error)
@@ -604,9 +626,46 @@ namespace AgeAgePlugin
         {
             PluginSet = Default.fd.Find(x => x.name == comboBox1.Text);
             Default.fd.RemoveAll(x => x.name == MainForm.PluginSet.name);
-            Default.fd.Add(new FormData { url = textBox2.Text, username = textBox3.Text, password = textBox4.Text, Direct = textBox5.Text, name = comboBox1.Text,plus=form3.formData.plus,plusBool=form3.formData.plusBool });
+            Default.fd.Add(new FormData { url = textBox2.Text, username = textBox3.Text, password = textBox4.Text, Direct = textBox5.Text, name = comboBox1.Text, plus = form3.formData.plus, plusBool = form3.formData.plusBool });
             Default.Save();
 
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (var ofd = new OpenFileDialog()
+                {
+                    FileName = textBox6.Text,
+                    Filter = "ppk files (*.ppk)|*.ppk",
+                    ValidateNames = false,
+                    CheckFileExists = false,
+                    CheckPathExists = true,
+                })
+                {
+
+
+                    if (ofd.ShowDialog() == DialogResult.OK)
+                    {
+                        if (ofd.FileName == "")
+                        {
+                            MessageBox.Show("ファイルを選択してください");
+                            return;
+                        }
+                        textBox6.Text = Path.GetFileName(ofd.FileName);
+                    }
+                    else
+                    {
+                        Console.WriteLine("キャンセルされました");
+                    }
+
+                }
+            }
+            catch (IOException error)
+            {
+                Console.WriteLine(error.Message);
+            }
         }
     }
 }

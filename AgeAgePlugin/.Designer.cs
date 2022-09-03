@@ -148,7 +148,7 @@ namespace AgeAgePlugin
             this.label4.TabIndex = 14;
             this.label4.Text = "バージョン";
             // 
-            // ManifestVisible
+            // ManifestVisibleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -164,8 +164,11 @@ namespace AgeAgePlugin
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "ManifestVisible";
+            this.MaximumSize = new System.Drawing.Size(411, 531);
+            this.MinimumSize = new System.Drawing.Size(411, 531);
+            this.Name = "ManifestVisibleForm";
             this.Text = "manifest.json変更";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form3_FormClosed);
             this.Load += new System.EventHandler(this.Form3_Load);

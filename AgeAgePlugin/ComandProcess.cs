@@ -25,5 +25,10 @@ namespace AgeAgePlugin
             Arguments = controller.Direct + " " + "src";
             return Arguments;
         }
+        public string CreatePackerPpkArguments(Controller controller)
+        {
+            Arguments = controller.Direct +" " + "src" +" " + controller.ppk;
+            return Arguments;
+        }
     }
 }

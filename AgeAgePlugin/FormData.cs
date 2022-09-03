@@ -17,6 +17,7 @@ namespace AgeAgePlugin
         public string name { get; set; }
         public decimal plus { get; set; }
         public bool plusBool { get; set; }
+        public string ppk { get; set; }
 
 
     }
