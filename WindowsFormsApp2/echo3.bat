@@ -1,0 +1,2 @@
+npm -v
+exit %errorlevel% 
