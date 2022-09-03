@@ -103,12 +103,13 @@ namespace AgeAgePlugin
         private void LoadExecution()
         {
             ExecutionCondition executionCondition = new ExecutionCondition();
-            string npmErr = (executionCondition.NpmExecution()==0) ? "" : "・npmがインストールされていません\n\n";
-            string uploderErr = (executionCondition.UploaderExecution()==0) ? "" : "・kintone-plugin-uploaderがインストールされていません\n\n";
-            string PackerErr = (executionCondition.PackerExecution()==0) ? "" : "・kintone-plugin-packerがインストールされていません"; 
+            string npmErr = (executionCondition.NpmExecution()!=9009) ? "" : "・npmがインストールされていません\n\n";
+            string createErr = (executionCondition.CreateExecution() != 9009) ? "" : "・create-pluginがインストールされていません\n\n";
+            string uploderErr = (executionCondition.UploaderExecution()!=9009) ? "" : "・kintone-plugin-uploaderがインストールされていません\n\n";
+            string PackerErr = (executionCondition.PackerExecution()!=9009) ? "" : "・kintone-plugin-packerがインストールされていません"; 
             if (npmErr !="" || uploderErr != "" || PackerErr != "")
             {
-                MessageBox.Show(npmErr+uploderErr+PackerErr,
+                MessageBox.Show(npmErr+ createErr + uploderErr+PackerErr,
                                 "インストールしてください",
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Warning);

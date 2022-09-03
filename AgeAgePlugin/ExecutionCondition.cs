@@ -25,8 +25,8 @@ namespace AgeAgePlugin
             Process PsInfo = Process.Start(p);
             PsInfo.WaitForExit();
             stdErr=PsInfo.ExitCode;
-            Console.WriteLine(stdErr);
             PsInfo.Close();
+            Console.WriteLine(stdErr);
             return stdErr;
         }
         public int PackerExecution()
@@ -44,6 +44,7 @@ namespace AgeAgePlugin
             PsInfo.WaitForExit();
             stdErr = PsInfo.ExitCode;
             PsInfo.Close();
+            Console.WriteLine(stdErr);
             return stdErr;
         }
         public int UploaderExecution()
@@ -60,9 +61,27 @@ namespace AgeAgePlugin
             Process PsInfo = Process.Start(p);
             PsInfo.WaitForExit();
             stdErr = PsInfo.ExitCode;
-            Console.WriteLine(stdErr);
             PsInfo.Close();
+            Console.WriteLine(stdErr);
             return stdErr;
         }
+        public int CreateExecution()
+        {
+            stdErr = 0;
+            string directory = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+            directory = directory + @"\echo7.bat";
+            string command = directory;
+            ProcessStartInfo p = new ProcessStartInfo();
+            p.CreateNoWindow = true; // コンソールを開かない
+            p.UseShellExecute = false; // シェル機能を使用しない
+            p.FileName = command;
+            p.RedirectStandardError = true; // 標準出力をリダイレクト
+            Process PsInfo = Process.Start(p);
+            PsInfo.WaitForExit();
+            stdErr = PsInfo.ExitCode;
+            PsInfo.Close(); Console.WriteLine(stdErr);
+            return stdErr;
+        }
+
     }
 }
