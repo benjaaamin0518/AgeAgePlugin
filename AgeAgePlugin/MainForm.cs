@@ -138,8 +138,11 @@ namespace AgeAgePlugin
         {
             if (button4.Text == "実行")
             {
+                if (!button8.Enabled) { MessageBox.Show("manifest.jsonが読み込まれていません");return; }
                 beforeVersion = Json.version;
                 errorLevel = 0;
+                Flag = false;
+                Flag2 = false;
                 button3.Enabled = false;
                 comboBox1.Enabled = false;
                 button7.Enabled = false;
@@ -166,11 +169,11 @@ namespace AgeAgePlugin
             else
             {
 
-
-                Flag = false;
-                Flag2 = false;
-                backgroundWorker2.CancelAsync();
-                backgroundWorker1.CancelAsync();
+                
+                Flag =(Flag)?Flag: false;
+                Flag2 = (Flag2) ? Flag2 : false;
+                if (!Flag2) { backgroundWorker2.CancelAsync(); }
+                if (!Flag) { backgroundWorker1.CancelAsync(); }
                 await ButtonUp();
             }
         }
@@ -180,7 +183,7 @@ namespace AgeAgePlugin
             {
                 while (true)
                 {
-                    if (Flag && Flag2)
+                    if (Flag==true && Flag2==true)
                     {
                         InvokeButton();
 
@@ -235,7 +238,10 @@ namespace AgeAgePlugin
             errorLevel = PsInfo.ExitCode;
 
             Flag = true;
-            await ButtonUp();
+            if (Flag2)
+            {
+                await ButtonUp();
+            }
             //form1.Text += "end!";
         }
         public async Task<string> Ho(Process PsInfo)
@@ -324,7 +330,7 @@ namespace AgeAgePlugin
         }
         public void UpdateText()
         {
-            textBox1.Text += output;
+            textBox1.Text +=output;
             //カレット位置を末尾に移動
             textBox1.SelectionStart = textBox1.Text.Length;
             //テキストボックスにフォーカスを移動
@@ -336,9 +342,13 @@ namespace AgeAgePlugin
         {
             Task<string> task2 = Task.Run(() =>
               {
-                  tokenSource.Cancel();
-                  PsInfo.Kill();
-                  PsInfo.WaitForExit();
+                  try
+                  {
+                      tokenSource.Cancel();
+                      PsInfo.Kill();
+                      PsInfo.WaitForExit();
+                  }
+                  catch { }
                   return "stop";
               });
             return task2;
@@ -347,10 +357,14 @@ namespace AgeAgePlugin
         {
             Task<string> task = Task.Run(() =>
               {
-                  tokenSource2.Cancel();
-                  PsInfo.Kill();
-                  PsInfo.WaitForExit();
-                  return "stop";
+                  try
+                  {
+                      tokenSource2.Cancel();
+                      PsInfo.Kill();
+                      PsInfo.WaitForExit();
+                  }
+                  catch { }
+                 return "stop";
               });
             return task;
         }
@@ -556,7 +570,9 @@ namespace AgeAgePlugin
             errorLevel = PsInfo.ExitCode;
 
             Flag2 = true;
-            await ButtonUp();
+
+           await ButtonUp();
+
             //form1.Text += "end!";
         }
         public ManifestJsonData GetManifestVersion(bool MassegeBool)
