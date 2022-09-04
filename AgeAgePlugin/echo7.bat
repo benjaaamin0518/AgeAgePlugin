@@ -1,0 +1,2 @@
+create-plugin
+exit %errorlevel%
