@@ -66,3 +66,4 @@ C:\Users\pntas\Documents\TestApplication-main\AgeAgePlugin\bin\Debug\AgeAgePlugi
 C:\Users\pntas\Documents\TestApplication-main\AgeAgePlugin\bin\Debug\AgeAgePlugin.application
 C:\Users\pntas\Documents\TestApplication-main\AgeAgePlugin\obj\Debug\AgeAgePlugin.exe.manifest
 C:\Users\pntas\Documents\TestApplication-main\AgeAgePlugin\obj\Debug\AgeAgePlugin.application
+C:\Users\pntas\Documents\TestApplication-main\AgeAgePlugin\obj\Debug\AgeAgePlugin.InstallConfirmationForm.resources

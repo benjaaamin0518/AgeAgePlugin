@@ -67,6 +67,10 @@ namespace AgeAgePlugin
                 {
                     button8.Enabled = true;
                 }
+                if (textBox5.Text != "")
+                {
+                    button9.Enabled = true;
+                }
             }
         }
         private void button2_Click(object sender, EventArgs e)
@@ -103,11 +107,23 @@ namespace AgeAgePlugin
         }
         private void LoadExecution()
         {
+            InstallConfirmationForm installConfirmationForm = new InstallConfirmationForm();
+            installConfirmationForm.Show();
+            installConfirmationForm.parsent = 0;
+            installConfirmationForm.InstallProgress("npmのインストールを確認しています");
             ExecutionCondition executionCondition = new ExecutionCondition();
             string npmErr = (executionCondition.NpmExecution() != 9009) ? "" : "・npmがインストールされていません\n\n";
+            installConfirmationForm.parsent = 25;
+            installConfirmationForm.InstallProgress("create-pluginのインストールを確認しています");
             string createErr = (executionCondition.CreateExecution() != 9009) ? "" : "・create-pluginがインストールされていません\n\n";
+            installConfirmationForm.parsent = 50;
+            installConfirmationForm.InstallProgress("kintone-plugin-uploaderのインストールを確認しています");
             string uploderErr = (executionCondition.UploaderExecution() != 9009) ? "" : "・kintone-plugin-uploaderがインストールされていません\n\n";
+            installConfirmationForm.parsent = 75;
+            installConfirmationForm.InstallProgress("kintone-plugin-packerのインストールを確認しています");
             string PackerErr = (executionCondition.PackerExecution() != 9009) ? "" : "・kintone-plugin-packerがインストールされていません";
+            installConfirmationForm.parsent = 100;
+            installConfirmationForm.InstallProgress("ソフトを起動しています...");
             if (npmErr != "" || uploderErr != "" || PackerErr != "")
             {
                 MessageBox.Show(npmErr + createErr + uploderErr + PackerErr,
@@ -115,6 +131,8 @@ namespace AgeAgePlugin
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Warning);
             }
+            installConfirmationForm.Close();
+
         }
         private async void button4_Click(object sender, EventArgs e)
         {
@@ -505,7 +523,7 @@ namespace AgeAgePlugin
             p.Arguments = arguments;
             p.CreateNoWindow = true; // コンソールを開かない
             p.UseShellExecute = false; // シェル機能を使用しない
-            p.StandardOutputEncoding = Encoding.Default; // エンコーディング設定
+            p.StandardOutputEncoding = Encoding​.Default; // エンコーディング設定
             p.FileName = command;
             BackgroundWorker worker = (BackgroundWorker)sender;
             p.RedirectStandardOutput = true; // 標準出力をリダイレクト
@@ -666,6 +684,15 @@ namespace AgeAgePlugin
             {
                 Console.WriteLine(error.Message);
             }
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+
+                GetManifestVersion(false);
+
+                textBox6.Text = "";
+            
         }
     }
 }

@@ -126,6 +126,12 @@
     <Compile Include="ComandProcess.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="ExecutionCondition.cs" />
+    <Compile Include="InstallConfirmationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InstallConfirmationForm.Designer.cs">
+      <DependentUpon>InstallConfirmationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -152,6 +158,9 @@
     <Compile Include="ManifestJsonData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="InstallConfirmationForm.resx">
+      <DependentUpon>InstallConfirmationForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
