@@ -11,7 +11,6 @@ namespace AgeAgePlugin
     {
         public int manifest_version { get; set; }
         public decimal version { get; set; }
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string type { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public JsonObjectLanguage name { get; set; }

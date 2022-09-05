@@ -219,13 +219,18 @@ namespace AgeAgePlugin
             output = "";
             Invoke(output);
             Task<string> task;
+            Task<string> task2;
             while (!PsInfo.HasExited)
             {
                 task = Task.Run(async () =>
                 {
-                   OutputHandler(PsInfo.StandardError.ReadLine());
+                    return await OutputHandler(PsInfo.StandardError.ReadLine());
+                });
+                task2 = Task.Run(async () =>
+                {
                     return await Ho(PsInfo);
                 });
+
                 worker = (BackgroundWorker)sender;
                 //キャンセル判定
                 // senderの値はbgWorkerの値と同じ
@@ -259,15 +264,19 @@ namespace AgeAgePlugin
             }
             //form1.Text += "end!";
         }
-        private void OutputHandler(string err)
+        private Task<string> OutputHandler(string err)
         {
             //* Do your stuff with the output (write to console/log/StringBuilder)
-            Error += err;
+          
+            Task<string> vs = Task.Run(() => { Error += err;return Error; }) ;
+            return vs;
         }
-        private void OutputHandler2(string err)
+        private Task<string> OutputHandler2(string err)
         {
             //* Do your stuff with the output (write to console/log/StringBuilder)
-            Error2 += err;
+            Task<string> vs = Task.Run(() => { Error2 += err; return Error2; });
+
+            return vs;
     
         }
         public async Task<string> Ho(Process PsInfo)
@@ -325,7 +334,8 @@ namespace AgeAgePlugin
             button3.Enabled = true;
             comboBox1.Enabled = true;
             button7.Enabled = true;
-            if (errorLevel == 0)
+            Console.WriteLine(errorLevel);
+            if (!(errorLevel > 0))
             {
                 GetManifestVersion(false);
             }
@@ -574,12 +584,16 @@ namespace AgeAgePlugin
             output = "";
             Invoke(output);
             Task<string> task;
+            Task<string> task2;
             while (!PsInfo.HasExited)
             {
                 task = Task.Run(async () =>
                 {
-                    OutputHandler(PsInfo.StandardError.ReadLine());
-                    return await Ho2(PsInfo);
+                    return await OutputHandler2(PsInfo.StandardError.ReadLine());
+                });
+                task2 = Task.Run(async () =>
+                {
+                    return  await Ho2(PsInfo);
                 });
                 worker = (BackgroundWorker)sender;
 

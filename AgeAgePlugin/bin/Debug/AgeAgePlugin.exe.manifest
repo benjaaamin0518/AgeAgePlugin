@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AgeAgePlugin.exe" size="92160">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AgeAgePlugin.exe" size="93696">
       <assemblyIdentity name="AgeAgePlugin" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>8dlLiECZ0rLg3pH3sGfe7QabtIyG2ym+54oG6Rxm3Ps=</dsig:DigestValue>
+        <dsig:DigestValue>Mc+Ze/9bfjkB7/bd2CnAKryoEAxNj2Smt4853/QeXDU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
