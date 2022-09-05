@@ -36,6 +36,8 @@ namespace AgeAgePlugin
         CancellationToken cancelToken2;
         public List<FormData> test { get; set; }
         public List<FormData> fd { get; set; }
+        public string Error { get; set; }
+        public string Error2 { get; set; }
         public MainForm()
         {
             InitializeComponent();
@@ -138,8 +140,10 @@ namespace AgeAgePlugin
         {
             if (button4.Text == "実行")
             {
-                if (!button8.Enabled) { MessageBox.Show("manifest.jsonが読み込まれていません");return; }
+                if (!button8.Enabled) { MessageBox.Show("manifest.jsonが読み込まれていません"); return; }
                 beforeVersion = Json.version;
+                Error = "";
+                Error2 = "";
                 errorLevel = 0;
                 Flag = false;
                 Flag2 = false;
@@ -169,8 +173,8 @@ namespace AgeAgePlugin
             else
             {
 
-                
-                Flag =(Flag)?Flag: false;
+
+                Flag = (Flag) ? Flag : false;
                 Flag2 = (Flag2) ? Flag2 : false;
                 if (!Flag2) { backgroundWorker2.CancelAsync(); }
                 if (!Flag) { backgroundWorker1.CancelAsync(); }
@@ -183,7 +187,7 @@ namespace AgeAgePlugin
             {
                 while (true)
                 {
-                    if (Flag==true && Flag2==true)
+                    if (Flag  && Flag2)
                     {
                         InvokeButton();
 
@@ -210,6 +214,7 @@ namespace AgeAgePlugin
             p.FileName = command;
             BackgroundWorker worker = (BackgroundWorker)sender;
             p.RedirectStandardOutput = true; // 標準出力をリダイレクト
+            p.RedirectStandardError = true; // 標準出力をリダイレクト
             Process PsInfo = Process.Start(p);
             output = "";
             Invoke(output);
@@ -218,6 +223,7 @@ namespace AgeAgePlugin
             {
                 task = Task.Run(async () =>
                 {
+                   OutputHandler(PsInfo.StandardError.ReadLine());
                     return await Ho(PsInfo);
                 });
                 worker = (BackgroundWorker)sender;
@@ -226,14 +232,16 @@ namespace AgeAgePlugin
                 Console.WriteLine(worker.CancellationPending);
                 // 時間のかかる処理
                 // キャンセルされてないか定期的にチェック
-                if (worker.CancellationPending)
+                if (worker.CancellationPending || Flag2)
                 {
                     e.Cancel = true;
+
                     await Stop(PsInfo);
                     break;
                 }
             }
             //PsInfo.Dispose();
+
             Console.WriteLine(worker.CancellationPending);
             errorLevel = PsInfo.ExitCode;
 
@@ -242,7 +250,25 @@ namespace AgeAgePlugin
             {
                 await ButtonUp();
             }
+            if (Error != "")
+            {
+                MessageBox.Show(Error,
+                  "kintone-plugin-uploaderのエラー",
+                  MessageBoxButtons.OK,
+                  MessageBoxIcon.Warning);
+            }
             //form1.Text += "end!";
+        }
+        private void OutputHandler(string err)
+        {
+            //* Do your stuff with the output (write to console/log/StringBuilder)
+            Error += err;
+        }
+        private void OutputHandler2(string err)
+        {
+            //* Do your stuff with the output (write to console/log/StringBuilder)
+            Error2 += err;
+    
         }
         public async Task<string> Ho(Process PsInfo)
         {
@@ -276,6 +302,7 @@ namespace AgeAgePlugin
             }
             else
             {
+                this.UpdateText();
             }
         }
         public string InvokeButton()
@@ -287,6 +314,7 @@ namespace AgeAgePlugin
             }
             else
             {
+                this.ButtonUpdate();
                 return "out!";
             }
         }
@@ -330,7 +358,7 @@ namespace AgeAgePlugin
         }
         public void UpdateText()
         {
-            textBox1.Text +=output;
+            textBox1.Text += output;
             //カレット位置を末尾に移動
             textBox1.SelectionStart = textBox1.Text.Length;
             //テキストボックスにフォーカスを移動
@@ -341,31 +369,31 @@ namespace AgeAgePlugin
         public Task<string> Stop(Process PsInfo)
         {
             Task<string> task2 = Task.Run(() =>
-              {
-                  try
-                  {
-                      tokenSource.Cancel();
-                      PsInfo.Kill();
-                      PsInfo.WaitForExit();
-                  }
-                  catch { }
-                  return "stop";
-              });
+            {
+                try
+                {
+                    tokenSource.Cancel();
+                    PsInfo.Kill();
+                    PsInfo.WaitForExit();
+                }
+                catch { }
+                return "stop";
+            });
             return task2;
         }
         public Task<string> Stop2(Process PsInfo)
         {
             Task<string> task = Task.Run(() =>
-              {
-                  try
-                  {
-                      tokenSource2.Cancel();
-                      PsInfo.Kill();
-                      PsInfo.WaitForExit();
-                  }
-                  catch { }
-                 return "stop";
-              });
+            {
+                try
+                {
+                    tokenSource2.Cancel();
+                    PsInfo.Kill();
+                    PsInfo.WaitForExit();
+                }
+                catch { }
+                return "stop";
+            });
             return task;
         }
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -541,6 +569,7 @@ namespace AgeAgePlugin
             p.FileName = command;
             BackgroundWorker worker = (BackgroundWorker)sender;
             p.RedirectStandardOutput = true; // 標準出力をリダイレクト
+            p.RedirectStandardError = true; // 標準出力をリダイレクト
             Process PsInfo = Process.Start(p);
             output = "";
             Invoke(output);
@@ -549,9 +578,11 @@ namespace AgeAgePlugin
             {
                 task = Task.Run(async () =>
                 {
+                    OutputHandler(PsInfo.StandardError.ReadLine());
                     return await Ho2(PsInfo);
                 });
                 worker = (BackgroundWorker)sender;
+
                 //キャンセル判定
                 // senderの値はbgWorkerの値と同じ
                 Console.WriteLine(worker.CancellationPending);
@@ -559,19 +590,29 @@ namespace AgeAgePlugin
                 // キャンセルされてないか定期的にチェック
                 if (worker.CancellationPending)
                 {
-                    e.Cancel = true;
 
+                    e.Cancel = true;
                     await Stop2(PsInfo);
                     break;
                 }
             }
             //PsInfo.Dispose();
+
+
             Console.WriteLine(worker.CancellationPending);
             errorLevel = PsInfo.ExitCode;
 
             Flag2 = true;
 
-           await ButtonUp();
+            await ButtonUp();
+
+            if (Error2 != "")
+            {
+                MessageBox.Show(Error2,
+                  "kintone-plugin-packerのエラー",
+                  MessageBoxButtons.OK,
+                  MessageBoxIcon.Warning);
+            }
 
             //form1.Text += "end!";
         }
@@ -705,10 +746,10 @@ namespace AgeAgePlugin
         private void textBox5_TextChanged(object sender, EventArgs e)
         {
 
-                GetManifestVersion(false);
+            GetManifestVersion(false);
 
-                textBox6.Text = "";
-            
+            textBox6.Text = "";
+
         }
     }
 }

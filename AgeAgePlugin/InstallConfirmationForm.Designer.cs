@@ -44,7 +44,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.label1.Location = new System.Drawing.Point(104, 42);
+            this.label1.Location = new System.Drawing.Point(73, 45);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(171, 12);
             this.label1.TabIndex = 1;
