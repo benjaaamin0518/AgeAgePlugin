@@ -36,8 +36,6 @@ C:\Users\pntas\Documents\TestApplication-main\AgeAgePlugin\obj\Release\AgeAgePlu
 C:\Users\pntas\Documents\TestApplication-main\AgeAgePlugin\obj\Release\AgeAgePlugin.application
 C:\Users\pntas\Documents\TestApplication-main\AgeAgePlugin\obj\Release\AgeAgePlugin.InstallConfirmationForm.resources
 C:\Users\nishikawa\Documents\TestApplication-main\AgeAgePlugin\bin\Release\AgeAgePlugin.exe.config
-C:\Users\nishikawa\Documents\TestApplication-main\AgeAgePlugin\bin\Release\AgeAgePlugin.exe.manifest
-C:\Users\nishikawa\Documents\TestApplication-main\AgeAgePlugin\bin\Release\AgeAgePlugin.application
 C:\Users\nishikawa\Documents\TestApplication-main\AgeAgePlugin\bin\Release\AgeAgePlugin.exe
 C:\Users\nishikawa\Documents\TestApplication-main\AgeAgePlugin\bin\Release\AgeAgePlugin.pdb
 C:\Users\nishikawa\Documents\TestApplication-main\AgeAgePlugin\bin\Release\Microsoft.Bcl.AsyncInterfaces.dll
@@ -60,7 +58,6 @@ C:\Users\nishikawa\Documents\TestApplication-main\AgeAgePlugin\bin\Release\Syste
 C:\Users\nishikawa\Documents\TestApplication-main\AgeAgePlugin\bin\Release\System.Text.Json.xml
 C:\Users\nishikawa\Documents\TestApplication-main\AgeAgePlugin\bin\Release\System.Threading.Tasks.Extensions.xml
 C:\Users\nishikawa\Documents\TestApplication-main\AgeAgePlugin\bin\Release\System.ValueTuple.xml
-C:\Users\nishikawa\Documents\TestApplication-main\AgeAgePlugin\obj\Release\AgeAgePlugin.csprojAssemblyReference.cache
 C:\Users\nishikawa\Documents\TestApplication-main\AgeAgePlugin\obj\Release\AgeAgePlugin.InstallConfirmationForm.resources
 C:\Users\nishikawa\Documents\TestApplication-main\AgeAgePlugin\obj\Release\AgeAgePlugin.MainForm.resources
 C:\Users\nishikawa\Documents\TestApplication-main\AgeAgePlugin\obj\Release\AgeAgePlugin.PluginNameSettingForm.resources
@@ -68,8 +65,6 @@ C:\Users\nishikawa\Documents\TestApplication-main\AgeAgePlugin\obj\Release\AgeAg
 C:\Users\nishikawa\Documents\TestApplication-main\AgeAgePlugin\obj\Release\AgeAgePlugin.Properties.Resources.resources
 C:\Users\nishikawa\Documents\TestApplication-main\AgeAgePlugin\obj\Release\AgeAgePlugin.csproj.GenerateResource.cache
 C:\Users\nishikawa\Documents\TestApplication-main\AgeAgePlugin\obj\Release\AgeAgePlugin.csproj.CoreCompileInputs.cache
-C:\Users\nishikawa\Documents\TestApplication-main\AgeAgePlugin\obj\Release\AgeAgePlugin.exe.manifest
-C:\Users\nishikawa\Documents\TestApplication-main\AgeAgePlugin\obj\Release\AgeAgePlugin.application
 C:\Users\nishikawa\Documents\TestApplication-main\AgeAgePlugin\obj\Release\AgeAgePlugin.csproj.CopyComplete
 C:\Users\nishikawa\Documents\TestApplication-main\AgeAgePlugin\obj\Release\AgeAgePlugin.exe
 C:\Users\nishikawa\Documents\TestApplication-main\AgeAgePlugin\obj\Release\AgeAgePlugin.pdb
