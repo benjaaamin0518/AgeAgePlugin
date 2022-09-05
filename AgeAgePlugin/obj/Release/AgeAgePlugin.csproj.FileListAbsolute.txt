@@ -1,6 +1,5 @@
 C:\Users\pntas\Documents\TestApplication-main\AgeAgePlugin\bin\Release\AgeAgePlugin.exe.config
 C:\Users\pntas\Documents\TestApplication-main\AgeAgePlugin\bin\Release\AgeAgePlugin.exe
-C:\Users\pntas\Documents\TestApplication-main\AgeAgePlugin\bin\Release\AgeAgePlugin.pdb
 C:\Users\pntas\Documents\TestApplication-main\AgeAgePlugin\bin\Release\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\pntas\Documents\TestApplication-main\AgeAgePlugin\bin\Release\Newtonsoft.Json.dll
 C:\Users\pntas\Documents\TestApplication-main\AgeAgePlugin\bin\Release\System.Buffers.dll
@@ -28,12 +27,6 @@ C:\Users\pntas\Documents\TestApplication-main\AgeAgePlugin\obj\Release\AgeAgePlu
 C:\Users\pntas\Documents\TestApplication-main\AgeAgePlugin\obj\Release\AgeAgePlugin.csproj.GenerateResource.cache
 C:\Users\pntas\Documents\TestApplication-main\AgeAgePlugin\obj\Release\AgeAgePlugin.csproj.CopyComplete
 C:\Users\pntas\Documents\TestApplication-main\AgeAgePlugin\obj\Release\AgeAgePlugin.exe
-C:\Users\pntas\Documents\TestApplication-main\AgeAgePlugin\obj\Release\AgeAgePlugin.pdb
-C:\Users\pntas\Documents\TestApplication-main\AgeAgePlugin\bin\Release\AgeAgePlugin.exe.manifest
-C:\Users\pntas\Documents\TestApplication-main\AgeAgePlugin\bin\Release\AgeAgePlugin.application
-C:\Users\pntas\Documents\TestApplication-main\AgeAgePlugin\obj\Release\AgeAgePlugin.csprojAssemblyReference.cache
-C:\Users\pntas\Documents\TestApplication-main\AgeAgePlugin\obj\Release\AgeAgePlugin.exe.manifest
-C:\Users\pntas\Documents\TestApplication-main\AgeAgePlugin\obj\Release\AgeAgePlugin.application
 C:\Users\pntas\Documents\TestApplication-main\AgeAgePlugin\obj\Release\AgeAgePlugin.InstallConfirmationForm.resources
 C:\Users\nishikawa\Documents\TestApplication-main\AgeAgePlugin\bin\Release\AgeAgePlugin.exe.config
 C:\Users\nishikawa\Documents\TestApplication-main\AgeAgePlugin\bin\Release\AgeAgePlugin.exe

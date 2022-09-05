@@ -281,27 +281,35 @@ namespace AgeAgePlugin
         }
         public async Task<string> Ho(Process PsInfo)
         {
-            if (cancelToken.IsCancellationRequested)
+            await Task.Run(() =>
             {
-                // キャンセルされたらTaskを終了する.
-                return "Canceled";
-            }
-            output = PsInfo.StandardOutput.ReadLine();
-            output = output?.Replace("\r\r\n", "\n"); // 改行コードの修正
-            if (output != "") Invoke(output);
-            return output;
+                if (cancelToken.IsCancellationRequested)
+                {
+                    // キャンセルされたらTaskを終了する.
+                    return "Canceled";
+                }
+                output = PsInfo.StandardOutput.ReadLine();
+                output = output?.Replace("\r\r\n", "\n"); // 改行コードの修正
+                if (output != "") Invoke(output);
+                return output;
+            });
+            return "";
         }
         public async Task<string> Ho2(Process PsInfo)
         {
-            if (cancelToken2.IsCancellationRequested)
+            await Task.Run(() =>
             {
-                // キャンセルされたらTaskを終了する.
-                return "Canceled";
-            }
-            output = PsInfo.StandardOutput.ReadLine();
-            output = output?.Replace("\r\r\n", "\n"); // 改行コードの修正
-            if (output != "") Invoke(output);
-            return output;
+                if (cancelToken2.IsCancellationRequested)
+                {
+                    // キャンセルされたらTaskを終了する.
+                    return "Canceled";
+                }
+                output = PsInfo.StandardOutput.ReadLine();
+                output = output?.Replace("\r\r\n", "\n"); // 改行コードの修正
+                if (output != "") Invoke(output);
+                return output;
+            });
+            return "";
         }
         public void Invoke(string output)
         {
@@ -634,7 +642,6 @@ namespace AgeAgePlugin
         {
             PluginSet = Default.fd.Find(x => x.name == comboBox1.Text);
 
-            string version = "";
             if (textBox5.Text != "")
             {
                 try
