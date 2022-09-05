@@ -62,10 +62,6 @@ C:\Users\pntas\Documents\TestApplication-main\AgeAgePlugin\obj\Debug\AgeAgePlugi
 C:\Users\pntas\Documents\TestApplication-main\AgeAgePlugin\obj\Debug\AgeAgePlugin.csproj.CopyComplete
 C:\Users\pntas\Documents\TestApplication-main\AgeAgePlugin\obj\Debug\AgeAgePlugin.exe
 C:\Users\pntas\Documents\TestApplication-main\AgeAgePlugin\obj\Debug\AgeAgePlugin.pdb
-C:\Users\pntas\Documents\TestApplication-main\AgeAgePlugin\bin\Debug\AgeAgePlugin.exe.manifest
-C:\Users\pntas\Documents\TestApplication-main\AgeAgePlugin\bin\Debug\AgeAgePlugin.application
-C:\Users\pntas\Documents\TestApplication-main\AgeAgePlugin\obj\Debug\AgeAgePlugin.exe.manifest
-C:\Users\pntas\Documents\TestApplication-main\AgeAgePlugin\obj\Debug\AgeAgePlugin.application
 C:\Users\pntas\Documents\TestApplication-main\AgeAgePlugin\obj\Debug\AgeAgePlugin.InstallConfirmationForm.resources
 C:\Users\nishikawa\Documents\TestApplication-main\AgeAgePlugin\bin\Debug\AgeAgePlugin.exe.config
 C:\Users\nishikawa\Documents\TestApplication-main\AgeAgePlugin\bin\Debug\AgeAgePlugin.exe.manifest
