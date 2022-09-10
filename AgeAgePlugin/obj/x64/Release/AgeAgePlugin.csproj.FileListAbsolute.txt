@@ -60,3 +60,4 @@ C:\Users\nishikawa\Documents\AgeAgePlugin\AgeAgePlugin\bin\x64\Release\System.Th
 C:\Users\nishikawa\Documents\AgeAgePlugin\AgeAgePlugin\bin\x64\Release\System.ValueTuple.xml
 C:\Users\nishikawa\Documents\AgeAgePlugin\AgeAgePlugin\obj\x64\Release\AgeAgePlugin.csproj.CoreCompileInputs.cache
 C:\Users\nishikawa\Documents\AgeAgePlugin\AgeAgePlugin\obj\x64\Release\AgeAgePlugin.csproj.CopyComplete
+C:\Users\nishikawa\Documents\AgeAgePlugin\AgeAgePlugin\obj\x64\Release\AgeAgePlugin.csprojAssemblyReference.cache
