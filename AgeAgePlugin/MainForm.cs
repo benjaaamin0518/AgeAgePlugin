@@ -16,6 +16,7 @@ namespace AgeAgePlugin
         public ManifestVisibleForm form3 { get; set; }
         private string Direct { get; set; }
         private int errorLevel { get; set; }
+        private int errorLevel2 { get; set; }
         private decimal beforeVersion { get; set; }
         private string Direct2 { get; set; }
         public static FormData PluginSet { get; set; }
@@ -26,8 +27,11 @@ namespace AgeAgePlugin
         private FolderBrowserDialog Fbd { get; set; }
         private Properties.Settings Default { get; set; }
         private ComandProcess comandprocess { get; set; }
-        private bool Flag { get; set; }
-        private bool Flag2 { get; set; }
+        private  Process PsInfo { get; set; }
+        private  Process PsInfo2 { get; set; }
+
+        private static bool Flag { get; set; }
+        private static bool Flag2 { get; set; }
         private string output { get; set; }
         private decimal PlusVersion { get; set; }
         CancellationTokenSource tokenSource;
@@ -109,6 +113,8 @@ namespace AgeAgePlugin
         }
         private void LoadExecution()
         {
+
+
             InstallConfirmationForm installConfirmationForm = new InstallConfirmationForm();
             installConfirmationForm.Show();
             installConfirmationForm.parsent = 0;
@@ -145,6 +151,7 @@ namespace AgeAgePlugin
                 Error = "";
                 Error2 = "";
                 errorLevel = 0;
+                errorLevel2 = 0;
                 Flag = false;
                 Flag2 = false;
                 button3.Enabled = false;
@@ -167,18 +174,19 @@ namespace AgeAgePlugin
                 tokenSource2 = new CancellationTokenSource();
                 cancelToken2 = tokenSource2.Token;
                 SaveManifestJson(true);
+
                 backgroundWorker2.RunWorkerAsync();
                 backgroundWorker1.RunWorkerAsync();
             }
             else
             {
-
+                await ButtonUp();
 
                 Flag = (Flag) ? Flag : false;
                 Flag2 = (Flag2) ? Flag2 : false;
                 if (!Flag2) { backgroundWorker2.CancelAsync(); }
                 if (!Flag) { backgroundWorker1.CancelAsync(); }
-                await ButtonUp();
+
             }
         }
         private Task<string> ButtonUp()
@@ -187,8 +195,9 @@ namespace AgeAgePlugin
             {
                 while (true)
                 {
-                    if (Flag  && Flag2)
+                    if ((Flag&&Flag2))
                     {
+
                         InvokeButton();
 
                         break;
@@ -215,17 +224,14 @@ namespace AgeAgePlugin
             BackgroundWorker worker = (BackgroundWorker)sender;
             p.RedirectStandardOutput = true; // 標準出力をリダイレクト
             p.RedirectStandardError = true; // 標準出力をリダイレクト
-            Process PsInfo = Process.Start(p);
+            PsInfo = Process.Start(p);
             output = "";
             Invoke(output);
-            Task<string> task;
             Task<string> task2;
+            Task<string> task3;
             while (!PsInfo.HasExited)
             {
-                task = Task.Run(async () =>
-                {
-                    return await OutputHandler(PsInfo.StandardError.ReadLine());
-                });
+
                 task2 = Task.Run(async () =>
                 {
                     return await Ho(PsInfo);
@@ -234,27 +240,46 @@ namespace AgeAgePlugin
                 worker = (BackgroundWorker)sender;
                 //キャンセル判定
                 // senderの値はbgWorkerの値と同じ
-                Console.WriteLine(worker.CancellationPending);
+                Console.WriteLine("test2"+worker.CancellationPending);
                 // 時間のかかる処理
                 // キャンセルされてないか定期的にチェック
                 if (worker.CancellationPending || Flag2)
                 {
+                    task3 = Task.Run(async () =>
+                    {
+                        return await ButtonUp();
+                    });
                     e.Cancel = true;
 
-                    await Stop(PsInfo);
+                     await Stop(PsInfo);
                     break;
                 }
             }
             //PsInfo.Dispose();
-
-            Console.WriteLine(worker.CancellationPending);
-            errorLevel = PsInfo.ExitCode;
-
-            Flag = true;
-            if (Flag2)
+            task3 = Task.Run(async () =>
             {
-                await ButtonUp();
+                return await ButtonUp();
+            });
+
+            await OutputHandler(PsInfo.StandardError.ReadToEnd());
+
+            Console.WriteLine("エラー"+PsInfo.HasExited);
+            Flag = true;
+
+            if (Error != "")
+            {
+                e.Cancel = true;
+
+                await Stop(PsInfo);
+
+
             }
+            if (!PsInfo2.HasExited)
+            {
+                backgroundWorker2.CancelAsync();
+            }
+
+
             if (Error != "")
             {
                 MessageBox.Show(Error,
@@ -262,6 +287,8 @@ namespace AgeAgePlugin
                   MessageBoxButtons.OK,
                   MessageBoxIcon.Warning);
             }
+            
+
             //form1.Text += "end!";
         }
         private Task<string> OutputHandler(string err)
@@ -285,13 +312,19 @@ namespace AgeAgePlugin
             {
                 if (cancelToken.IsCancellationRequested)
                 {
+
                     // キャンセルされたらTaskを終了する.
                     return "Canceled";
                 }
-                output = PsInfo.StandardOutput.ReadLine();
-                output = output?.Replace("\r\r\n", "\n"); // 改行コードの修正
-                if (output != "") Invoke(output);
-                return output;
+                try
+                {
+                    output = PsInfo.StandardOutput.ReadLine();
+
+                    output = output?.Replace("\r\r\n", "\n"); // 改行コードの修正
+                    if (output != "") Invoke(output);
+                }
+                catch { }
+                    return "";
             });
             return "";
         }
@@ -301,13 +334,18 @@ namespace AgeAgePlugin
             {
                 if (cancelToken2.IsCancellationRequested)
                 {
+
                     // キャンセルされたらTaskを終了する.
                     return "Canceled";
                 }
-                output = PsInfo.StandardOutput.ReadLine();
-                output = output?.Replace("\r\r\n", "\n"); // 改行コードの修正
-                if (output != "") Invoke(output);
-                return output;
+                try
+                {
+                    output = PsInfo2.StandardOutput.ReadLine();
+                    output = output?.Replace("\r\r\n", "\n"); // 改行コードの修正
+                    if (output != "") Invoke(output);
+                }
+                catch { }
+                return "";
             });
             return "";
         }
@@ -344,6 +382,10 @@ namespace AgeAgePlugin
             button7.Enabled = true;
             Console.WriteLine(errorLevel);
             if (!(errorLevel > 0))
+            {
+                GetManifestVersion(false);
+            }
+            if (!(errorLevel2 > 0))
             {
                 GetManifestVersion(false);
             }
@@ -391,8 +433,10 @@ namespace AgeAgePlugin
                 try
                 {
                     tokenSource.Cancel();
-                    PsInfo.Kill();
+                    PsInfo.Kill ();
                     PsInfo.WaitForExit();
+                    errorLevel = PsInfo.ExitCode;
+
                 }
                 catch { }
                 return "stop";
@@ -406,8 +450,10 @@ namespace AgeAgePlugin
                 try
                 {
                     tokenSource2.Cancel();
-                    PsInfo.Kill();
-                    PsInfo.WaitForExit();
+                    PsInfo2.Kill();
+                    PsInfo2.WaitForExit();
+                    errorLevel2 = PsInfo2.ExitCode;
+
                 }
                 catch { }
                 return "stop";
@@ -588,46 +634,56 @@ namespace AgeAgePlugin
             BackgroundWorker worker = (BackgroundWorker)sender;
             p.RedirectStandardOutput = true; // 標準出力をリダイレクト
             p.RedirectStandardError = true; // 標準出力をリダイレクト
-            Process PsInfo = Process.Start(p);
+            PsInfo2 = Process.Start(p);
             output = "";
             Invoke(output);
-            Task<string> task;
             Task<string> task2;
-            while (!PsInfo.HasExited)
+            Task<string> task3;
+            while (!PsInfo2.HasExited)
             {
-                task = Task.Run(async () =>
-                {
-                    return await OutputHandler2(PsInfo.StandardError.ReadLine());
-                });
                 task2 = Task.Run(async () =>
                 {
-                    return  await Ho2(PsInfo);
+                    return  await Ho2(PsInfo2);
                 });
                 worker = (BackgroundWorker)sender;
 
                 //キャンセル判定
                 // senderの値はbgWorkerの値と同じ
-                Console.WriteLine(worker.CancellationPending);
+                Console.WriteLine("test"+worker.CancellationPending);
                 // 時間のかかる処理
                 // キャンセルされてないか定期的にチェック
                 if (worker.CancellationPending)
                 {
-
+                    task3 = Task.Run(async () =>
+                    {
+                        return await ButtonUp();
+                    });
                     e.Cancel = true;
-                    await Stop2(PsInfo);
+                     await Stop2(PsInfo2);
                     break;
                 }
             }
             //PsInfo.Dispose();
 
 
+            task3 = Task.Run(async () =>
+            {
+                return await ButtonUp();
+            });
             Console.WriteLine(worker.CancellationPending);
-            errorLevel = PsInfo.ExitCode;
 
+               await OutputHandler2(PsInfo2.StandardError.ReadToEnd());
             Flag2 = true;
 
-            await ButtonUp();
-
+            if (Error2 != "")
+            {
+                e.Cancel = true;
+                await Stop2(PsInfo2);
+            }
+            if (!PsInfo.HasExited)
+            {
+                backgroundWorker1.CancelAsync();
+            }
             if (Error2 != "")
             {
                 MessageBox.Show(Error2,
@@ -769,7 +825,7 @@ namespace AgeAgePlugin
 
             GetManifestVersion(false);
 
-            textBox6.Text = "";
+            textBox6.Text =button8.Enabled?textBox6.Text:"";
 
         }
     }

@@ -61,3 +61,11 @@ C:\Users\nishikawa\Documents\TestApplication-main\AgeAgePlugin\obj\Release\AgeAg
 C:\Users\nishikawa\Documents\TestApplication-main\AgeAgePlugin\obj\Release\AgeAgePlugin.csproj.CopyComplete
 C:\Users\nishikawa\Documents\TestApplication-main\AgeAgePlugin\obj\Release\AgeAgePlugin.exe
 C:\Users\nishikawa\Documents\TestApplication-main\AgeAgePlugin\obj\Release\AgeAgePlugin.pdb
+C:\Users\nishikawa\Documents\AgeAgePlugin\AgeAgePlugin\obj\Release\AgeAgePlugin.csprojAssemblyReference.cache
+C:\Users\nishikawa\Documents\AgeAgePlugin\AgeAgePlugin\obj\Release\AgeAgePlugin.InstallConfirmationForm.resources
+C:\Users\nishikawa\Documents\AgeAgePlugin\AgeAgePlugin\obj\Release\AgeAgePlugin.MainForm.resources
+C:\Users\nishikawa\Documents\AgeAgePlugin\AgeAgePlugin\obj\Release\AgeAgePlugin.PluginNameSettingForm.resources
+C:\Users\nishikawa\Documents\AgeAgePlugin\AgeAgePlugin\obj\Release\AgeAgePlugin.ManifestVisibleForm.resources
+C:\Users\nishikawa\Documents\AgeAgePlugin\AgeAgePlugin\obj\Release\AgeAgePlugin.Properties.Resources.resources
+C:\Users\nishikawa\Documents\AgeAgePlugin\AgeAgePlugin\obj\Release\AgeAgePlugin.csproj.GenerateResource.cache
+C:\Users\nishikawa\Documents\AgeAgePlugin\AgeAgePlugin\obj\Release\AgeAgePlugin.exe
