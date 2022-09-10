@@ -13,7 +13,7 @@
 
 # リリース
 
-・[v1.0.0(Pre-Release版)](https://github.com/nishikawa-r/AgeAgePlugin/releases)
+・[v1.0.5(Pre-Release版)](https://github.com/nishikawa-r/AgeAgePlugin/releases)
 
 # 画面
 
