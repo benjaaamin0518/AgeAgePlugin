@@ -791,5 +791,13 @@ namespace AgeAgePlugin
             GetManifestVersion(false);
             textBox6.Text = button8.Enabled ? textBox6.Text : "";
         }
+
+        private void tab_Selecting(object sender, TabControlCancelEventArgs e)
+        {
+            if(button4.Text!="実行"　|| button17.Text != "実行")
+            {
+                e.Cancel = true;
+            } 
+        }
     }
 }

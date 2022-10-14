@@ -68,6 +68,8 @@ namespace AgeAgePlugin
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textBox7 = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.textBox8 = new System.Windows.Forms.TextBox();
@@ -82,8 +84,6 @@ namespace AgeAgePlugin
             this.button17 = new System.Windows.Forms.Button();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.button18 = new System.Windows.Forms.Button();
-            this.label10 = new System.Windows.Forms.Label();
-            this.textBox7 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.tab.SuspendLayout();
             this.plugin.SuspendLayout();
@@ -389,6 +389,7 @@ namespace AgeAgePlugin
             this.tab.SelectedIndex = 0;
             this.tab.Size = new System.Drawing.Size(787, 343);
             this.tab.TabIndex = 21;
+            this.tab.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tab_Selecting);
             // 
             // plugin
             // 
@@ -500,6 +501,22 @@ namespace AgeAgePlugin
             this.groupBox2.TabIndex = 25;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "詳細情報";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(22, 180);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(41, 12);
+            this.label10.TabIndex = 12;
+            this.label10.Text = "アプリID";
+            // 
+            // textBox7
+            // 
+            this.textBox7.Location = new System.Drawing.Point(92, 179);
+            this.textBox7.Name = "textBox7";
+            this.textBox7.Size = new System.Drawing.Size(120, 19);
+            this.textBox7.TabIndex = 13;
             // 
             // label13
             // 
@@ -624,22 +641,6 @@ namespace AgeAgePlugin
             this.button18.TabIndex = 27;
             this.button18.Text = "+";
             this.button18.UseVisualStyleBackColor = true;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(22, 180);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(41, 12);
-            this.label10.TabIndex = 12;
-            this.label10.Text = "アプリID";
-            // 
-            // textBox7
-            // 
-            this.textBox7.Location = new System.Drawing.Point(92, 179);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(120, 19);
-            this.textBox7.TabIndex = 13;
             // 
             // MainForm
             // 
