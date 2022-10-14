@@ -130,7 +130,7 @@ namespace AgeAgePlugin
             string CustomizeErr = (executionCondition.CustomizeExecution() != 9009) ? "" : "・kintone-customize-uploaderがインストールされていません";
             installConfirmationForm.parsent = 100;
             installConfirmationForm.InstallProgress("ソフトを起動しています...");
-            if (npmErr != "" || uploderErr != "" || PackerErr != "")
+            if (npmErr != "" || uploderErr != "" || PackerErr != "" || CustomizeErr!="")
             {
                 MessageBox.Show(npmErr + createErr + uploderErr + PackerErr + CustomizeErr,
                                 "インストールしてください",
@@ -841,6 +841,24 @@ namespace AgeAgePlugin
                 textBox10.UseSystemPasswordChar = true;
                 button14.Text = "表示";
             }
+        }
+
+        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        {
+            groupBox2.Visible = (checkBox4.Checked) ? false : true;
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            CustomizeVisibleForm customizeVisibleForm = new CustomizeVisibleForm();
+            customizeVisibleForm.Show();
+            List<CustomizeFileList> customizeFileLists = new List<CustomizeFileList>();
+            customizeFileLists.Add(new CustomizeFileList { fileDir = "test", fileExists = "test2" });
+            customizeFileLists.Add(new CustomizeFileList { fileDir = "test", fileExists = "test2" });
+            customizeFileLists.Add(new CustomizeFileList { fileDir = "test", fileExists = "test2" });
+            customizeFileLists.Add(new CustomizeFileList { fileDir = "test", fileExists = "test2" });
+            customizeVisibleForm.lists = customizeFileLists;
+            customizeVisibleForm.ListUpdate();
         }
     }
 }

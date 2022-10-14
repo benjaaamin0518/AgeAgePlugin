@@ -84,6 +84,7 @@ namespace AgeAgePlugin
             this.button17 = new System.Windows.Forms.Button();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.button18 = new System.Windows.Forms.Button();
+            this.button12 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.tab.SuspendLayout();
             this.plugin.SuspendLayout();
@@ -482,6 +483,7 @@ namespace AgeAgePlugin
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.button12);
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.textBox7);
             this.groupBox2.Controls.Add(this.label13);
@@ -631,6 +633,7 @@ namespace AgeAgePlugin
             this.checkBox4.TabIndex = 26;
             this.checkBox4.Text = "詳細情報を非表示にする";
             this.checkBox4.UseVisualStyleBackColor = true;
+            this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
             // 
             // button18
             // 
@@ -643,6 +646,17 @@ namespace AgeAgePlugin
             this.button18.TabIndex = 27;
             this.button18.Text = "+";
             this.button18.UseVisualStyleBackColor = true;
+            // 
+            // button12
+            // 
+            this.button12.Font = new System.Drawing.Font("MS UI Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button12.Location = new System.Drawing.Point(391, 135);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(95, 23);
+            this.button12.TabIndex = 15;
+            this.button12.Text = "マニフェスト変更";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
             // MainForm
             // 
@@ -731,6 +745,7 @@ namespace AgeAgePlugin
         private System.Windows.Forms.Button button18;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.Button button12;
     }
 }
 
