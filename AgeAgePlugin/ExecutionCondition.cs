@@ -82,6 +82,23 @@ namespace AgeAgePlugin
             PsInfo.Close(); Console.WriteLine(stdErr);
             return stdErr;
         }
+        public int CustomizeExecution()
+        {
+            stdErr = 0;
+            string directory = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+            directory = directory + @"\CustomizeExecution.bat";
+            string command = directory;
+            ProcessStartInfo p = new ProcessStartInfo();
+            p.CreateNoWindow = true; // コンソールを開かない
+            p.UseShellExecute = false; // シェル機能を使用しない
+            p.FileName = command;
+            p.RedirectStandardError = true; // 標準出力をリダイレクト
+            Process PsInfo = Process.Start(p);
+            PsInfo.WaitForExit();
+            stdErr = PsInfo.ExitCode;
+            PsInfo.Close(); Console.WriteLine(stdErr);
+            return stdErr;
+        }
 
     }
 }

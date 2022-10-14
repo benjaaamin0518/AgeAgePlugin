@@ -116,20 +116,23 @@ namespace AgeAgePlugin
             installConfirmationForm.InstallProgress("npmのインストールを確認しています");
             ExecutionCondition executionCondition = new ExecutionCondition();
             string npmErr = (executionCondition.NpmExecution() != 9009) ? "" : "・npmがインストールされていません\n\n";
-            installConfirmationForm.parsent = 25;
+            installConfirmationForm.parsent = 20;
             installConfirmationForm.InstallProgress("create-pluginのインストールを確認しています");
             string createErr = (executionCondition.CreateExecution() != 9009) ? "" : "・create-pluginがインストールされていません\n\n";
-            installConfirmationForm.parsent = 50;
+            installConfirmationForm.parsent = 40;
             installConfirmationForm.InstallProgress("kintone-plugin-uploaderのインストールを確認しています");
             string uploderErr = (executionCondition.UploaderExecution() != 9009) ? "" : "・kintone-plugin-uploaderがインストールされていません\n\n";
-            installConfirmationForm.parsent = 75;
+            installConfirmationForm.parsent = 60;
             installConfirmationForm.InstallProgress("kintone-plugin-packerのインストールを確認しています");
             string PackerErr = (executionCondition.PackerExecution() != 9009) ? "" : "・kintone-plugin-packerがインストールされていません";
+            installConfirmationForm.parsent = 80;
+            installConfirmationForm.InstallProgress("kintone-customize-uploaderのインストールを確認しています");
+            string CustomizeErr = (executionCondition.CustomizeExecution() != 9009) ? "" : "・kintone-customize-uploaderがインストールされていません";
             installConfirmationForm.parsent = 100;
             installConfirmationForm.InstallProgress("ソフトを起動しています...");
             if (npmErr != "" || uploderErr != "" || PackerErr != "")
             {
-                MessageBox.Show(npmErr + createErr + uploderErr + PackerErr,
+                MessageBox.Show(npmErr + createErr + uploderErr + PackerErr + CustomizeErr,
                                 "インストールしてください",
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Warning);
