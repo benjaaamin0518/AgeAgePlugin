@@ -575,6 +575,7 @@ namespace AgeAgePlugin
             this.button14.TabIndex = 10;
             this.button14.Text = "表示";
             this.button14.UseVisualStyleBackColor = true;
+            this.button14.Click += new System.EventHandler(this.button14_Click);
             // 
             // button15
             // 
@@ -603,6 +604,7 @@ namespace AgeAgePlugin
             this.button16.TabIndex = 9;
             this.button16.Text = "...";
             this.button16.UseVisualStyleBackColor = true;
+            this.button16.Click += new System.EventHandler(this.button16_Click);
             // 
             // textBox11
             // 

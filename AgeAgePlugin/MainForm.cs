@@ -802,5 +802,45 @@ namespace AgeAgePlugin
                 e.Cancel = true;
             } 
         }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+            //FolderBrowserDialogクラスのインスタンスを作成
+            Fbd = new FolderBrowserDialog();
+            //上部に表示する説明テキストを指定する
+            Fbd.Description = "フォルダを指定してください。";
+            //ルートフォルダを指定する
+            //デフォルトでDesktop
+            Fbd.RootFolder = Environment.SpecialFolder.Desktop;
+            //最初に選択するフォルダを指定する
+            //RootFolder以下にあるフォルダである必要がある
+            Fbd.SelectedPath = @"C:\Windows";
+            //ユーザーが新しいフォルダを作成できるようにする
+            //デフォルトでTrue
+            Fbd.ShowNewFolderButton = true;
+            //ダイアログを表示する
+            if (Fbd.ShowDialog(this) == DialogResult.OK)
+            {
+                //選択されたフォルダを表示する
+                Console.WriteLine(Fbd.SelectedPath);
+                textBox11.Text = Fbd.SelectedPath;
+            }
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            if (button14.Text == "表示")
+            {
+                button14.Text = "非表示";
+                // システムのパスワード文字を設定
+                textBox10.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                // システムのパスワード文字を設定
+                textBox10.UseSystemPasswordChar = true;
+                button14.Text = "表示";
+            }
+        }
     }
 }
