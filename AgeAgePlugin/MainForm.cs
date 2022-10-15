@@ -878,7 +878,7 @@ namespace AgeAgePlugin
                 textBox9.Text = SettingValue.username;
                 textBox10.Text = SettingValue.password;
                 textBox11.Text = SettingValue.Direct;
-                textBox7.Enabled = false;
+                textBox7.Enabled = (textBox7.Text != "") ? true : false;
                 textBox8.Enabled = true;
                 textBox9.Enabled = true;
                 textBox10.Enabled = true;
@@ -887,7 +887,7 @@ namespace AgeAgePlugin
                 button15.Enabled = true;
                 button16.Enabled = true;
                 button17.Enabled = true;
-                button12.Enabled = false;
+                button12.Enabled = (textBox7.Text != "") ? true: false;
             }
             else
             {
@@ -913,10 +913,12 @@ namespace AgeAgePlugin
             CustomizeVisibleForm customizeVisibleForm = new CustomizeVisibleForm();
             customizeVisibleForm.Show();
             List<CustomizeFileList> customizeFileLists = new List<CustomizeFileList>();
-            customizeFileLists.Add(new CustomizeFileList { fileDir = "test", fileExists = "FILE_NOT_FOUND" });
-            customizeFileLists.Add(new CustomizeFileList { fileDir = "test", fileExists = "FILE_NOT_FOUND" });
-            customizeFileLists.Add(new CustomizeFileList { fileDir = "test", fileExists = "FILE_NOT_FOUND" });
-            customizeFileLists.Add(new CustomizeFileList { fileDir = "test", fileExists = "FILE_NOT_FOUND" });
+            Console.WriteLine(CustomizeJson);
+            foreach (string jsFile in CustomizeJson.desktop.js)
+            {
+                string fileExists = (System.IO.File.Exists(jsFile)) ? "" : "FILE_NOT_FOUND";
+                customizeFileLists.Add(new CustomizeFileList { fileDir = jsFile, fileExists = fileExists });
+            }
             customizeVisibleForm.lists = customizeFileLists;
             customizeVisibleForm.dir = textBox11.Text;
             customizeVisibleForm.mainForm = this;
@@ -937,7 +939,7 @@ namespace AgeAgePlugin
             if (SettingValue != null)
             {
                 if (MessageBox.Show("削除しますか？", "カスタマイズの設定の削除", MessageBoxButtons.YesNo) == DialogResult.No) { return; }
-                Default.fd.RemoveAll(x => x.name == comboBox2.Text);
+                Default.customize.RemoveAll(x => x.name == comboBox2.Text);
                 Default.Save();
                 comboBox2.SelectedIndex = comboBox2.SelectedIndex - 1;
                 CreateCustomizeList();
@@ -959,7 +961,7 @@ namespace AgeAgePlugin
                     using (var sr = new StreamReader(textBox11.Text + @"\dest\customize-manifest.json"))
                     {
                         var jsonData = sr.ReadToEnd();
-                        CustomizeJsonData CustomizeJson = System.Text.Json.JsonSerializer.Deserialize<CustomizeJsonData>(jsonData);
+                        CustomizeJson = System.Text.Json.JsonSerializer.Deserialize<CustomizeJsonData>(jsonData);
                         button12.Enabled = true;
                         textBox7.Text = CustomizeJson.app;
                         textBox7.Enabled = true;
@@ -1026,6 +1028,19 @@ namespace AgeAgePlugin
             Default.Save();
             LoadCustomizeListValue();
             GetManifestCustomize(true);
+        }
+
+        private void textBox7_TextChanged(object sender, EventArgs e)
+        {
+            CustomizeJson.app = textBox7.Text;
+            SaveManifestCustomize(false);
+            GetManifestCustomize(false);
+        }
+
+        private void textBox11_TextChanged(object sender, EventArgs e)
+        {
+            GetManifestCustomize(false);
+            textBox11.Text = button12.Enabled ? textBox11.Text : "";
         }
     }
 }

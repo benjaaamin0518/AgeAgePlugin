@@ -91,7 +91,7 @@ namespace AgeAgePlugin
                 string Direct = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
                 Direct = Direct + @"\CreateCustomize.bat";
                 string command = Direct;
-                string arguments = Fbd.SelectedPath + " " + textBox1.Text;
+                string arguments = Fbd.SelectedPath;
                 Console.WriteLine(arguments);
                 ProcessStartInfo p = new ProcessStartInfo();
                 p.Arguments = arguments;
@@ -103,7 +103,7 @@ namespace AgeAgePlugin
                 int exitCode = PsInfo.ExitCode;
                 PsInfo.Close();
                 if (exitCode != 0) { return false; }
-                Directory = Fbd.SelectedPath + @"\" + textBox1.Text;
+                Directory = Fbd.SelectedPath;
                 return true;
             }
             return false;
@@ -112,6 +112,11 @@ namespace AgeAgePlugin
         {
             form1.Enabled = true;
 
+        }
+
+        private void CustomizeNameSettingForm_Load(object sender, EventArgs e)
+        {
+            Default = Properties.Settings.Default;
         }
     }
 }

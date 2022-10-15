@@ -533,6 +533,7 @@ namespace AgeAgePlugin
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(120, 19);
             this.textBox7.TabIndex = 13;
+            this.textBox7.TextChanged += new System.EventHandler(this.textBox7_TextChanged);
             // 
             // label13
             // 
@@ -629,6 +630,7 @@ namespace AgeAgePlugin
             this.textBox11.Name = "textBox11";
             this.textBox11.Size = new System.Drawing.Size(246, 19);
             this.textBox11.TabIndex = 8;
+            this.textBox11.TextChanged += new System.EventHandler(this.textBox11_TextChanged);
             // 
             // button17
             // 

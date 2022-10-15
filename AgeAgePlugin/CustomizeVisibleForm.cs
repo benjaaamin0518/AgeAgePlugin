@@ -23,7 +23,7 @@ namespace AgeAgePlugin
         {
             foreach (CustomizeFileList list in lists)
             {
-                string[] vs = { list.fileDir, list.fileExists };
+                string[] vs = { list.fileDir.Replace(dir, ""), list.fileExists };
                 listView1.Items.Add(new ListViewItem(vs));
             }
         }
@@ -52,6 +52,8 @@ namespace AgeAgePlugin
 
                     // リストボックスにファイル名を表示
                     listView1.Items.Add(new ListViewItem(vs));
+                    MainForm.CustomizeJson.desktop.js = GetListItem();
+                    mainForm.SaveManifestCustomize(false);
                 }
             }
         }
@@ -64,13 +66,29 @@ namespace AgeAgePlugin
                 // 選択されているか確認する
                 if (item.Selected)
                 {
+                    
                     listView1.Items.Remove(item);
                 }
             }
+            MainForm.CustomizeJson.desktop.js =GetListItem();
+            mainForm.SaveManifestCustomize(false);
         }
         private void CustomizeVisibleForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             mainForm.Enabled = true;
+        }
+        private List<string> GetListItem()
+        {
+            List<string> fileDir=new List<string>();
+            if (listView1.Items.Count > 0)
+            {
+                foreach (ListViewItem item in listView1.Items)
+                {
+                    fileDir.Add((dir+item.SubItems[0].Text));
+                }
+                Console.WriteLine(fileDir);
+            }
+            return fileDir;
         }
     }
 }

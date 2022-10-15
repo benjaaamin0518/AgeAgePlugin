@@ -157,6 +157,7 @@
     <Compile Include="Controller.cs" />
     <Compile Include="Customize.cs" />
     <Compile Include="CustomizeFileList.cs" />
+    <Compile Include="CustomizeJsonData.cs" />
     <Compile Include="CustomizeNameSettingForm.cs">
       <SubType>Form</SubType>
     </Compile>

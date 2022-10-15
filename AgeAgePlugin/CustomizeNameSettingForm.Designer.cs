@@ -100,6 +100,7 @@ namespace AgeAgePlugin
             this.Name = "CustomizeNameSettingForm";
             this.Text = "カスタマイズ名の作成";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CustomizeNameSettingForm_FormClosed);
+            this.Load += new System.EventHandler(this.CustomizeNameSettingForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
