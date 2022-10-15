@@ -31,33 +31,29 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CustomizeVisibleForm));
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.customizeFileListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.CustomizeJs = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.CustomizeCss = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.listView1 = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.CustomizeCss = new System.Windows.Forms.TabPage();
             this.listView2 = new System.Windows.Forms.ListView();
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.customizeFileListBindingSource)).BeginInit();
+            this.customizeFileListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.CustomizeJs.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.CustomizeCss.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.customizeFileListBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
-            // 
-            // customizeFileListBindingSource
-            // 
-            this.customizeFileListBindingSource.DataSource = typeof(AgeAgePlugin.CustomizeFileList);
             // 
             // CustomizeJs
             // 
@@ -82,51 +78,6 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "JS";
             // 
-            // CustomizeCss
-            // 
-            this.CustomizeCss.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.CustomizeCss.Controls.Add(this.listView2);
-            this.CustomizeCss.Controls.Add(this.button3);
-            this.CustomizeCss.Controls.Add(this.button4);
-            this.CustomizeCss.Location = new System.Drawing.Point(4, 22);
-            this.CustomizeCss.Name = "CustomizeCss";
-            this.CustomizeCss.Padding = new System.Windows.Forms.Padding(3);
-            this.CustomizeCss.Size = new System.Drawing.Size(377, 441);
-            this.CustomizeCss.TabIndex = 1;
-            this.CustomizeCss.Text = "CSS";
-            // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button1.Location = new System.Drawing.Point(69, 377);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(88, 42);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "追加";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            this.button2.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button2.Location = new System.Drawing.Point(207, 377);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(88, 42);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "削除";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "ディレクトリ";
-            this.columnHeader1.Width = 250;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "ファイルチェック";
-            this.columnHeader2.Width = 180;
-            // 
             // listView1
             // 
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -141,6 +92,52 @@
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
+            this.listView1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView1_MouseDoubleClick);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "ディレクトリ";
+            this.columnHeader1.Width = 250;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "ファイルチェック";
+            this.columnHeader2.Width = 180;
+            // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button2.Location = new System.Drawing.Point(207, 377);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(88, 42);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "削除";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button1.Location = new System.Drawing.Point(69, 377);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(88, 42);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "追加";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // CustomizeCss
+            // 
+            this.CustomizeCss.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.CustomizeCss.Controls.Add(this.listView2);
+            this.CustomizeCss.Controls.Add(this.button3);
+            this.CustomizeCss.Controls.Add(this.button4);
+            this.CustomizeCss.Location = new System.Drawing.Point(4, 22);
+            this.CustomizeCss.Name = "CustomizeCss";
+            this.CustomizeCss.Padding = new System.Windows.Forms.Padding(3);
+            this.CustomizeCss.Size = new System.Drawing.Size(377, 441);
+            this.CustomizeCss.TabIndex = 1;
+            this.CustomizeCss.Text = "CSS";
             // 
             // listView2
             // 
@@ -156,6 +153,7 @@
             this.listView2.TabIndex = 3;
             this.listView2.UseCompatibleStateImageBehavior = false;
             this.listView2.View = System.Windows.Forms.View.Details;
+            this.listView2.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView2_MouseDoubleClick);
             // 
             // columnHeader3
             // 
@@ -189,6 +187,10 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // customizeFileListBindingSource
+            // 
+            this.customizeFileListBindingSource.DataSource = typeof(AgeAgePlugin.CustomizeFileList);
+            // 
             // CustomizeVisibleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -201,10 +203,10 @@
             this.Name = "CustomizeVisibleForm";
             this.Text = "customize-manifest.jsonの変更";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CustomizeVisibleForm_FormClosed);
-            ((System.ComponentModel.ISupportInitialize)(this.customizeFileListBindingSource)).EndInit();
             this.CustomizeJs.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.CustomizeCss.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.customizeFileListBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }

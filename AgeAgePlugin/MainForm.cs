@@ -13,6 +13,15 @@ namespace AgeAgePlugin
 {
     public partial class MainForm : Form
     {
+        internal static class AssemblyState
+        {
+            public const bool IsDebug =
+            #if DEBUG
+                true;
+            #else
+               false;
+            #endif
+            }
         public ManifestVisibleForm form3 { get; set; }
         private string Direct { get; set; }
         private int errorLevel { get; set; }
@@ -104,7 +113,10 @@ namespace AgeAgePlugin
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            LoadExecution();
+            if (!AssemblyState.IsDebug)
+            {
+                LoadExecution();
+            }
             Default = Properties.Settings.Default;
             CreatePluginList();
             LoadPluginListValue();
@@ -878,7 +890,6 @@ namespace AgeAgePlugin
                 textBox9.Text = SettingValue.username;
                 textBox10.Text = SettingValue.password;
                 textBox11.Text = SettingValue.Direct;
-                textBox7.Text = CustomizeJson.app;
                 textBox7.Enabled = (textBox7.Text != "") ? true : false;
                 textBox8.Enabled = true;
                 textBox9.Enabled = true;
@@ -1037,7 +1048,7 @@ namespace AgeAgePlugin
             Default.CustomizeName = comboBox2.Text;
             Default.Save();
             LoadCustomizeListValue();
-            GetManifestCustomize(true);
+            GetManifestCustomize(false);
         }
 
         private void textBox7_TextChanged(object sender, EventArgs e)

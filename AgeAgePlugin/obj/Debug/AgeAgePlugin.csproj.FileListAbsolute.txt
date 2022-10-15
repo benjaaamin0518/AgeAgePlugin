@@ -157,7 +157,6 @@ C:\Users\pntas\Documents\AgeAgePlugin\AgeAgePlugin\bin\Debug\System.Text.Encodin
 C:\Users\pntas\Documents\AgeAgePlugin\AgeAgePlugin\bin\Debug\System.Text.Json.xml
 C:\Users\pntas\Documents\AgeAgePlugin\AgeAgePlugin\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\pntas\Documents\AgeAgePlugin\AgeAgePlugin\bin\Debug\System.ValueTuple.xml
-C:\Users\pntas\Documents\AgeAgePlugin\AgeAgePlugin\obj\Debug\AgeAgePlugin.csprojAssemblyReference.cache
 C:\Users\pntas\Documents\AgeAgePlugin\AgeAgePlugin\obj\Debug\AgeAgePlugin.InstallConfirmationForm.resources
 C:\Users\pntas\Documents\AgeAgePlugin\AgeAgePlugin\obj\Debug\AgeAgePlugin.MainForm.resources
 C:\Users\pntas\Documents\AgeAgePlugin\AgeAgePlugin\obj\Debug\AgeAgePlugin.PluginNameSettingForm.resources
@@ -170,3 +169,5 @@ C:\Users\pntas\Documents\AgeAgePlugin\AgeAgePlugin\obj\Debug\AgeAgePlugin.pdb
 C:\Users\pntas\Documents\AgeAgePlugin\AgeAgePlugin\obj\Debug\AgeAgePlugin.CustomizeVisibleForm.resources
 C:\Users\nishikawa\Documents\AgeAgePlugin\AgeAgePlugin\obj\Debug\AgeAgePlugin.CustomizeVisibleForm.resources
 C:\Users\nishikawa\Documents\AgeAgePlugin\AgeAgePlugin\obj\Debug\AgeAgePlugin.CustomizeNameSettingForm.resources
+C:\Users\pntas\Documents\AgeAgePlugin\AgeAgePlugin\obj\Debug\AgeAgePlugin.CustomizeNameSettingForm.resources
+C:\Users\pntas\Documents\AgeAgePlugin\AgeAgePlugin\obj\Debug\AgeAgePlugin.csprojAssemblyReference.cache

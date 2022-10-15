@@ -91,7 +91,7 @@ namespace AgeAgePlugin
                 string Direct = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
                 Direct = Direct + @"\CreateCustomize.bat";
                 string command = Direct;
-                string arguments = Fbd.SelectedPath;
+                string arguments = "\""+Fbd.SelectedPath+"\"";
                 Console.WriteLine(arguments);
                 ProcessStartInfo p = new ProcessStartInfo();
                 p.Arguments = arguments;
