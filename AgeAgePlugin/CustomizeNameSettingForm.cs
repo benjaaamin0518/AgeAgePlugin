@@ -32,10 +32,10 @@ namespace AgeAgePlugin
             Directory = "";
             if (textBox1.Text != "")
             {
-                int datas = Default.fd.Where(x => x != null).Where(x => x.name == textBox1.Text).ToList().Count;
+                int datas = Default.customize.Where(x => x != null).Where(x => x.name == textBox1.Text).ToList().Count;
                 if (datas > 0)
                 {
-                    MessageBox.Show("重複しているプラグイン名は追加することが出来ません");
+                    MessageBox.Show("重複しているカスタマイズ名は追加することが出来ません");
                     return;
                 }
                 if (checkBox1.Checked)
@@ -43,7 +43,7 @@ namespace AgeAgePlugin
                     bool Create = CreateCustomize();
                     if (!Create)
                     {
-                        MessageBox.Show("プラグインを作成することができませんでした");
+                        MessageBox.Show("カスタマイズ環境を作成することができませんでした");
                         return;
                     }
                 }
@@ -54,7 +54,7 @@ namespace AgeAgePlugin
             }
             else
             {
-                MessageBox.Show("プラグイン名を入力してください");
+                MessageBox.Show("カスタマイズ名を入力してください");
                 return;
             }
         }
@@ -63,7 +63,7 @@ namespace AgeAgePlugin
             List<Customize> formData = new List<Customize>();
             formData.Add(new Customize { name = textBox1.Text, Direct = Directory });
             Default.customize.AddRange(formData);
-            form1.CreatePluginList();
+            form1.CreateCustomizeList();
             Default.Save();
         }
         private bool CreateCustomize()
@@ -71,7 +71,7 @@ namespace AgeAgePlugin
             //FolderBrowserDialogクラスのインスタンスを作成
             FolderBrowserDialog Fbd = new FolderBrowserDialog();
             //上部に表示する説明テキストを指定する
-            Fbd.Description = "プラグインを作成するフォルダを指定してください。";
+            Fbd.Description = "カスタマイズ環境を作成するフォルダを指定してください。";
             //ルートフォルダを指定する
             //デフォルトでDesktop
             Fbd.RootFolder = Environment.SpecialFolder.Desktop;
@@ -89,7 +89,7 @@ namespace AgeAgePlugin
                 string directory = Fbd.SelectedPath;
                 if (directory == "") { return false; }
                 string Direct = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
-                Direct = Direct + @"\echo6.bat";
+                Direct = Direct + @"\CreateCustomize.bat";
                 string command = Direct;
                 string arguments = Fbd.SelectedPath + " " + textBox1.Text;
                 Console.WriteLine(arguments);

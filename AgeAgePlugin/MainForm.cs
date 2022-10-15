@@ -22,6 +22,7 @@ namespace AgeAgePlugin
         public static FormData PluginSet { get; set; }
         public static Customize PluginSetCustomize { get; set; }
         public static ManifestJsonData Json { get; set; }
+        public static CustomizeJsonData CustomizeJson { get; set; }
         private string UploaderArguments { get; set; }
         private string PackerArguments { get; set; }
         private string PackerPpkArguments { get; set; }
@@ -108,6 +109,9 @@ namespace AgeAgePlugin
             CreatePluginList();
             LoadPluginListValue();
             comboBox1.SelectedItem = Default.PluginName;
+            CreateCustomizeList();
+            LoadCustomizeListValue();
+            comboBox2.SelectedItem = Default.CustomizeName;
         }
         private void LoadExecution()
         {
@@ -472,18 +476,22 @@ namespace AgeAgePlugin
         }
         public void CreateCustomizeList()
         {
-            comboBox1.Items.Clear();
+            comboBox2.Items.Clear();
             IEnumerable<Customize> sortfd = Default.customize.OrderBy(x => x.name);
             foreach (Customize data in sortfd)
             {
-                comboBox1.Items.Add(data.name);
+                comboBox2.Items.Add(data.name);
             }
-            if (Default.PluginName != null)
+            if (Default.CustomizeName != null)
             {
-                comboBox1.SelectedItem = Default.PluginName;
+                comboBox2.SelectedItem = Default.CustomizeName;
             }
         }
         private void button6_Click(object sender, EventArgs e)
+        {
+            LogSaveFile();
+        }
+        private void LogSaveFile()
         {
             try
             {
@@ -863,54 +871,40 @@ namespace AgeAgePlugin
         }
         private void LoadCustomizeListValue()
         {
-            FormData SettingValue = Default.fd.Find(x => x.name == comboBox1.Text);
+            Customize SettingValue = Default.customize.Find(x => x.name == comboBox2.Text);
             if (SettingValue != null)
             {
-                textBox2.Text = SettingValue.url;
-                textBox3.Text = SettingValue.username;
-                textBox4.Text = SettingValue.password;
-                textBox5.Text = SettingValue.Direct;
-                PluginSet = SettingValue;
-                textBox2.Enabled = true;
-                textBox3.Enabled = true;
-                textBox4.Enabled = true;
-                textBox5.Enabled = true;
-                button3.Enabled = true;
-                button4.Enabled = true;
-                button1.Enabled = true;
-                button7.Enabled = true;
-                textBox6.Text = SettingValue.ppk;
-                if (textBox5.Text != "" && PluginSet.plusBool)
-                {
-                    button8.Enabled = true;
-                }
-                if (textBox5.Text != "")
-                {
-                    button9.Enabled = true;
-                }
-                else
-                {
-                    button9.Enabled = false;
-                }
+                textBox8.Text = SettingValue.url;
+                textBox9.Text = SettingValue.username;
+                textBox10.Text = SettingValue.password;
+                textBox11.Text = SettingValue.Direct;
+                textBox7.Enabled = false;
+                textBox8.Enabled = true;
+                textBox9.Enabled = true;
+                textBox10.Enabled = true;
+                textBox11.Enabled = true;
+                button11.Enabled = true;
+                button15.Enabled = true;
+                button16.Enabled = true;
+                button17.Enabled = true;
+                button12.Enabled = false;
             }
             else
             {
-                textBox2.Text = "";
-                textBox3.Text = "";
-                textBox4.Text = "";
-                textBox5.Text = "";
-                textBox6.Text = "";
-                textBox2.Enabled = false;
-                textBox3.Enabled = false;
-                textBox4.Enabled = false;
-                textBox5.Enabled = false;
-                textBox6.Enabled = false;
-                button3.Enabled = false;
-                button4.Enabled = false;
-                button7.Enabled = false;
-                button1.Enabled = false;
-                button8.Enabled = false;
-                button9.Enabled = false;
+                textBox8.Text = "";
+                textBox9.Text = "";
+                textBox10.Text = "";
+                textBox11.Text = "";
+                textBox8.Enabled = false;
+                textBox9.Enabled = false;
+                textBox10.Enabled = false;
+                textBox11.Enabled = false;
+                button12.Enabled = false;
+                textBox7.Enabled = false;
+                button11.Enabled = false;
+                button15.Enabled = false;
+                button16.Enabled = false;
+                button17.Enabled = false;
             }
         }
         private void button12_Click(object sender, EventArgs e)
@@ -955,51 +949,83 @@ namespace AgeAgePlugin
                 return;
             }
         }
-        private ManifestJsonData GetManifestCustomize(bool MassegeBool)
+        private CustomizeJsonData GetManifestCustomize(bool MassegeBool)
         {
             PluginSetCustomize = Default.customize.Find(x => x.name == comboBox2.Text);
-            if (textBox5.Text != "")
+            if (textBox11.Text != "")
             {
                 try
                 {
-                    using (var sr = new StreamReader(textBox5.Text + @"\src\manifest.json"))
+                    using (var sr = new StreamReader(textBox11.Text + @"\dest\customize-manifest.json"))
                     {
                         var jsonData = sr.ReadToEnd();
-                        Json = System.Text.Json.JsonSerializer.Deserialize<ManifestJsonData>(jsonData);
-                        if (PluginSet.plusBool)
-                        {
-                            PlusVersion = (Json.version + PluginSet.plus);
-                            label6.Text = "ver:" + Json.version + " →" + PlusVersion;
-                        }
-                        else
-                        {
-                            label6.Text = "ver:" + Json.version;
-                        }
-                        button8.Enabled = true;
-                        Console.WriteLine(Json.name.ja);
-                        return Json;
+                        CustomizeJsonData CustomizeJson = System.Text.Json.JsonSerializer.Deserialize<CustomizeJsonData>(jsonData);
+                        button12.Enabled = true;
+                        textBox7.Text = CustomizeJson.app;
+                        textBox7.Enabled = true;
+                        button12.Enabled = true;
+                        return CustomizeJson;
                     }
                 }
                 catch
                 {
                     button8.Enabled = false;
-                    PluginSet.plusBool = false;
                     if (MassegeBool)
                     {
-                        MessageBox.Show("manifest.jsonファイルが読み込めません");
+                        button12.Enabled = false;
+                        MessageBox.Show("customize-manifest.jsonファイルが読み込めません");
                     }
                 }
             }
             else
             {
-                button8.Enabled = false;
-                if (comboBox1.Text != "")
+                button12.Enabled = false;
+
+            }
+            return CustomizeJson;
+        }
+        public void SaveManifestCustomize(bool executionBool)
+        {
+            try
+            {
+                string JsonStr = System.Text.Json.JsonSerializer.Serialize<CustomizeJsonData>(CustomizeJson);
+                // テキストファイル出力（新規作成）
+                using (StreamWriter sw = new StreamWriter(textBox11.Text + @"\dest\customize-manifest.json", false))
                 {
-                    PluginSet.plusBool = false;
+                    sw.WriteLine(JsonStr);
+                    Console.WriteLine(JsonStr);
                 }
             }
-            label6.Text = "ver:";
-            return Json;
+            // 例外処理
+            catch (IOException error)
+            {
+                Console.WriteLine(error.Message);
+            }
+        }
+        //実行ボタン
+        private void button17_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            Default.customize.RemoveAll(x => x.name == comboBox2.Text);
+            Default.customize.Add(new Customize { url = textBox8.Text, username = textBox9.Text, password = textBox10.Text, Direct = textBox11.Text, name = comboBox2.Text });
+            Default.Save();
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            LogSaveFile();
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Default.CustomizeName = comboBox2.Text;
+            Default.Save();
+            LoadCustomizeListValue();
+            GetManifestCustomize(true);
         }
     }
 }

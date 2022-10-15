@@ -440,6 +440,7 @@ namespace AgeAgePlugin
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(297, 20);
             this.comboBox2.TabIndex = 24;
+            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
             // button10
             // 
@@ -449,6 +450,7 @@ namespace AgeAgePlugin
             this.button10.TabIndex = 21;
             this.button10.Text = "ログ保存";
             this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // button11
             // 
@@ -599,6 +601,7 @@ namespace AgeAgePlugin
             this.button15.TabIndex = 11;
             this.button15.Text = "保存";
             this.button15.UseVisualStyleBackColor = true;
+            this.button15.Click += new System.EventHandler(this.button15_Click);
             // 
             // label16
             // 
@@ -635,6 +638,7 @@ namespace AgeAgePlugin
             this.button17.TabIndex = 22;
             this.button17.Text = "実行";
             this.button17.UseVisualStyleBackColor = true;
+            this.button17.Click += new System.EventHandler(this.button17_Click);
             // 
             // checkBox4
             // 
