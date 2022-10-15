@@ -68,6 +68,7 @@ namespace AgeAgePlugin
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button12 = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -84,7 +85,6 @@ namespace AgeAgePlugin
             this.button17 = new System.Windows.Forms.Button();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.button18 = new System.Windows.Forms.Button();
-            this.button12 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.tab.SuspendLayout();
             this.plugin.SuspendLayout();
@@ -461,6 +461,7 @@ namespace AgeAgePlugin
             this.button11.TabIndex = 29;
             this.button11.Text = "-";
             this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
             // checkBox3
             // 
@@ -503,6 +504,17 @@ namespace AgeAgePlugin
             this.groupBox2.TabIndex = 25;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "詳細情報";
+            // 
+            // button12
+            // 
+            this.button12.Font = new System.Drawing.Font("MS UI Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button12.Location = new System.Drawing.Point(391, 135);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(95, 23);
+            this.button12.TabIndex = 15;
+            this.button12.Text = "マニフェスト変更";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
             // label10
             // 
@@ -646,17 +658,7 @@ namespace AgeAgePlugin
             this.button18.TabIndex = 27;
             this.button18.Text = "+";
             this.button18.UseVisualStyleBackColor = true;
-            // 
-            // button12
-            // 
-            this.button12.Font = new System.Drawing.Font("MS UI Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button12.Location = new System.Drawing.Point(391, 135);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(95, 23);
-            this.button12.TabIndex = 15;
-            this.button12.Text = "マニフェスト変更";
-            this.button12.UseVisualStyleBackColor = true;
-            this.button12.Click += new System.EventHandler(this.button12_Click);
+            this.button18.Click += new System.EventHandler(this.button18_Click);
             // 
             // MainForm
             // 

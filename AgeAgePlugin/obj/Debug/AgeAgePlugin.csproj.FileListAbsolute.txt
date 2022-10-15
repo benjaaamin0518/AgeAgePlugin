@@ -134,7 +134,6 @@ C:\Users\nishikawa\Documents\AgeAgePlugin\AgeAgePlugin\bin\Debug\System.Threadin
 C:\Users\nishikawa\Documents\AgeAgePlugin\AgeAgePlugin\bin\Debug\System.ValueTuple.xml
 C:\Users\nishikawa\Documents\AgeAgePlugin\AgeAgePlugin\obj\Debug\AgeAgePlugin.csproj.CoreCompileInputs.cache
 C:\Users\nishikawa\Documents\AgeAgePlugin\AgeAgePlugin\obj\Debug\AgeAgePlugin.csproj.CopyComplete
-C:\Users\nishikawa\Documents\AgeAgePlugin\AgeAgePlugin\obj\Debug\AgeAgePlugin.csprojAssemblyReference.cache
 C:\Users\pntas\Documents\AgeAgePlugin\AgeAgePlugin\bin\Debug\AgeAgePlugin.exe.config
 C:\Users\pntas\Documents\AgeAgePlugin\AgeAgePlugin\bin\Debug\AgeAgePlugin.exe
 C:\Users\pntas\Documents\AgeAgePlugin\AgeAgePlugin\bin\Debug\AgeAgePlugin.pdb
@@ -169,3 +168,5 @@ C:\Users\pntas\Documents\AgeAgePlugin\AgeAgePlugin\obj\Debug\AgeAgePlugin.csproj
 C:\Users\pntas\Documents\AgeAgePlugin\AgeAgePlugin\obj\Debug\AgeAgePlugin.exe
 C:\Users\pntas\Documents\AgeAgePlugin\AgeAgePlugin\obj\Debug\AgeAgePlugin.pdb
 C:\Users\pntas\Documents\AgeAgePlugin\AgeAgePlugin\obj\Debug\AgeAgePlugin.CustomizeVisibleForm.resources
+C:\Users\nishikawa\Documents\AgeAgePlugin\AgeAgePlugin\obj\Debug\AgeAgePlugin.CustomizeVisibleForm.resources
+C:\Users\nishikawa\Documents\AgeAgePlugin\AgeAgePlugin\obj\Debug\AgeAgePlugin.CustomizeNameSettingForm.resources

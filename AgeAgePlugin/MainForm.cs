@@ -20,6 +20,7 @@ namespace AgeAgePlugin
         private decimal beforeVersion { get; set; }
         private string Direct2 { get; set; }
         public static FormData PluginSet { get; set; }
+        public static Customize PluginSetCustomize { get; set; }
         public static ManifestJsonData Json { get; set; }
         private string UploaderArguments { get; set; }
         private string PackerArguments { get; set; }
@@ -141,7 +142,7 @@ namespace AgeAgePlugin
         }
         private async void button4_Click(object sender, EventArgs e)
         {
-            if (button4.Text == "実行")
+            if (button4.Text == "実行" && comboBox1.Enabled==true)
             {
                 if (!button8.Enabled) { MessageBox.Show("manifest.jsonが読み込まれていません"); return; }
                 beforeVersion = Json.version;
@@ -176,8 +177,8 @@ namespace AgeAgePlugin
             }
             else
             {
-                Flag = (Flag) ? Flag : false;
-                Flag2 = (Flag2) ? Flag2 : false;
+                Flag = (Flag) ? false : false;
+                Flag2 = (Flag2) ? false : false;
                 if (!Flag2) { backgroundWorker2.CancelAsync(); }
                 if (!Flag) { backgroundWorker1.CancelAsync(); }
                 await ButtonUp();
@@ -189,12 +190,12 @@ namespace AgeAgePlugin
             {
                 while (true)
                 {
+                    InvokeButton2();
                     if ((Flag && Flag2))
                     {
                         InvokeButton();
                         break;
                     }
-                    InvokeButton2();
                 }
                 return "Stop";
             });
@@ -461,6 +462,19 @@ namespace AgeAgePlugin
             comboBox1.Items.Clear();
             IEnumerable<FormData> sortfd = Default.fd.OrderBy(x => x.name);
             foreach (FormData data in sortfd)
+            {
+                comboBox1.Items.Add(data.name);
+            }
+            if (Default.PluginName != null)
+            {
+                comboBox1.SelectedItem = Default.PluginName;
+            }
+        }
+        public void CreateCustomizeList()
+        {
+            comboBox1.Items.Clear();
+            IEnumerable<Customize> sortfd = Default.customize.OrderBy(x => x.name);
+            foreach (Customize data in sortfd)
             {
                 comboBox1.Items.Add(data.name);
             }
@@ -847,18 +861,145 @@ namespace AgeAgePlugin
         {
             groupBox2.Visible = (checkBox4.Checked) ? false : true;
         }
-
+        private void LoadCustomizeListValue()
+        {
+            FormData SettingValue = Default.fd.Find(x => x.name == comboBox1.Text);
+            if (SettingValue != null)
+            {
+                textBox2.Text = SettingValue.url;
+                textBox3.Text = SettingValue.username;
+                textBox4.Text = SettingValue.password;
+                textBox5.Text = SettingValue.Direct;
+                PluginSet = SettingValue;
+                textBox2.Enabled = true;
+                textBox3.Enabled = true;
+                textBox4.Enabled = true;
+                textBox5.Enabled = true;
+                button3.Enabled = true;
+                button4.Enabled = true;
+                button1.Enabled = true;
+                button7.Enabled = true;
+                textBox6.Text = SettingValue.ppk;
+                if (textBox5.Text != "" && PluginSet.plusBool)
+                {
+                    button8.Enabled = true;
+                }
+                if (textBox5.Text != "")
+                {
+                    button9.Enabled = true;
+                }
+                else
+                {
+                    button9.Enabled = false;
+                }
+            }
+            else
+            {
+                textBox2.Text = "";
+                textBox3.Text = "";
+                textBox4.Text = "";
+                textBox5.Text = "";
+                textBox6.Text = "";
+                textBox2.Enabled = false;
+                textBox3.Enabled = false;
+                textBox4.Enabled = false;
+                textBox5.Enabled = false;
+                textBox6.Enabled = false;
+                button3.Enabled = false;
+                button4.Enabled = false;
+                button7.Enabled = false;
+                button1.Enabled = false;
+                button8.Enabled = false;
+                button9.Enabled = false;
+            }
+        }
         private void button12_Click(object sender, EventArgs e)
         {
+            this.Enabled = false;
             CustomizeVisibleForm customizeVisibleForm = new CustomizeVisibleForm();
             customizeVisibleForm.Show();
             List<CustomizeFileList> customizeFileLists = new List<CustomizeFileList>();
-            customizeFileLists.Add(new CustomizeFileList { fileDir = "test", fileExists = "test2" });
-            customizeFileLists.Add(new CustomizeFileList { fileDir = "test", fileExists = "test2" });
-            customizeFileLists.Add(new CustomizeFileList { fileDir = "test", fileExists = "test2" });
-            customizeFileLists.Add(new CustomizeFileList { fileDir = "test", fileExists = "test2" });
+            customizeFileLists.Add(new CustomizeFileList { fileDir = "test", fileExists = "FILE_NOT_FOUND" });
+            customizeFileLists.Add(new CustomizeFileList { fileDir = "test", fileExists = "FILE_NOT_FOUND" });
+            customizeFileLists.Add(new CustomizeFileList { fileDir = "test", fileExists = "FILE_NOT_FOUND" });
+            customizeFileLists.Add(new CustomizeFileList { fileDir = "test", fileExists = "FILE_NOT_FOUND" });
             customizeVisibleForm.lists = customizeFileLists;
+            customizeVisibleForm.dir = textBox11.Text;
+            customizeVisibleForm.mainForm = this;
             customizeVisibleForm.ListUpdate();
+        }
+
+        private void button18_Click(object sender, EventArgs e)
+        {
+            CustomizeNameSettingForm form2 = new CustomizeNameSettingForm();
+            form2.form1 = this;
+            form2.Show();
+            this.Enabled = false;
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            Customize SettingValue = Default.customize.Find(x => x.name == comboBox2.Text);
+            if (SettingValue != null)
+            {
+                if (MessageBox.Show("削除しますか？", "カスタマイズの設定の削除", MessageBoxButtons.YesNo) == DialogResult.No) { return; }
+                Default.fd.RemoveAll(x => x.name == comboBox2.Text);
+                Default.Save();
+                comboBox2.SelectedIndex = comboBox2.SelectedIndex - 1;
+                CreateCustomizeList();
+                LoadCustomizeListValue();
+                GetManifestCustomize(true);
+            }
+            else
+            {
+                return;
+            }
+        }
+        private ManifestJsonData GetManifestCustomize(bool MassegeBool)
+        {
+            PluginSetCustomize = Default.customize.Find(x => x.name == comboBox2.Text);
+            if (textBox5.Text != "")
+            {
+                try
+                {
+                    using (var sr = new StreamReader(textBox5.Text + @"\src\manifest.json"))
+                    {
+                        var jsonData = sr.ReadToEnd();
+                        Json = System.Text.Json.JsonSerializer.Deserialize<ManifestJsonData>(jsonData);
+                        if (PluginSet.plusBool)
+                        {
+                            PlusVersion = (Json.version + PluginSet.plus);
+                            label6.Text = "ver:" + Json.version + " →" + PlusVersion;
+                        }
+                        else
+                        {
+                            label6.Text = "ver:" + Json.version;
+                        }
+                        button8.Enabled = true;
+                        Console.WriteLine(Json.name.ja);
+                        return Json;
+                    }
+                }
+                catch
+                {
+                    button8.Enabled = false;
+                    PluginSet.plusBool = false;
+                    if (MassegeBool)
+                    {
+                        MessageBox.Show("manifest.jsonファイルが読み込めません");
+                    }
+                }
+            }
+            else
+            {
+                button8.Enabled = false;
+                if (comboBox1.Text != "")
+                {
+                    PluginSet.plusBool = false;
+                }
+            }
+            label6.Text = "ver:";
+            return Json;
         }
     }
 }
