@@ -13,6 +13,7 @@ namespace AgeAgePlugin
     public partial class CustomizeVisibleForm : Form
     {
         public List<CustomizeFileList> lists { get; set; }
+        public List<CustomizeFileList> cssLists { get; set; }
         public string dir { get; set; }
         public MainForm mainForm { get; set; }
         public CustomizeVisibleForm()
@@ -27,7 +28,14 @@ namespace AgeAgePlugin
                 listView1.Items.Add(new ListViewItem(vs));
             }
         }
-
+        public void CssListUpdate()
+        {
+            foreach (CustomizeFileList list in cssLists)
+            {
+                string[] vs = { list.fileDir.Replace(dir, ""), list.fileExists };
+                listView2.Items.Add(new ListViewItem(vs));
+            }
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             openFileDialog1.Multiselect = true;
@@ -52,7 +60,7 @@ namespace AgeAgePlugin
 
                     // リストボックスにファイル名を表示
                     listView1.Items.Add(new ListViewItem(vs));
-                    MainForm.CustomizeJson.desktop.js = GetListItem();
+                    MainForm.CustomizeJson.desktop.js = GetListItem(listView1);
                     mainForm.SaveManifestCustomize(false);
                 }
             }
@@ -70,25 +78,71 @@ namespace AgeAgePlugin
                     listView1.Items.Remove(item);
                 }
             }
-            MainForm.CustomizeJson.desktop.js =GetListItem();
+            MainForm.CustomizeJson.desktop.js =GetListItem(listView1);
             mainForm.SaveManifestCustomize(false);
         }
         private void CustomizeVisibleForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             mainForm.Enabled = true;
         }
-        private List<string> GetListItem()
+        private List<string> GetListItem(ListView listView)
         {
             List<string> fileDir=new List<string>();
-            if (listView1.Items.Count > 0)
+            if (listView.Items.Count > 0)
             {
-                foreach (ListViewItem item in listView1.Items)
+                foreach (ListViewItem item in listView.Items)
                 {
                     fileDir.Add((dir+item.SubItems[0].Text));
                 }
                 Console.WriteLine(fileDir);
             }
             return fileDir;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.Multiselect = true;
+
+            // フィルターの設定
+            openFileDialog1.Filter = "CSSファイル|*.CSS;*.css;*.scss;*.SCSS";
+
+            // ダイアログボックスの表示
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                // 選択されたファイルをテキストボックスに表示する
+                foreach (string strFilePath in openFileDialog1.FileNames)
+                {
+                    // ファイルパスからファイル名を取得
+                    if (!strFilePath.Contains(dir))
+                    {
+                        MessageBox.Show("メインフォームで入力したディレクトリの配下のファイルを選択してください");
+                        return;
+                    }
+                    string strResultPath = strFilePath.Replace(dir, "");
+                    string[] vs = { strResultPath, "" };
+
+                    // リストボックスにファイル名を表示
+                    listView2.Items.Add(new ListViewItem(vs));
+                    MainForm.CustomizeJson.desktop.css = GetListItem(listView2);
+                    mainForm.SaveManifestCustomize(false);
+                }
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            // 全リストを取得し、選択されているアイテムをリストビューから削除する
+            foreach (ListViewItem item in listView2.Items)
+            {
+                // 選択されているか確認する
+                if (item.Selected)
+                {
+
+                    listView2.Items.Remove(item);
+                }
+            }
+            MainForm.CustomizeJson.desktop.css = GetListItem(listView2);
+            mainForm.SaveManifestCustomize(false);
         }
     }
 }

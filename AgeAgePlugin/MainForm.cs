@@ -878,6 +878,7 @@ namespace AgeAgePlugin
                 textBox9.Text = SettingValue.username;
                 textBox10.Text = SettingValue.password;
                 textBox11.Text = SettingValue.Direct;
+                textBox7.Text = CustomizeJson.app;
                 textBox7.Enabled = (textBox7.Text != "") ? true : false;
                 textBox8.Enabled = true;
                 textBox9.Enabled = true;
@@ -895,6 +896,7 @@ namespace AgeAgePlugin
                 textBox9.Text = "";
                 textBox10.Text = "";
                 textBox11.Text = "";
+                textBox7.Text = "";
                 textBox8.Enabled = false;
                 textBox9.Enabled = false;
                 textBox10.Enabled = false;
@@ -913,16 +915,24 @@ namespace AgeAgePlugin
             CustomizeVisibleForm customizeVisibleForm = new CustomizeVisibleForm();
             customizeVisibleForm.Show();
             List<CustomizeFileList> customizeFileLists = new List<CustomizeFileList>();
+            List<CustomizeFileList> customizeCssFileLists = new List<CustomizeFileList>();
             Console.WriteLine(CustomizeJson);
             foreach (string jsFile in CustomizeJson.desktop.js)
             {
                 string fileExists = (System.IO.File.Exists(jsFile)) ? "" : "FILE_NOT_FOUND";
                 customizeFileLists.Add(new CustomizeFileList { fileDir = jsFile, fileExists = fileExists });
             }
+            foreach (string cssFile in CustomizeJson.desktop.css)
+            {
+                string fileExists = (System.IO.File.Exists(cssFile)) ? "" : "FILE_NOT_FOUND";
+                customizeCssFileLists.Add(new CustomizeFileList { fileDir = cssFile, fileExists = fileExists });
+            }
             customizeVisibleForm.lists = customizeFileLists;
+            customizeVisibleForm.cssLists = customizeCssFileLists;
             customizeVisibleForm.dir = textBox11.Text;
             customizeVisibleForm.mainForm = this;
             customizeVisibleForm.ListUpdate();
+            customizeVisibleForm.CssListUpdate();
         }
 
         private void button18_Click(object sender, EventArgs e)
@@ -1034,13 +1044,13 @@ namespace AgeAgePlugin
         {
             CustomizeJson.app = textBox7.Text;
             SaveManifestCustomize(false);
-            GetManifestCustomize(false);
+            GetManifestCustomize(true);
         }
 
         private void textBox11_TextChanged(object sender, EventArgs e)
         {
-            GetManifestCustomize(false);
-            textBox11.Text = button12.Enabled ? textBox11.Text : "";
+            GetManifestCustomize(true);
+            textBox11.Text = button12.Enabled ? textBox11.Text : textBox11.Text;
         }
     }
 }
