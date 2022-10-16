@@ -903,6 +903,26 @@ namespace AgeAgePlugin
             form3.form1 = this;
             form3.Show();
             this.Enabled = false;
+            form3.srcDir = @"\src\";
+            List<CustomizeFileList> customizejsFileLists = new List<CustomizeFileList>();
+            List<CustomizeFileList> customizeCssFileLists = new List<CustomizeFileList>();
+            Console.WriteLine(Json);
+            foreach (string jsFile in Json.desktop.js)
+            {
+                string fileExists = (System.IO.File.Exists(textBox5.Text +form3.srcDir+ jsFile)) ? "" : "FILE_NOT_FOUND";
+                customizejsFileLists.Add(new CustomizeFileList { fileDir = jsFile, fileExists = fileExists });
+            }
+            foreach (string cssFile in Json.desktop.css)
+            {
+                string fileExists = (System.IO.File.Exists(textBox5.Text +form3.srcDir+ cssFile)) ? "" : "FILE_NOT_FOUND";
+                customizeCssFileLists.Add(new CustomizeFileList { fileDir = cssFile, fileExists = fileExists });
+            }
+            form3.lists = customizejsFileLists;
+            form3.cssLists = customizeCssFileLists;
+            form3.dir = textBox5.Text;
+            form3.mainForm = this;
+            form3.ListUpdate();
+            form3.CssListUpdate();
         }
         public void SaveDefault()
         {
@@ -929,6 +949,12 @@ namespace AgeAgePlugin
                         if (ofd.FileName == "")
                         {
                             MessageBox.Show("ファイルを選択してください");
+                            return;
+                        }
+                        // ファイルパスからファイル名を取得
+                        if (!ofd.FileName.Contains(textBox5.Text))
+                        {
+                            MessageBox.Show("フォームで入力したディレクトリの配下のppkファイルを選択してください");
                             return;
                         }
                         textBox6.Text = Path.GetFileName(ofd.FileName);
