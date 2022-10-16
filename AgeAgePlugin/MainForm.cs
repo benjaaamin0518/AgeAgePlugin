@@ -181,7 +181,7 @@ namespace AgeAgePlugin
                 UploaderArguments = comandprocess.CreateUploaderArguments(Controller);
                 PackerPpkArguments = comandprocess.CreatePackerPpkArguments(Controller);
                 PackerArguments = comandprocess.CreatePackerArguments(Controller);
-                button4.Text = "実行中";
+                button4.Text = "実行を終了";
                 tokenSource = new CancellationTokenSource();
                 cancelToken = tokenSource.Token;
                 tokenSource2 = new CancellationTokenSource();
@@ -192,11 +192,18 @@ namespace AgeAgePlugin
             }
             else
             {
-                Flag = (Flag) ? false : false;
-                Flag2 = (Flag2) ? false : false;
-                if (!Flag2) { backgroundWorker2.CancelAsync(); }
-                if (!Flag) { backgroundWorker1.CancelAsync(); }
-                await ButtonUp();
+               DialogResult message= MessageBox.Show("実行を終了してもよろしいですか?",
+                                "終了の確認",
+                                MessageBoxButtons.OKCancel,
+                                MessageBoxIcon.Warning);
+                if (message==DialogResult.OK)
+                {
+                    Flag = (Flag) ? false : false;
+                    Flag2 = (Flag2) ? false : false;
+                    if (!Flag2) { backgroundWorker2.CancelAsync(); }
+                    if (!Flag) { backgroundWorker1.CancelAsync(); }
+                    await ButtonUp();
+                }
             }
         }
         private Task<string> ButtonUp()
@@ -1192,7 +1199,7 @@ namespace AgeAgePlugin
                 Controller.Password = textBox10.Text;
                 comandprocess = new ComandProcess();
                 UploaderArguments = comandprocess.CreateUploaderArguments(Controller);
-                button17.Text = "実行中";
+                button17.Text = "実行を終了";
                 tokenSource3 = new CancellationTokenSource();
                 cancelToken3 = tokenSource3.Token;
                 SaveManifestCustomize(true);
@@ -1200,12 +1207,18 @@ namespace AgeAgePlugin
             }
             else
             {
-                Flag3 = (Flag3) ? false : false;
-                if (!Flag3) { backgroundWorker3.CancelAsync(); }
-                await CustomizeButtonUp();
+                DialogResult message = MessageBox.Show("実行を終了してもよろしいですか?",
+                 "終了の確認",
+                 MessageBoxButtons.OKCancel,
+                 MessageBoxIcon.Warning);
+                if (message == DialogResult.OK)
+                {
+                    Flag3 = (Flag3) ? false : false;
+                    if (!Flag3) { backgroundWorker3.CancelAsync(); }
+                    await CustomizeButtonUp();
+                }
             }
         }
-
         private void button15_Click(object sender, EventArgs e)
         {
             Default.customize.RemoveAll(x => x.name == comboBox2.Text);
