@@ -13,21 +13,14 @@ namespace AgeAgePlugin
 {
     public partial class MainForm : Form
     {
-        internal static class AssemblyState
-        {
-            public const bool IsDebug =
-            #if DEBUG
-                true;
-            #else
-               false;
-            #endif
-            }
         public ManifestVisibleForm form3 { get; set; }
         private string Direct { get; set; }
         private int errorLevel { get; set; }
         private int errorLevel2 { get; set; }
+        private int errorLevel3 { get; set; }
         private decimal beforeVersion { get; set; }
         private string Direct2 { get; set; }
+        private string Direct3 { get; set; }
         public static FormData PluginSet { get; set; }
         public static Customize PluginSetCustomize { get; set; }
         public static ManifestJsonData Json { get; set; }
@@ -40,18 +33,24 @@ namespace AgeAgePlugin
         private ComandProcess comandprocess { get; set; }
         private Process PsInfo { get; set; }
         private Process PsInfo2 { get; set; }
+        private Process PsInfo3 { get; set; }
         private static bool Flag { get; set; }
         private static bool Flag2 { get; set; }
+        private static bool Flag3 { get; set; }
         private string output { get; set; }
         private decimal PlusVersion { get; set; }
         CancellationTokenSource tokenSource;
         CancellationToken cancelToken;
         CancellationTokenSource tokenSource2;
         CancellationToken cancelToken2;
+        CancellationTokenSource tokenSource3;
+        CancellationToken cancelToken3;
         public List<FormData> test { get; set; }
         public List<FormData> fd { get; set; }
         public string Error { get; set; }
         public string Error2 { get; set; }
+        public string Error3 { get; set; }
+        public bool isformEnabled { get; set; }
         public MainForm()
         {
             InitializeComponent();
@@ -217,6 +216,23 @@ namespace AgeAgePlugin
             });
             return task;
         }
+        private Task<string> CustomizeButtonUp()
+        {
+            Task<string> task = Task.Run(() =>
+            {
+                while (true)
+                {
+                    CsInvokeButton();
+                    if ((Flag3))
+                    {
+                        CsNormalInvokeButton();
+                        break;
+                    }
+                }
+                return "Stop";
+            });
+            return task;
+        }
         private async void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             Direct = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
@@ -292,25 +308,32 @@ namespace AgeAgePlugin
             }
             if (Error != "")
             {
+                isformEnabled = false;
+                this.FormEnabled();
                 MessageBox.Show(Error,
                   "kintone-plugin-uploaderのエラー",
                   MessageBoxButtons.OK,
                   MessageBoxIcon.Warning);
+                isformEnabled = true;
+                this.FormEnabled();
             }
 
             //form1.Text += "end!";
         }
         private Task<string> OutputHandler(string err)
         {
-            //* Do your stuff with the output (write to console/log/StringBuilder)
-
             Task<string> vs = Task.Run(() => { Error += err; return Error; });
             return vs;
         }
         private Task<string> OutputHandler2(string err)
         {
-            //* Do your stuff with the output (write to console/log/StringBuilder)
             Task<string> vs = Task.Run(() => { Error2 += err; return Error2; });
+            return vs;
+
+        }
+        private Task<string> OutputHandler3(string err)
+        {
+            Task<string> vs = Task.Run(() => { Error3 += err; return Error3; });
             return vs;
 
         }
@@ -354,6 +377,26 @@ namespace AgeAgePlugin
             });
             return "";
         }
+        public async Task<string> Ho3(Process PsInfo)
+        {
+            await Task.Run(() =>
+            {
+                if (cancelToken3.IsCancellationRequested)
+                {
+                    // キャンセルされたらTaskを終了する.
+                    return "Canceled";
+                }
+                try
+                {
+                    output = PsInfo3.StandardOutput.ReadLine();
+                    output = output?.Replace("\r\r\n", "\n"); // 改行コードの修正
+                    if (output != "") Invoke(output);
+                }
+                catch { }
+                return "";
+            });
+            return "";
+        }
         public void Invoke(string output)
         {
             if (this.InvokeRequired)
@@ -375,6 +418,19 @@ namespace AgeAgePlugin
             else
             {
                 this.ButtonUpdate();
+                return "out!";
+            }
+        }
+        public string CsNormalInvokeButton()
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action(this.CsNormalButtonUpdate));
+                return "ok";
+            }
+            else
+            {
+                this.CsNormalButtonUpdate();
                 return "out!";
             }
         }
@@ -400,6 +456,15 @@ namespace AgeAgePlugin
                 SaveManifestJson(false);
             }
         }
+        public void CsNormalButtonUpdate()
+        {
+            button17.Text = "実行";
+            button17.Enabled = true;
+            button11.Enabled = true;
+            comboBox2.Enabled = true;
+            button15.Enabled = true;
+            Console.WriteLine(errorLevel);
+        }
         public string InvokeButton2()
         {
             if (this.InvokeRequired)
@@ -413,11 +478,47 @@ namespace AgeAgePlugin
                 return "out";
             }
         }
+        public string CsInvokeButton()
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action(this.CsButtonUpdate));
+                return "ok";
+            }
+            else
+            {
+                this.CsButtonUpdate();
+                return "out";
+            }
+        }
+        public string FormEnabled()
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action(this.InvokeFormEnabled));
+                return "ok";
+            }
+            else
+            {
+                this.InvokeFormEnabled();
+                return "out";
+            }
+        }
+        public void InvokeFormEnabled()
+        {
+            this.Enabled = isformEnabled;
+        }
         public void ButtonUpdate2()
         {
             //button4.Enabled = false;
             button4.Enabled = false;
             button4.Text = "終了中";
+        }
+        public void CsButtonUpdate()
+        {
+            //button4.Enabled = false;
+            button17.Enabled = false;
+            button17.Text = "終了中";
         }
         public void UpdateText()
         {
@@ -455,6 +556,22 @@ namespace AgeAgePlugin
                     PsInfo2.Kill();
                     PsInfo2.WaitForExit();
                     errorLevel2 = PsInfo2.ExitCode;
+                }
+                catch { }
+                return "stop";
+            });
+            return task;
+        }
+        public Task<string> Stop3(Process PsInfo)
+        {
+            Task<string> task = Task.Run(() =>
+            {
+                try
+                {
+                    tokenSource3.Cancel();
+                    PsInfo3.Kill();
+                    PsInfo3.WaitForExit();
+                    errorLevel3 = PsInfo3.ExitCode;
                 }
                 catch { }
                 return "stop";
@@ -699,10 +816,14 @@ namespace AgeAgePlugin
             }
             if (Error2 != "")
             {
+                isformEnabled = false;
+                this.FormEnabled();
                 MessageBox.Show(Error2,
                   "kintone-plugin-packerのエラー",
                   MessageBoxButtons.OK,
                   MessageBoxIcon.Warning);
+                isformEnabled = true;
+                this.FormEnabled();
             }
             //form1.Text += "end!";
         }
@@ -1026,9 +1147,37 @@ namespace AgeAgePlugin
             }
         }
         //実行ボタン
-        private void button17_Click(object sender, EventArgs e)
+        private async void button17_Click(object sender, EventArgs e)
         {
-
+            if (button17.Text == "実行" && comboBox2.Enabled == true)
+            {
+                if (!button12.Enabled) { MessageBox.Show("manifest.jsonが読み込まれていません"); return; }
+                Error3 = "";
+                errorLevel3 = 0;
+                Flag3 = false;
+                button11.Enabled = false;
+                comboBox2.Enabled = false;
+                button15.Enabled = false;
+                textBox1.Text = (checkBox3.Checked) ? "" : textBox1.Text;
+                Controller Controller = new Controller();
+                Controller.Direct = textBox11.Text;
+                Controller.Url = textBox8.Text;
+                Controller.Username = textBox9.Text;
+                Controller.Password = textBox10.Text;
+                comandprocess = new ComandProcess();
+                UploaderArguments = comandprocess.CreateUploaderArguments(Controller);
+                button17.Text = "実行中";
+                tokenSource3 = new CancellationTokenSource();
+                cancelToken3 = tokenSource3.Token;
+                SaveManifestCustomize(true);
+                backgroundWorker3.RunWorkerAsync();
+            }
+            else
+            {
+                Flag3 = (Flag3) ? false : false;
+                if (!Flag3) { backgroundWorker3.CancelAsync(); }
+                await CustomizeButtonUp();
+            }
         }
 
         private void button15_Click(object sender, EventArgs e)
@@ -1062,6 +1211,82 @@ namespace AgeAgePlugin
         {
             GetManifestCustomize(true);
             textBox11.Text = button12.Enabled ? textBox11.Text : textBox11.Text;
+        }
+
+        private async void backgroundWorker3_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Direct3 = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+            Direct3 = Direct3 + @"\CustomizeProcess.bat";
+            
+            string command = Direct3;
+            string arguments = UploaderArguments;
+            Console.WriteLine(arguments);
+            ProcessStartInfo p = new ProcessStartInfo();
+            p.Arguments = arguments;
+            p.CreateNoWindow = true; // コンソールを開かない
+            p.UseShellExecute = false; // シェル機能を使用しない
+            p.StandardOutputEncoding = Encoding​.Default; // エンコーディング設定
+            p.FileName = command;
+            BackgroundWorker worker = (BackgroundWorker)sender;
+            p.RedirectStandardOutput = true; // 標準出力をリダイレクト
+            p.RedirectStandardError = true; // 標準出力をリダイレクト
+            PsInfo3 = Process.Start(p);
+            output = "";
+            Invoke(output);
+            Task<string> task2;
+            Task<string> task3;
+            while (!PsInfo3.HasExited)
+            {
+                task2 = Task.Run(async () =>
+                {
+                    return await Ho3(PsInfo3);
+                });
+                worker = (BackgroundWorker)sender;
+                //キャンセル判定
+                // senderの値はbgWorkerの値と同じ
+                Console.WriteLine("test" + worker.CancellationPending);
+                // 時間のかかる処理
+                // キャンセルされてないか定期的にチェック
+                if (worker.CancellationPending)
+                {
+                    task3 = Task.Run(async () =>
+                    {
+                        return await CustomizeButtonUp();
+                    });
+                    e.Cancel = true;
+                    await Stop3(PsInfo3);
+                    break;
+                }
+            }
+            //PsInfo.Dispose();
+            Console.WriteLine(worker.CancellationPending);
+            if (errorLevel3 != -1)
+            {
+                task3 = Task.Run(async () =>
+                {
+                    return await CustomizeButtonUp();
+                });
+                await OutputHandler3(PsInfo3.StandardError.ReadToEnd());
+            }
+            else
+            {
+                task3 = Task.Run(async () =>
+                {
+                    return await CustomizeButtonUp();
+                });
+            }
+            Flag3 = true;
+            if (Error3 != "")
+            {
+                isformEnabled = false;
+                this.FormEnabled();
+                MessageBox.Show(Error3,
+                  "kintone-customize-uploaderのエラー",
+                  MessageBoxButtons.OK,
+                  MessageBoxIcon.Warning);
+                isformEnabled = true;
+                this.FormEnabled();
+            }
         }
     }
 }

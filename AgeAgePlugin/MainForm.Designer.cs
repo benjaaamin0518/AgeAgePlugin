@@ -85,6 +85,7 @@ namespace AgeAgePlugin
             this.button17 = new System.Windows.Forms.Button();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.button18 = new System.Windows.Forms.Button();
+            this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
             this.groupBox1.SuspendLayout();
             this.tab.SuspendLayout();
             this.plugin.SuspendLayout();
@@ -666,6 +667,11 @@ namespace AgeAgePlugin
             this.button18.UseVisualStyleBackColor = true;
             this.button18.Click += new System.EventHandler(this.button18_Click);
             // 
+            // backgroundWorker3
+            // 
+            this.backgroundWorker3.WorkerSupportsCancellation = true;
+            this.backgroundWorker3.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker3_DoWork);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -754,6 +760,7 @@ namespace AgeAgePlugin
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.Button button12;
+        private System.ComponentModel.BackgroundWorker backgroundWorker3;
     }
 }
 

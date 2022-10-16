@@ -153,6 +153,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyState.cs" />
     <Compile Include="ComandProcess.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="Customize.cs" />
