@@ -412,7 +412,7 @@ namespace AgeAgePlugin
             this.plugin.Padding = new System.Windows.Forms.Padding(3);
             this.plugin.Size = new System.Drawing.Size(779, 317);
             this.plugin.TabIndex = 0;
-            this.plugin.Text = "プラグイン情報";
+            this.plugin.Text = "プラグイン用";
             // 
             // customize
             // 

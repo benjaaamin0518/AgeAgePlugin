@@ -170,3 +170,4 @@ C:\Users\pntas\Documents\AgeAgePlugin\AgeAgePlugin\obj\Debug\AgeAgePlugin.Custom
 C:\Users\nishikawa\Documents\AgeAgePlugin\AgeAgePlugin\obj\Debug\AgeAgePlugin.CustomizeVisibleForm.resources
 C:\Users\nishikawa\Documents\AgeAgePlugin\AgeAgePlugin\obj\Debug\AgeAgePlugin.CustomizeNameSettingForm.resources
 C:\Users\pntas\Documents\AgeAgePlugin\AgeAgePlugin\obj\Debug\AgeAgePlugin.CustomizeNameSettingForm.resources
+C:\Users\pntas\Documents\AgeAgePlugin\AgeAgePlugin\obj\Debug\AgeAgePlugin.csprojAssemblyReference.cache
