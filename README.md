@@ -1,23 +1,30 @@
 # AgeAgePlugin
 
-- kintoneのプラグインの開発の際に必要な複数の開発環境情報(URL/ユーザー名/パスワード/ディレクトリ/ppkファイル名)
-  を保存することが可能
+- kintoneのプラグイン/カスタマイズファイルの開発の際に必要な複数の開発環境情報を保存することが可能
 - create-pluginを用いてプラグインのひな型から作成可能
-- manifest.jsonのname/description/versionプロパティの値をソフトから変更可能
-- manifest.jsonのversionを実行ごとに任意のバージョン数更新する(自動バージョンアップ機能)
-- 実行ボタンを押下することにより、開発環境情報を用いてkintone-plugin-packer&kintone-plugin-uploader
+- プラグイン/カスタマイズファイル用の定義ファイルをソフトから変更可能
+
+<img src="https://user-images.githubusercontent.com/102705383/196067146-7082e1d6-79eb-4ad6-929b-5c8b72bf8f97.png" width="500px">
+<img src="https://user-images.githubusercontent.com/102705383/196067173-26b1ff48-d139-4b41-8a8e-42847b47ea26.png" width="500px">
+<img src="https://user-images.githubusercontent.com/102705383/196067188-8cca5144-2c52-45fe-a298-2d27254242c0.png" width="500px">
+
+- プラグインのバージョンを実行ごとに任意のバージョン数更新する(自動バージョンアップ機能)
+- タブ「プラグイン用」の実行ボタンを押下することにより、開発環境情報を用いてkintone-plugin-packer&kintone-plugin-uploader
   を並列に実行することが可能。
+- タブ「カスタマイズファイル用」の実行ボタンを押下することにより、開発環境情報を用いてkintone-customize-uploaderを実行することが可能。
 - 実行ログをソフト上で表示
 - 実行ログを任意の場所に保存することができる
 - 実行エラーログがMessageBoxにて確認することができる。
 
 # リリース
 
-・[v1.0.1(Pre-Release版)](https://github.com/nishikawa-r/AgeAgePlugin/releases)
+・[v2.0.0(Pre-Release版)](https://github.com/nishikawa-r/AgeAgePlugin/releases)
 
 # 画面
 
-![スクリーンショット 2022-09-02 231933](https://github.com/nishikawa-r/TestApplication/blob/main/View0905.png)
+![image](https://user-images.githubusercontent.com/102705383/196067079-b3ef32af-61e3-484d-b950-144ee32b39f9.png)
+![image](https://user-images.githubusercontent.com/102705383/196067057-fb856965-6e7d-44c0-a9eb-911e2e770f10.png)
+
 
 # License
 

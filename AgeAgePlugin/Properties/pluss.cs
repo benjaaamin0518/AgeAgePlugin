@@ -18,6 +18,14 @@ namespace AgeAgePlugin.Properties
             get => (List<FormData>)this[nameof(fd)];
             set => this[nameof(fd)] = value;
         }
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public List<Customize> customize
+        {
+            get => (List<Customize>)this[nameof(customize)];
+            set => this[nameof(customize)] = value;
+        }
     }
 
 }

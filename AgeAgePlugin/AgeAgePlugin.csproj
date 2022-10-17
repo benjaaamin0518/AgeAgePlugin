@@ -153,9 +153,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyState.cs" />
     <Compile Include="ComandProcess.cs" />
     <Compile Include="Controller.cs" />
+    <Compile Include="Customize.cs" />
+    <Compile Include="CustomizeFileList.cs" />
+    <Compile Include="CustomizeJsonData.cs" />
+    <Compile Include="CustomizeNameSettingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomizeNameSettingForm.Designer.cs">
+      <DependentUpon>CustomizeNameSettingForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ExecutionCondition.cs" />
+    <Compile Include="CustomizeVisibleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomizeVisibleForm.Designer.cs">
+      <DependentUpon>CustomizeVisibleForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="InstallConfirmationForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -188,6 +204,12 @@
     <Compile Include="ManifestJsonData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CustomizeNameSettingForm.resx">
+      <DependentUpon>CustomizeNameSettingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomizeVisibleForm.resx">
+      <DependentUpon>CustomizeVisibleForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="InstallConfirmationForm.resx">
       <DependentUpon>InstallConfirmationForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -214,6 +236,7 @@
     <None Include="AgeAgePlugin_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
+    <None Include="Properties\DataSources\CustomizeFileList.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

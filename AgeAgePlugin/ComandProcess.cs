@@ -17,17 +17,17 @@ namespace AgeAgePlugin
   
         public string CreateUploaderArguments(Controller controller)
         {
-            Arguments = controller.Direct+" "+controller.Url+" "+controller.Username+" "+controller.Password;
+            Arguments = "\""+controller.Direct + "\"" + " "+controller.Url+" "+controller.Username+" "+controller.Password;
             return Arguments;
         }
         public string CreatePackerArguments(Controller controller)
         {
-            Arguments = controller.Direct + " " + "src";
+            Arguments = "\""+controller.Direct+ "\"" + " " + "src";
             return Arguments;
         }
         public string CreatePackerPpkArguments(Controller controller)
         {
-            Arguments = controller.Direct +" " + "src" +" " + controller.ppk;
+            Arguments = "\""+controller.Direct+ "\"" + " " + "src" +" " + controller.ppk;
             return Arguments;
         }
     }

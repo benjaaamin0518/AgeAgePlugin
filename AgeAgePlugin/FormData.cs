@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AgeAgePlugin
 {
-    public class FormData
+    public class FormData 
     {
 
 

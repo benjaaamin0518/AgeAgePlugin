@@ -16,6 +16,11 @@ namespace AgeAgePlugin
         public MainForm form1 { get; set; }
         public FormData formData { get; set; }
         public bool CheckBool { get; set; }
+        public List<CustomizeFileList> lists { get; set; }
+        public List<CustomizeFileList> cssLists { get; set; }
+        public string dir { get; set; }
+        public MainForm mainForm { get; set; }
+        public string srcDir { get; set; }
 
 
         public ManifestVisibleForm()
@@ -92,6 +97,229 @@ namespace AgeAgePlugin
         {
             CheckBool = checkBox1.Checked;
             ChangeEnabledVersion();
+        }
+        public void ListUpdate()
+        {
+            foreach (CustomizeFileList list in lists)
+            {
+                string[] vs = { list.fileDir.Replace(dir, ""), list.fileExists };
+                listView1.Items.Add(new ListViewItem(vs));
+            }
+        }
+        public void CssListUpdate()
+        {
+            foreach (CustomizeFileList list in cssLists)
+            {
+                string[] vs = { list.fileDir.Replace(dir, ""), list.fileExists };
+                listView2.Items.Add(new ListViewItem(vs));
+            }
+        }
+        private void button4_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.Multiselect = true;
+            bool DuplicateErr = false;
+
+            // フィルターの設定
+            openFileDialog1.Filter = "JSファイル|*.JS;*.js";
+
+            // ダイアログボックスの表示
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                // 選択されたファイルをテキストボックスに表示する
+                foreach (string strFilePath in openFileDialog1.FileNames)
+                {
+                    // ファイルパスからファイル名を取得
+                    if (!strFilePath.Contains(dir))
+                    {
+                        MessageBox.Show("メインフォームで入力したディレクトリの配下のファイルを選択してください");
+                        return;
+                    }
+                    string strResultPath = strFilePath.Replace(dir + srcDir, "");
+                    DuplicateErr = (MainForm.Json.desktop.js.Where(x => x == strResultPath).Count() > 0) ? true : false;
+                    if (DuplicateErr)
+                    {
+                        MessageBox.Show("そのファイルは既に登録されています。");
+                        return;
+                    }
+                    string[] vs = { strResultPath, "" };
+
+                    // リストボックスにファイル名を表示
+                    listView1.Items.Add(new ListViewItem(vs));
+                    MainForm.Json.desktop.js = GetListItem(listView1);
+                    mainForm.SaveManifestJson(false);
+                }
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            // 全リストを取得し、選択されているアイテムをリストビューから削除する
+            foreach (ListViewItem item in listView1.Items)
+            {
+                // 選択されているか確認する
+                if (item.Selected)
+                {
+
+                    listView1.Items.Remove(item);
+                }
+            }
+            MainForm.Json.desktop.js = GetListItem(listView1);
+            mainForm.SaveManifestJson(false);
+        }
+        private List<string> GetListItem(ListView listView)
+        {
+            List<string> fileDir = new List<string>();
+            if (listView.Items.Count > 0)
+            {
+                foreach (ListViewItem item in listView.Items)
+                {
+                    fileDir.Add((item.SubItems[0].Text));
+                }
+                Console.WriteLine(fileDir);
+            }
+            return fileDir;
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            bool DuplicateErr = false;
+            openFileDialog1.Multiselect = true;
+
+            // フィルターの設定
+            openFileDialog1.Filter = "CSSファイル|*.CSS;*.css;*.scss;*.SCSS";
+
+            // ダイアログボックスの表示
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                // 選択されたファイルをテキストボックスに表示する
+                foreach (string strFilePath in openFileDialog1.FileNames)
+                {
+                    // ファイルパスからファイル名を取得
+                    if (!strFilePath.Contains(dir))
+                    {
+                        MessageBox.Show("メインフォームで入力したディレクトリの配下のファイルを選択してください");
+                        return;
+                    }
+                    string strResultPath = strFilePath.Replace(dir + srcDir, "");
+                    DuplicateErr = (MainForm.Json.desktop.css.Where(x => x == strResultPath).Count() > 0) ? true : false;
+                    if (DuplicateErr)
+                    {
+                        MessageBox.Show("そのファイルは既に登録されています。");
+                        return;
+                    }
+                    string[] vs = { strResultPath, "" };
+
+                    // リストボックスにファイル名を表示
+                    listView2.Items.Add(new ListViewItem(vs));
+                    MainForm.Json.desktop.css = GetListItem(listView2);
+                    mainForm.SaveManifestJson(false);
+                }
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            // 全リストを取得し、選択されているアイテムをリストビューから削除する
+            foreach (ListViewItem item in listView2.Items)
+            {
+                // 選択されているか確認する
+                if (item.Selected)
+                {
+
+                    listView2.Items.Remove(item);
+                }
+            }
+            MainForm.Json.desktop.css = GetListItem(listView2);
+            mainForm.SaveManifestJson(false);
+        }
+        private void listView1_MouseDoubleClick(object sender, EventArgs e)
+        {
+            // 全リストを取得し、選択されているアイテムをリストビューから削除する
+            foreach (ListViewItem item in listView1.Items)
+            {
+                // 選択されているか確認する
+                if (item.Selected)
+                {
+                    openFileDialog1.Multiselect = true;
+                    bool DuplicateErr = false;
+
+                    // フィルターの設定
+                    openFileDialog1.Filter = "JSファイル|*.JS;*.js";
+
+                    // ダイアログボックスの表示
+                    if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        // 選択されたファイルをテキストボックスに表示する
+                        foreach (string strFilePath in openFileDialog1.FileNames)
+                        {
+                            // ファイルパスからファイル名を取得
+                            if (!strFilePath.Contains(dir))
+                            {
+                                MessageBox.Show("メインフォームで入力したディレクトリの配下のファイルを選択してください");
+                                return;
+                            }
+                            string strResultPath = strFilePath.Replace(dir + srcDir, "");
+                            DuplicateErr = (item.Text != strResultPath && MainForm.Json.desktop.js.Where(x => x == strResultPath).Count() > 0) ? true : false;
+                            if (DuplicateErr)
+                            {
+                                MessageBox.Show("そのファイルは既に登録されています。");
+                                return;
+                            }
+
+                            // リストボックスにファイル名を表示
+                            item.SubItems[0].Text = strResultPath;
+                            item.SubItems[1].Text = "";
+                        }
+                    }
+                }
+            }
+            MainForm.Json.desktop.js = GetListItem(listView1);
+            mainForm.SaveManifestJson(false);
+        }
+
+        private void CustomizeJs_DoubleClick(object sender, EventArgs e)
+        {
+            // 全リストを取得し、選択されているアイテムをリストビューから削除する
+            foreach (ListViewItem item in listView1.Items)
+            {
+                // 選択されているか確認する
+                if (item.Selected)
+                {
+                    openFileDialog1.Multiselect = true;
+                    bool DuplicateErr = false;
+
+                    // フィルターの設定
+                    openFileDialog1.Filter = "CSSファイル|*.CSS;*.css;*.scss;*.SCSS";
+
+                    // ダイアログボックスの表示
+                    if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        // 選択されたファイルをテキストボックスに表示する
+                        foreach (string strFilePath in openFileDialog1.FileNames)
+                        {
+                            // ファイルパスからファイル名を取得
+                            if (!strFilePath.Contains(dir))
+                            {
+                                MessageBox.Show("メインフォームで入力したディレクトリの配下のファイルを選択してください");
+                                return;
+                            }
+                            string strResultPath = strFilePath.Replace(dir + srcDir, "");
+                            DuplicateErr = (item.Text != strResultPath && MainForm.Json.desktop.css.Where(x => x == strResultPath).Count() > 0) ? true : false;
+                            if (DuplicateErr)
+                            {
+                                MessageBox.Show("そのファイルは既に登録されています。");
+                                return;
+                            }
+
+                            // リストボックスにファイル名を表示
+                            item.SubItems[0].Text = strResultPath;
+                            item.SubItems[1].Text = "";
+                        }
+                    }
+                }
+            }
+            MainForm.Json.desktop.css = GetListItem(listView2);
+            mainForm.SaveManifestJson(false);
         }
     }
 }
