@@ -15,7 +15,13 @@
 - 実行ログをソフト上で表示
 - 実行ログを任意の場所に保存することができる
 - 実行エラーログがMessageBoxにて確認することができる。
-
+# インストール
+```
+npm install -g @kintone/create-plugin
+npm install -g @kintone/plugin-packer
+npm install -g @kintone/plugin-uploader
+npm install -g @kintone/customize-uploader
+```
 # リリース
 
 ・[v2.0.0(Pre-Release版)](https://github.com/nishikawa-r/AgeAgePlugin/releases)
