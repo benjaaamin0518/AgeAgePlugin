@@ -441,13 +441,31 @@ namespace AgeAgePlugin
                 return "out!";
             }
         }
+        private void InvokePluginButton()
+        {
+            while (!comboBox1.Enabled)
+                {
+                }
+                button4.Text = "実行";
+                button4.Enabled = true;
+                button3.Enabled = true;
+                button7.Enabled = true;
+        }
+        private void InvokeCustomizeButton()
+        {
+            while (!comboBox2.Enabled)
+            {
+                button17.Text = "終了中";
+                button17.Enabled = false;
+            }
+            button17.Text = "実行";
+            button11.Enabled = true;
+            button15.Enabled = true;
+            button17.Enabled = true;
+        }
         public void ButtonUpdate()
         {
-            button4.Text = "実行";
-            button4.Enabled = true;
-            button3.Enabled = true;
             comboBox1.Enabled = true;
-            button7.Enabled = true;
             Console.WriteLine(errorLevel);
             if (!(errorLevel != -1))
             {
@@ -462,14 +480,21 @@ namespace AgeAgePlugin
                 Json.version = beforeVersion;
                 SaveManifestJson(false);
             }
+            Task task = Task.Run(() =>
+            {
+                this.Invoke(new Action(this.InvokePluginButton));
+            });
         }
         public void CsNormalButtonUpdate()
         {
-            button17.Text = "実行";
-            button17.Enabled = true;
-            button11.Enabled = true;
+            button17.Text = "終了中";
+            button17.Enabled = false;
+
             comboBox2.Enabled = true;
-            button15.Enabled = true;
+            Task task = Task.Run(() =>
+            {
+                this.Invoke(new Action(this.InvokeCustomizeButton));
+            });
             Console.WriteLine(errorLevel);
         }
         public string InvokeButton2()
@@ -518,14 +543,13 @@ namespace AgeAgePlugin
         public void ButtonUpdate2()
         {
             //button4.Enabled = false;
-            button4.Enabled = false;
             button4.Text = "終了中";
+            button4.Enabled = false;
         }
         public void CsButtonUpdate()
         {
-            //button4.Enabled = false;
-            button17.Enabled = false;
             button17.Text = "終了中";
+            button17.Enabled = false;
         }
         public void UpdateText()
         {
