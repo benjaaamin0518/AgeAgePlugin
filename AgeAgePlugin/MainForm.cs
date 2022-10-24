@@ -51,6 +51,7 @@ namespace AgeAgePlugin
         public string Error2 { get; set; }
         public string Error3 { get; set; }
         public bool isformEnabled { get; set; }
+
         public MainForm()
         {
             InitializeComponent();
@@ -221,6 +222,7 @@ namespace AgeAgePlugin
                 }
                 return "Stop";
             });
+            Console.WriteLine("Perfect!!");
             return task;
         }
         private Task<string> CustomizeButtonUp()
@@ -306,15 +308,6 @@ namespace AgeAgePlugin
             Flag = true;
             if (Error != "")
             {
-                e.Cancel = true;
-                await Stop(PsInfo);
-            }
-            if (!PsInfo2.HasExited)
-            {
-                backgroundWorker2.CancelAsync();
-            }
-            if (Error != "")
-            {
                 isformEnabled = false;
                 this.FormEnabled();
                 MessageBox.Show(Error,
@@ -324,7 +317,15 @@ namespace AgeAgePlugin
                 isformEnabled = true;
                 this.FormEnabled();
             }
-
+            if (Error != "")
+            {
+                e.Cancel = true;
+                await Stop(PsInfo);
+            }
+            if (!PsInfo2.HasExited)
+            {
+                backgroundWorker2.CancelAsync();
+            }
             //form1.Text += "end!";
         }
         private Task<string> OutputHandler(string err)
@@ -838,15 +839,6 @@ namespace AgeAgePlugin
             Flag2 = true;
             if (Error2 != "")
             {
-                e.Cancel = true;
-                await Stop2(PsInfo2);
-            }
-            if (!PsInfo.HasExited)
-            {
-                backgroundWorker1.CancelAsync();
-            }
-            if (Error2 != "")
-            {
                 isformEnabled = false;
                 this.FormEnabled();
                 MessageBox.Show(Error2,
@@ -855,6 +847,15 @@ namespace AgeAgePlugin
                   MessageBoxIcon.Warning);
                 isformEnabled = true;
                 this.FormEnabled();
+            }
+            if (Error2 != "")
+            {
+                e.Cancel = true;
+                await Stop2(PsInfo2);
+            }
+            if (!PsInfo.HasExited)
+            {
+                backgroundWorker1.CancelAsync();
             }
             //form1.Text += "end!";
         }
