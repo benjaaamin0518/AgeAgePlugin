@@ -229,6 +229,12 @@ namespace AgeAgePlugin
                         break;
                     }
                 }
+                try
+                {
+                    process.Dispose();
+                    process2.Dispose();
+                }
+                catch { };
                 return "Stop";
             });
             return task;
@@ -248,6 +254,16 @@ namespace AgeAgePlugin
                         break;
                     }
                 }
+
+                Console.WriteLine("Complete!!");
+                try
+                {
+                    isformEnabled = true;
+                    FormEnabled();
+                    process3.Dispose();
+                }
+                catch { };
+
                 return "Stop";
             });
             return task;
@@ -281,7 +297,6 @@ namespace AgeAgePlugin
                 BackgroundWorker worker = (BackgroundWorker)sender;
                 output = "";
                 Invoke(output);
-                Task<string> task2;
                 Task<string> task3;
                 while (!process.HasExited)
                 {
@@ -299,14 +314,20 @@ namespace AgeAgePlugin
                         });
                         e.Cancel = true;
                         await Stop(process);
-                        process.WaitForExit();
-
+                        try
+                        {
+                            process.WaitForExit();
+                        }
+                        catch { };
                         break;
                     }
                 }
                 //PsInfo.Dispose();
-                process.WaitForExit();
-
+                try
+                {
+                    process.WaitForExit();
+                }
+                catch { };
                 Flag = true;
 
                 if (errorLevel != -1)
@@ -346,30 +367,14 @@ namespace AgeAgePlugin
                     {
                         backgroundWorker2.CancelAsync();
                     }
+                    process.CancelOutputRead(); // 使い終わったら止める
+                    process.CancelErrorRead();
                 }
                 catch { }
-                process.CancelOutputRead(); // 使い終わったら止める
-                process.CancelErrorRead();
+
 
                 //form1.Text += "end!";
             }
-        }
-        private Task<string> OutputHandler(string err)
-        {
-            Task<string> vs = Task.Run(() => { Error += err; return Error; });
-            return vs;
-        }
-        private Task<string> OutputHandler2(string err)
-        {
-            Task<string> vs = Task.Run(() => { Error2 += err; return Error2; });
-            return vs;
-
-        }
-        private Task<string> OutputHandler3(string err)
-        {
-            Task<string> vs = Task.Run(() => { Error3 += err; return Error3; });
-            return vs;
-
         }
         public async Task<string> Ho(Process PsInfo)
         {
@@ -830,7 +835,6 @@ namespace AgeAgePlugin
                 BackgroundWorker worker = (BackgroundWorker)sender;
                 output = "";
                 Invoke(output);
-                Task<string> task2;
                 Task<string> task3;
                 while (!process2.HasExited)
                 {
@@ -848,13 +852,19 @@ namespace AgeAgePlugin
                         });
                         e.Cancel = true;
                         await Stop2(process2);
-                        process2.WaitForExit();
-
+                        try
+                        {
+                            process2.WaitForExit();
+                        }
+                        catch { };
                         break;
                     }
                 }
-                process2.WaitForExit();
-
+                try
+                {
+                    process2.WaitForExit();
+                }
+                catch { };
                 //PsInfo.Dispose();
                 Console.WriteLine(worker.CancellationPending);
                 Flag2 = true;
@@ -884,8 +894,7 @@ namespace AgeAgePlugin
                     isformEnabled = true;
                     this.FormEnabled();
                 }
-                process2.CancelOutputRead(); // 使い終わったら止める
-                process2.CancelErrorRead();
+
 
                 if (Error2 != "")
                 {
@@ -898,8 +907,11 @@ namespace AgeAgePlugin
                     {
                         backgroundWorker1.CancelAsync();
                     }
+                    process2.CancelOutputRead(); // 使い終わったら止める
+                    process2.CancelErrorRead();
                 }
                 catch { }
+
                 //form1.Text += "end!";
             }
         }
@@ -1282,7 +1294,7 @@ namespace AgeAgePlugin
                  MessageBoxIcon.Warning);
                 if (message == DialogResult.OK)
                 {
-                    Flag3 = (Flag3) ? false : false;
+                    Flag3 = (Flag3) ? Flag3 : false;
                     if (!Flag3) { backgroundWorker3.CancelAsync(); }
                     await CustomizeButtonUp();
                 }
@@ -1385,16 +1397,14 @@ namespace AgeAgePlugin
 
                     Arguments = arguments
                 };
-                BackgroundWorker worker = (BackgroundWorker)sender;
                 process3.OutputDataReceived += OnStdOut3;
                 process3.ErrorDataReceived += OnStdError3;
                 process3.Start();
                 process3.BeginOutputReadLine();
                 process3.BeginErrorReadLine();
-                process3.WaitForExit();
+                BackgroundWorker worker = (BackgroundWorker)sender;
                 output = "";
                 Invoke(output);
-                Task<string> task2;
                 Task<string> task3;
                 while (!process3.HasExited)
                 {
@@ -1415,11 +1425,20 @@ namespace AgeAgePlugin
                         });
                         e.Cancel = true;
                         await Stop3(process3);
-                        process3.WaitForExit();
+                        try
+                        {
+                            process3.WaitForExit();
+                        }
+                        catch { };
                         break;
                     }
                 }
                 //PsInfo.Dispose();
+                try
+                {
+                    process3.WaitForExit();
+                }
+                catch { };
                 Console.WriteLine(worker.CancellationPending);
                 if (Error3 != "")
                 {
@@ -1432,8 +1451,7 @@ namespace AgeAgePlugin
                     isformEnabled = true;
                     this.FormEnabled();
                 }
-                process3.CancelOutputRead(); // 使い終わったら止める
-                process3.CancelErrorRead();
+                Flag3 = true;
                 if (errorLevel3 != -1)
                 {
                     task3 = Task.Run(async () =>
@@ -1448,8 +1466,11 @@ namespace AgeAgePlugin
                         return await CustomizeButtonUp();
                     });
                 }
-                Flag3 = true;
-
+                try
+                {
+                    process3.CancelOutputRead(); // 使い終わったら止める
+                    process3.CancelErrorRead();                }
+                catch { };
             }
         }
     }
