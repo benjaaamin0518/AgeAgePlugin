@@ -13,6 +13,9 @@ namespace AgeAgePlugin
 {
     public partial class MainForm : Form
     {
+        private Process process { get; set; }
+        private Process process2 { get; set; }
+        private Process process3 { get; set; }
         public ManifestVisibleForm form3 { get; set; }
         private string Direct { get; set; }
         private int errorLevel { get; set; }
@@ -199,8 +202,8 @@ namespace AgeAgePlugin
                                 MessageBoxIcon.Warning);
                 if (message==DialogResult.OK)
                 {
-                    Flag = (Flag) ? false : false;
-                    Flag2 = (Flag2) ? false : false;
+                    Flag = (Flag) ? Flag : false;
+                    Flag2 = (Flag2) ? Flag2 : false;
                     if (!Flag2) { backgroundWorker2.CancelAsync(); }
                     if (!Flag) { backgroundWorker1.CancelAsync(); }
                     await ButtonUp();
@@ -214,15 +217,26 @@ namespace AgeAgePlugin
                 while (true)
                 {
                     InvokeButton2();
+                    try { Flag = process.HasExited; }
+                    catch { Flag = true; };
+                    try { Flag2 = process2.HasExited; }
+                    catch { Flag2 = true; };
+                    Console.WriteLine(Flag);
+                    Console.WriteLine("Flag2"+Flag2);
                     if ((Flag && Flag2))
                     {
                         InvokeButton();
                         break;
                     }
                 }
+                try
+                {
+                    process.Dispose();
+                    process2.Dispose();
+                }
+                catch { };
                 return "Stop";
             });
-            Console.WriteLine("Perfect!!");
             return task;
         }
         private Task<string> CustomizeButtonUp()
@@ -232,12 +246,24 @@ namespace AgeAgePlugin
                 while (true)
                 {
                     CsInvokeButton();
+                    try { Flag3 = process3.HasExited; }
+                    catch { Flag3 = true; };
                     if ((Flag3))
                     {
                         CsNormalInvokeButton();
                         break;
                     }
                 }
+
+                Console.WriteLine("Complete!!");
+                try
+                {
+                    isformEnabled = true;
+                    FormEnabled();
+                    process3.Dispose();
+                }
+                catch { };
+
                 return "Stop";
             });
             return task;
@@ -249,101 +275,106 @@ namespace AgeAgePlugin
             string command = Direct;
             string arguments = UploaderArguments;
             Console.WriteLine(arguments);
-            ProcessStartInfo p = new ProcessStartInfo();
-            p.Arguments = arguments;
-            p.CreateNoWindow = true; // コンソールを開かない
-            p.UseShellExecute = false; // シェル機能を使用しない
-            p.StandardOutputEncoding = Encoding.Default; // エンコーディング設定
-            p.FileName = command;
-            BackgroundWorker worker = (BackgroundWorker)sender;
-            p.RedirectStandardOutput = true; // 標準出力をリダイレクト
-            p.RedirectStandardError = true; // 標準出力をリダイレクト
-            PsInfo = Process.Start(p);
-            output = "";
-            Invoke(output);
-            Task<string> task2;
-            Task<string> task3;
-            while (!PsInfo.HasExited)
+            using (process = new Process())
             {
-                task2 = Task.Run(async () =>
+                process.StartInfo = new ProcessStartInfo()
                 {
-                    return await Ho(PsInfo);
-                });
-                worker = (BackgroundWorker)sender;
-                //キャンセル判定
-                // senderの値はbgWorkerの値と同じ
-                Console.WriteLine("test2" + worker.CancellationPending);
-                // 時間のかかる処理
-                // キャンセルされてないか定期的にチェック
-                if (worker.CancellationPending || Flag2)
+                    FileName = command,
+
+                    UseShellExecute = false,
+                    CreateNoWindow = true,
+
+                    RedirectStandardOutput = true, // ログ出力に必要な設定(1)
+                    RedirectStandardError = true,
+
+                    Arguments = arguments
+                };
+                process.OutputDataReceived += OnStdOut;
+                process.ErrorDataReceived += OnStdError;
+                process.Start();
+                process.BeginOutputReadLine();
+                process.BeginErrorReadLine();
+                BackgroundWorker worker = (BackgroundWorker)sender;
+                output = "";
+                Invoke(output);
+                Task<string> task3;
+                while (!process.HasExited)
+                {
+                    worker = (BackgroundWorker)sender;
+                    //キャンセル判定
+                    // senderの値はbgWorkerの値と同じ
+                    Console.WriteLine("test2" + worker.CancellationPending);
+                    // 時間のかかる処理
+                    // キャンセルされてないか定期的にチェック
+                    if (worker.CancellationPending || Flag2)
+                    {
+                        task3 = Task.Run(async () =>
+                        {
+                            return await ButtonUp();
+                        });
+                        e.Cancel = true;
+                        await Stop(process);
+                        try
+                        {
+                            process.WaitForExit();
+                        }
+                        catch { };
+                        break;
+                    }
+                }
+                //PsInfo.Dispose();
+                try
+                {
+                    process.WaitForExit();
+                }
+                catch { };
+                Flag = true;
+
+                if (errorLevel != -1)
                 {
                     task3 = Task.Run(async () =>
                     {
                         return await ButtonUp();
                     });
-                    e.Cancel = true;
-                    await Stop(PsInfo);
-                    break;
                 }
-            }
-            //PsInfo.Dispose();
-
-
-            if (errorLevel != -1)
-            {
-                task3 = Task.Run(async () =>
+                else
                 {
-                    return await ButtonUp();
-                });
-                await OutputHandler(PsInfo.StandardError.ReadToEnd());
-            }
-            else
-            {
-                task3 = Task.Run(async () =>
+                    task3 = Task.Run(async () =>
+                    {
+                        return await ButtonUp();
+                    });
+                }
+                Console.WriteLine("エラー" + process.HasExited);
+                if (Error != "")
                 {
-                    return await ButtonUp();
-                });
-            }
-            Console.WriteLine("エラー" + PsInfo.HasExited);
-            Flag = true;
-            if (Error != "")
-            {
-                isformEnabled = false;
-                this.FormEnabled();
-                MessageBox.Show(Error,
-                  "kintone-plugin-uploaderのエラー",
-                  MessageBoxButtons.OK,
-                  MessageBoxIcon.Warning);
-                isformEnabled = true;
-                this.FormEnabled();
-            }
-            if (Error != "")
-            {
-                e.Cancel = true;
-                await Stop(PsInfo);
-            }
-            if (!PsInfo2.HasExited)
-            {
-                backgroundWorker2.CancelAsync();
-            }
-            //form1.Text += "end!";
-        }
-        private Task<string> OutputHandler(string err)
-        {
-            Task<string> vs = Task.Run(() => { Error += err; return Error; });
-            return vs;
-        }
-        private Task<string> OutputHandler2(string err)
-        {
-            Task<string> vs = Task.Run(() => { Error2 += err; return Error2; });
-            return vs;
+                    isformEnabled = false;
+                    this.FormEnabled();
+                    MessageBox.Show(Error,
+                      "kintone-plugin-uploaderのエラー",
+                      MessageBoxButtons.OK,
+                      MessageBoxIcon.Warning);
+                    isformEnabled = true;
+                    this.FormEnabled();
+                }
+                if (Error != "")
+                {
+                    e.Cancel = true;
+                    await Stop(process);
+                }
+                try
+                {
+                    if (!process2.HasExited)
+                    {
+                        backgroundWorker2.CancelAsync();
+                    }
+                    process.CancelOutputRead(); // 使い終わったら止める
+                    process.CancelErrorRead();
+                }
+                catch { }
 
-        }
-        private Task<string> OutputHandler3(string err)
-        {
-            Task<string> vs = Task.Run(() => { Error3 += err; return Error3; });
-            return vs;
 
+                //form1.Text += "end!";
+            }
         }
         public async Task<string> Ho(Process PsInfo)
         {
@@ -569,9 +600,9 @@ namespace AgeAgePlugin
                 try
                 {
                     tokenSource.Cancel();
-                    PsInfo.Kill();
-                    PsInfo.WaitForExit();
-                    errorLevel = PsInfo.ExitCode;
+                    process.Kill();
+                    process.WaitForExit();
+                    errorLevel = process.ExitCode;
                 }
                 catch { }
                 return "stop";
@@ -585,9 +616,9 @@ namespace AgeAgePlugin
                 try
                 {
                     tokenSource2.Cancel();
-                    PsInfo2.Kill();
-                    PsInfo2.WaitForExit();
-                    errorLevel2 = PsInfo2.ExitCode;
+                    process2.Kill();
+                    process2.WaitForExit();
+                    errorLevel2 = process2.ExitCode;
                 }
                 catch { }
                 return "stop";
@@ -601,9 +632,9 @@ namespace AgeAgePlugin
                 try
                 {
                     tokenSource3.Cancel();
-                    PsInfo3.Kill();
-                    PsInfo3.WaitForExit();
-                    errorLevel3 = PsInfo3.ExitCode;
+                    process3.Kill();
+                    process3.WaitForExit();
+                    errorLevel3 = process3.ExitCode;
                 }
                 catch { }
                 return "stop";
@@ -782,82 +813,107 @@ namespace AgeAgePlugin
             string command = Direct2;
             string arguments = (textBox6.Text != "") ? PackerPpkArguments : PackerArguments;
             Console.WriteLine(arguments);
-            ProcessStartInfo p = new ProcessStartInfo();
-            p.Arguments = arguments;
-            p.CreateNoWindow = true; // コンソールを開かない
-            p.UseShellExecute = false; // シェル機能を使用しない
-            p.StandardOutputEncoding = Encoding​.Default; // エンコーディング設定
-            p.FileName = command;
-            BackgroundWorker worker = (BackgroundWorker)sender;
-            p.RedirectStandardOutput = true; // 標準出力をリダイレクト
-            p.RedirectStandardError = true; // 標準出力をリダイレクト
-            PsInfo2 = Process.Start(p);
-            output = "";
-            Invoke(output);
-            Task<string> task2;
-            Task<string> task3;
-            while (!PsInfo2.HasExited)
+            using ( process2 = new Process())
             {
-                task2 = Task.Run(async () =>
+                process2.StartInfo = new ProcessStartInfo()
                 {
-                    return await Ho2(PsInfo2);
-                });
-                worker = (BackgroundWorker)sender;
-                //キャンセル判定
-                // senderの値はbgWorkerの値と同じ
-                Console.WriteLine("test" + worker.CancellationPending);
-                // 時間のかかる処理
-                // キャンセルされてないか定期的にチェック
-                if (worker.CancellationPending)
+                    FileName = command,
+
+                    UseShellExecute = false,
+                    CreateNoWindow = true,
+
+                    RedirectStandardOutput = true, // ログ出力に必要な設定(1)
+                    RedirectStandardError = true,
+
+                    Arguments = arguments
+                };
+                process2.OutputDataReceived += OnStdOut2;
+                process2.ErrorDataReceived += OnStdError2;
+                process2.Start();
+                process2.BeginOutputReadLine();
+                process2.BeginErrorReadLine();
+                BackgroundWorker worker = (BackgroundWorker)sender;
+                output = "";
+                Invoke(output);
+                Task<string> task3;
+                while (!process2.HasExited)
+                {
+                    worker = (BackgroundWorker)sender;
+                    //キャンセル判定
+                    // senderの値はbgWorkerの値と同じ
+                    Console.WriteLine("test" + worker.CancellationPending);
+                    // 時間のかかる処理
+                    // キャンセルされてないか定期的にチェック
+                    if (worker.CancellationPending)
+                    {
+                        task3 = Task.Run(async () =>
+                        {
+                            return await ButtonUp();
+                        });
+                        e.Cancel = true;
+                        await Stop2(process2);
+                        try
+                        {
+                            process2.WaitForExit();
+                        }
+                        catch { };
+                        break;
+                    }
+                }
+                try
+                {
+                    process2.WaitForExit();
+                }
+                catch { };
+                //PsInfo.Dispose();
+                Console.WriteLine(worker.CancellationPending);
+                Flag2 = true;
+
+                if (errorLevel2 != -1)
                 {
                     task3 = Task.Run(async () =>
                     {
                         return await ButtonUp();
                     });
-                    e.Cancel = true;
-                    await Stop2(PsInfo2);
-                    break;
                 }
-            }
-            //PsInfo.Dispose();
-            Console.WriteLine(worker.CancellationPending);
-            if (errorLevel2 != -1)
-            {
-                task3 = Task.Run(async () =>
+                else
                 {
-                    return await ButtonUp();
-                });
-                await OutputHandler2(PsInfo2.StandardError.ReadToEnd());
-            }
-            else
-            {
-                task3 = Task.Run(async () =>
+                    task3 = Task.Run(async () =>
+                    {
+                        return await ButtonUp();
+                    });
+                }
+                if (Error2 != "")
                 {
-                    return await ButtonUp();
-                });
+                    isformEnabled = false;
+                    this.FormEnabled();
+                    MessageBox.Show(Error2,
+                      "kintone-plugin-packerのエラー",
+                      MessageBoxButtons.OK,
+                      MessageBoxIcon.Warning);
+                    isformEnabled = true;
+                    this.FormEnabled();
+                }
+
+
+                if (Error2 != "")
+                {
+                    e.Cancel = true;
+                    await Stop2(process2);
+                }
+                try
+                {
+                    if (!process.HasExited)
+                    {
+                        backgroundWorker1.CancelAsync();
+                    }
+                    process2.CancelOutputRead(); // 使い終わったら止める
+                    process2.CancelErrorRead();
+                }
+                catch { }
+
+                //form1.Text += "end!";
             }
-            Flag2 = true;
-            if (Error2 != "")
-            {
-                isformEnabled = false;
-                this.FormEnabled();
-                MessageBox.Show(Error2,
-                  "kintone-plugin-packerのエラー",
-                  MessageBoxButtons.OK,
-                  MessageBoxIcon.Warning);
-                isformEnabled = true;
-                this.FormEnabled();
-            }
-            if (Error2 != "")
-            {
-                e.Cancel = true;
-                await Stop2(PsInfo2);
-            }
-            if (!PsInfo.HasExited)
-            {
-                backgroundWorker1.CancelAsync();
-            }
-            //form1.Text += "end!";
         }
         public ManifestJsonData GetManifestVersion(bool MassegeBool)
         {
@@ -1238,7 +1294,7 @@ namespace AgeAgePlugin
                  MessageBoxIcon.Warning);
                 if (message == DialogResult.OK)
                 {
-                    Flag3 = (Flag3) ? false : false;
+                    Flag3 = (Flag3) ? Flag3 : false;
                     if (!Flag3) { backgroundWorker3.CancelAsync(); }
                     await CustomizeButtonUp();
                 }
@@ -1276,7 +1332,49 @@ namespace AgeAgePlugin
             GetManifestCustomize(true);
             textBox11.Text = button12.Enabled ? textBox11.Text : textBox11.Text;
         }
-
+        public void OnStdOut(object sender, DataReceivedEventArgs e)
+        {
+            try
+            {
+                output = e.Data;
+                output = output?.Replace("\r\r\n", "\n"); // 改行コードの修正
+                if (output != "") Invoke(output);
+            }
+            catch { };
+        }
+        public void OnStdError(object sender, DataReceivedEventArgs e)
+        {
+            Error += e.Data;
+            Console.WriteLine(Error);
+        }
+        public void OnStdOut2(object sender, DataReceivedEventArgs e)
+        {
+            try
+            {
+                output = e.Data;
+                output = output?.Replace("\r\r\n", "\n"); // 改行コードの修正
+                if (output != "") Invoke(output);
+            }
+            catch { };
+        }
+        public void OnStdError2(object sender, DataReceivedEventArgs e)
+        {
+            Error2 += e.Data;
+        }
+        public void OnStdOut3(object sender, DataReceivedEventArgs e)
+        {
+                try
+                {
+                    output = e.Data;
+                    output = output?.Replace("\r\r\n", "\n"); // 改行コードの修正
+                    if (output != "") Invoke(output);
+                }
+                catch { };
+        }
+        public void OnStdError3(object sender, DataReceivedEventArgs e)
+        {
+            Error3+=e.Data;
+        }
         private async void backgroundWorker3_DoWork(object sender, DoWorkEventArgs e)
         {
             Direct3 = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
@@ -1285,71 +1383,94 @@ namespace AgeAgePlugin
             string command = Direct3;
             string arguments = UploaderArguments;
             Console.WriteLine(arguments);
-            ProcessStartInfo p = new ProcessStartInfo();
-            p.Arguments = arguments;
-            p.CreateNoWindow = true; // コンソールを開かない
-            p.UseShellExecute = false; // シェル機能を使用しない
-            p.StandardOutputEncoding = Encoding​.Default; // エンコーディング設定
-            p.FileName = command;
-            BackgroundWorker worker = (BackgroundWorker)sender;
-            p.RedirectStandardOutput = true; // 標準出力をリダイレクト
-            p.RedirectStandardError = true; // 標準出力をリダイレクト
-            PsInfo3 = Process.Start(p);
-            output = "";
-            Invoke(output);
-            Task<string> task2;
-            Task<string> task3;
-            while (!PsInfo3.HasExited)
+            using ( process3 = new Process())
             {
-                task2 = Task.Run(async () =>
+                process3.StartInfo = new ProcessStartInfo()
                 {
-                    return await Ho3(PsInfo3);
-                });
-                worker = (BackgroundWorker)sender;
-                //キャンセル判定
-                // senderの値はbgWorkerの値と同じ
-                Console.WriteLine("test" + worker.CancellationPending);
-                // 時間のかかる処理
-                // キャンセルされてないか定期的にチェック
-                if (worker.CancellationPending)
+                    FileName = command,
+
+                    UseShellExecute = false,
+                    CreateNoWindow = true,
+
+                    RedirectStandardOutput = true, // ログ出力に必要な設定(1)
+                    RedirectStandardError = true,
+
+                    Arguments = arguments
+                };
+                process3.OutputDataReceived += OnStdOut3;
+                process3.ErrorDataReceived += OnStdError3;
+                process3.Start();
+                process3.BeginOutputReadLine();
+                process3.BeginErrorReadLine();
+                BackgroundWorker worker = (BackgroundWorker)sender;
+                output = "";
+                Invoke(output);
+                Task<string> task3;
+                while (!process3.HasExited)
+                {
+
+                    //await Ho3(process);
+
+                    worker = (BackgroundWorker)sender;
+                    //キャンセル判定
+                    // senderの値はbgWorkerの値と同じ
+                    Console.WriteLine("test" + worker.CancellationPending);
+                    // 時間のかかる処理
+                    // キャンセルされてないか定期的にチェック
+                    if (worker.CancellationPending)
+                    {
+                        task3 = Task.Run(async () =>
+                        {
+                            return await CustomizeButtonUp();
+                        });
+                        e.Cancel = true;
+                        await Stop3(process3);
+                        try
+                        {
+                            process3.WaitForExit();
+                        }
+                        catch { };
+                        break;
+                    }
+                }
+                //PsInfo.Dispose();
+                try
+                {
+                    process3.WaitForExit();
+                }
+                catch { };
+                Console.WriteLine(worker.CancellationPending);
+                if (Error3 != "")
+                {
+                    isformEnabled = false;
+                    this.FormEnabled();
+                    MessageBox.Show(Error3,
+                      "kintone-customize-uploaderのエラー",
+                      MessageBoxButtons.OK,
+                      MessageBoxIcon.Warning);
+                    isformEnabled = true;
+                    this.FormEnabled();
+                }
+                Flag3 = true;
+                if (errorLevel3 != -1)
                 {
                     task3 = Task.Run(async () =>
                     {
                         return await CustomizeButtonUp();
                     });
-                    e.Cancel = true;
-                    await Stop3(PsInfo3);
-                    break;
                 }
-            }
-            //PsInfo.Dispose();
-            Console.WriteLine(worker.CancellationPending);
-            if (errorLevel3 != -1)
-            {
-                task3 = Task.Run(async () =>
+                else
                 {
-                    return await CustomizeButtonUp();
-                });
-                await OutputHandler3(PsInfo3.StandardError.ReadToEnd());
-            }
-            else
-            {
-                task3 = Task.Run(async () =>
+                    task3 = Task.Run(async () =>
+                    {
+                        return await CustomizeButtonUp();
+                    });
+                }
+                try
                 {
-                    return await CustomizeButtonUp();
-                });
-            }
-            Flag3 = true;
-            if (Error3 != "")
-            {
-                isformEnabled = false;
-                this.FormEnabled();
-                MessageBox.Show(Error3,
-                  "kintone-customize-uploaderのエラー",
-                  MessageBoxButtons.OK,
-                  MessageBoxIcon.Warning);
-                isformEnabled = true;
-                this.FormEnabled();
+                    process3.CancelOutputRead(); // 使い終わったら止める
+                    process3.CancelErrorRead();                }
+                catch { };
             }
         }
     }
