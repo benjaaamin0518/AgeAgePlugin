@@ -231,6 +231,8 @@ namespace AgeAgePlugin
                 }
                 try
                 {
+                    isformEnabled = true;
+                    this.FormEnabled();
                     process.Dispose();
                     process2.Dispose();
                 }
@@ -286,7 +288,8 @@ namespace AgeAgePlugin
 
                     RedirectStandardOutput = true, // ログ出力に必要な設定(1)
                     RedirectStandardError = true,
-
+                    StandardOutputEncoding = Encoding.UTF8, // エンコーディング設定
+                    StandardErrorEncoding = Encoding.UTF8, // エンコーディング設定
                     Arguments = arguments
                 };
                 process.OutputDataReceived += OnStdOut;
@@ -344,7 +347,6 @@ namespace AgeAgePlugin
                         return await ButtonUp();
                     });
                 }
-                Console.WriteLine("エラー" + process.HasExited);
                 if (Error != "")
                 {
                     isformEnabled = false;
@@ -824,7 +826,8 @@ namespace AgeAgePlugin
 
                     RedirectStandardOutput = true, // ログ出力に必要な設定(1)
                     RedirectStandardError = true,
-
+                    StandardOutputEncoding = Encoding.UTF8, // エンコーディング設定
+                    StandardErrorEncoding = Encoding.UTF8, // エンコーディング設定
                     Arguments = arguments
                 };
                 process2.OutputDataReceived += OnStdOut2;
@@ -1394,7 +1397,8 @@ namespace AgeAgePlugin
 
                     RedirectStandardOutput = true, // ログ出力に必要な設定(1)
                     RedirectStandardError = true,
-
+                    StandardOutputEncoding = Encoding.UTF8, // エンコーディング設定
+                    StandardErrorEncoding = Encoding.UTF8, // エンコーディング設定
                     Arguments = arguments
                 };
                 process3.OutputDataReceived += OnStdOut3;
