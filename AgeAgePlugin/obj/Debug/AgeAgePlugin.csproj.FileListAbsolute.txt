@@ -171,3 +171,7 @@ C:\Users\nishikawa\Documents\AgeAgePlugin\AgeAgePlugin\obj\Debug\AgeAgePlugin.Cu
 C:\Users\nishikawa\Documents\AgeAgePlugin\AgeAgePlugin\obj\Debug\AgeAgePlugin.CustomizeNameSettingForm.resources
 C:\Users\pntas\Documents\AgeAgePlugin\AgeAgePlugin\obj\Debug\AgeAgePlugin.CustomizeNameSettingForm.resources
 C:\Users\pntas\Documents\AgeAgePlugin\AgeAgePlugin\obj\Debug\AgeAgePlugin.csprojAssemblyReference.cache
+C:\Users\nishikawa\Documents\AgeAgePlugin\AgeAgePlugin\obj\Debug\AgeAgePlugin.csproj.AssemblyReference.cache
+C:\Users\nishikawa\Documents\AgeAgePlugin\AgeAgePlugin\obj\Debug\AgeAgePlugin.csproj.SuggestedBindingRedirects.cache
+C:\Users\nishikawa\Documents\AgeAgePlugin\AgeAgePlugin\obj\Debug\AgeAgePlugin.URLExListAddForm.resources
+C:\Users\nishikawa\Documents\AgeAgePlugin\AgeAgePlugin\obj\Debug\AgeAgePlugin.URLExManifestListAddForm.resources
