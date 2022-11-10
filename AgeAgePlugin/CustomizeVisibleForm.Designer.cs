@@ -44,6 +44,8 @@
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
             this.customizeFileListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.CustomizeJs.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -68,6 +70,7 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tabPage1.Controls.Add(this.button5);
             this.tabPage1.Controls.Add(this.listView1);
             this.tabPage1.Controls.Add(this.button2);
             this.tabPage1.Controls.Add(this.button1);
@@ -107,7 +110,7 @@
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button2.Location = new System.Drawing.Point(207, 377);
+            this.button2.Location = new System.Drawing.Point(267, 377);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(88, 42);
             this.button2.TabIndex = 2;
@@ -118,7 +121,7 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button1.Location = new System.Drawing.Point(69, 377);
+            this.button1.Location = new System.Drawing.Point(143, 377);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(88, 42);
             this.button1.TabIndex = 1;
@@ -129,6 +132,7 @@
             // CustomizeCss
             // 
             this.CustomizeCss.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.CustomizeCss.Controls.Add(this.button6);
             this.CustomizeCss.Controls.Add(this.listView2);
             this.CustomizeCss.Controls.Add(this.button3);
             this.CustomizeCss.Controls.Add(this.button4);
@@ -168,7 +172,7 @@
             // button3
             // 
             this.button3.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button3.Location = new System.Drawing.Point(207, 377);
+            this.button3.Location = new System.Drawing.Point(267, 377);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(88, 42);
             this.button3.TabIndex = 5;
@@ -179,13 +183,35 @@
             // button4
             // 
             this.button4.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button4.Location = new System.Drawing.Point(69, 377);
+            this.button4.Location = new System.Drawing.Point(143, 377);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(88, 42);
             this.button4.TabIndex = 4;
             this.button4.Text = "追加";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button5
+            // 
+            this.button5.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button5.Location = new System.Drawing.Point(19, 377);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(88, 42);
+            this.button5.TabIndex = 3;
+            this.button5.Text = "URL追加";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button6
+            // 
+            this.button6.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button6.Location = new System.Drawing.Point(19, 377);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(88, 42);
+            this.button6.TabIndex = 6;
+            this.button6.Text = "URL追加";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // customizeFileListBindingSource
             // 
@@ -228,5 +254,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
     }
 }
