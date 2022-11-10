@@ -204,6 +204,18 @@
     <Compile Include="ManifestJsonData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="URLExListAddForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="URLExListAddForm.Designer.cs">
+      <DependentUpon>URLExListAddForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="URLExManifestListAddForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="URLExManifestListAddForm.Designer.cs">
+      <DependentUpon>URLExManifestListAddForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="CustomizeNameSettingForm.resx">
       <DependentUpon>CustomizeNameSettingForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -233,6 +245,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="URLExListAddForm.resx">
+      <DependentUpon>URLExListAddForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="URLExManifestListAddForm.resx">
+      <DependentUpon>URLExManifestListAddForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="AgeAgePlugin_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
@@ -263,7 +281,7 @@
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.NetCore.DesktopRuntime.5.0.x86">
       <Visible>False</Visible>
-      <ProductName>.NET デスクトップ ランタイムム 5.0.5 %28x86%29</ProductName>
+      <ProductName>.NET デスクトップ ランタイム 5.0.17 %28x86%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>

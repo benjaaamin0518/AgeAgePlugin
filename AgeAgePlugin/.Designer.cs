@@ -56,6 +56,8 @@ namespace AgeAgePlugin
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
             this.CustomizeJs.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -177,7 +179,6 @@ namespace AgeAgePlugin
             this.CustomizeJs.SelectedIndex = 0;
             this.CustomizeJs.Size = new System.Drawing.Size(385, 499);
             this.CustomizeJs.TabIndex = 16;
-            this.CustomizeJs.DoubleClick += new System.EventHandler(this.CustomizeJs_DoubleClick);
             // 
             // tabPage2
             // 
@@ -203,6 +204,7 @@ namespace AgeAgePlugin
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tabPage1.Controls.Add(this.button7);
             this.tabPage1.Controls.Add(this.listView1);
             this.tabPage1.Controls.Add(this.button3);
             this.tabPage1.Controls.Add(this.button4);
@@ -242,7 +244,7 @@ namespace AgeAgePlugin
             // button3
             // 
             this.button3.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button3.Location = new System.Drawing.Point(207, 377);
+            this.button3.Location = new System.Drawing.Point(267, 377);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(88, 42);
             this.button3.TabIndex = 2;
@@ -253,7 +255,7 @@ namespace AgeAgePlugin
             // button4
             // 
             this.button4.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button4.Location = new System.Drawing.Point(69, 377);
+            this.button4.Location = new System.Drawing.Point(143, 377);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(88, 42);
             this.button4.TabIndex = 1;
@@ -264,6 +266,7 @@ namespace AgeAgePlugin
             // CustomizeCss
             // 
             this.CustomizeCss.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.CustomizeCss.Controls.Add(this.button8);
             this.CustomizeCss.Controls.Add(this.listView2);
             this.CustomizeCss.Controls.Add(this.button5);
             this.CustomizeCss.Controls.Add(this.button6);
@@ -288,6 +291,7 @@ namespace AgeAgePlugin
             this.listView2.TabIndex = 3;
             this.listView2.UseCompatibleStateImageBehavior = false;
             this.listView2.View = System.Windows.Forms.View.Details;
+            this.listView2.DoubleClick += new System.EventHandler(this.CustomizeJs_DoubleClick);
             // 
             // columnHeader3
             // 
@@ -302,7 +306,7 @@ namespace AgeAgePlugin
             // button5
             // 
             this.button5.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button5.Location = new System.Drawing.Point(207, 377);
+            this.button5.Location = new System.Drawing.Point(267, 377);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(88, 42);
             this.button5.TabIndex = 5;
@@ -313,7 +317,7 @@ namespace AgeAgePlugin
             // button6
             // 
             this.button6.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button6.Location = new System.Drawing.Point(69, 377);
+            this.button6.Location = new System.Drawing.Point(143, 377);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(88, 42);
             this.button6.TabIndex = 4;
@@ -324,6 +328,28 @@ namespace AgeAgePlugin
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // button7
+            // 
+            this.button7.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button7.Location = new System.Drawing.Point(19, 377);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(88, 42);
+            this.button7.TabIndex = 7;
+            this.button7.Text = "URL追加";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // button8
+            // 
+            this.button8.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button8.Location = new System.Drawing.Point(19, 377);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(88, 42);
+            this.button8.TabIndex = 8;
+            this.button8.Text = "URL追加";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // ManifestVisibleForm
             // 
@@ -376,5 +402,7 @@ namespace AgeAgePlugin
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button8;
     }
 }
