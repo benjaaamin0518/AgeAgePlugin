@@ -177,7 +177,8 @@ namespace AgeAgePlugin
                         InputUrl = item.Text;
                         InputUrlType = "js";
                         UrlListVisible();
-                        item.Text = InputUrl;
+                        item.SubItems[0].Text = InputUrl;
+                        item.SubItems[1].Text = "";
                     }
                     else
                     {
@@ -208,7 +209,8 @@ namespace AgeAgePlugin
                                 }
 
                                 // リストボックスにファイル名を表示
-                                item.Text = strResultPath;
+                                item.SubItems[0].Text = strResultPath;
+                                item.SubItems[1].Text = "";
                             }
                         }
                     }
@@ -232,7 +234,8 @@ namespace AgeAgePlugin
                         InputUrl = item.Text;
                         InputUrlType = "css";
                         UrlListVisible();
-                        item.Text = InputUrl;
+                        item.SubItems[0].Text = InputUrl;
+                        item.SubItems[1].Text = "";
                     }
                     else
                     {
@@ -263,7 +266,8 @@ namespace AgeAgePlugin
                                 }
 
                                 // リストボックスにファイル名を表示
-                                item.Text = strResultPath;
+                                item.SubItems[0].Text = strResultPath;
+                                item.SubItems[1].Text = "";
                             }
                         }
                     }
