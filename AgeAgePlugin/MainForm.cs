@@ -5,10 +5,15 @@ using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Security.Policy;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.WebRequestMethods;
+
 namespace AgeAgePlugin
 {
     public partial class MainForm : Form
@@ -144,7 +149,7 @@ namespace AgeAgePlugin
             string uploderErr = (executionCondition.UploaderExecution() != 9009) ? "" : "・kintone-plugin-uploaderがインストールされていません\n\n";
             installConfirmationForm.parsent = 60;
             installConfirmationForm.InstallProgress("kintone-plugin-packerのインストールを確認しています");
-            string PackerErr = (executionCondition.PackerExecution() != 9009) ? "" : "・kintone-plugin-packerがインストールされていません";
+            string PackerErr = (executionCondition.PackerExecution() != 9009) ? "" : "・kintone-plugin-packerがインストールされていません\n\n";
             installConfirmationForm.parsent = 80;
             installConfirmationForm.InstallProgress("kintone-customize-uploaderのインストールを確認しています");
             string CustomizeErr = (executionCondition.CustomizeExecution() != 9009) ? "" : "・kintone-customize-uploaderがインストールされていません";
@@ -998,14 +1003,41 @@ namespace AgeAgePlugin
             List<CustomizeFileList> customizejsFileLists = new List<CustomizeFileList>();
             List<CustomizeFileList> customizeCssFileLists = new List<CustomizeFileList>();
             Console.WriteLine(Json);
+            string fileExists = "";
             foreach (string jsFile in Json.desktop.js)
             {
-                string fileExists = (System.IO.File.Exists(textBox5.Text +form3.srcDir+ jsFile)) ? "" : "FILE_NOT_FOUND";
+                bool response = false;
+                if (Regex.IsMatch(jsFile, @"^s?https?://[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#]+$"))
+                {
+                    using (HttpClient client = new HttpClient())
+                    {
+                        response = client.GetAsync(jsFile).Result.IsSuccessStatusCode;
+                        Console.WriteLine(response);
+                        fileExists = (response) ? "" : "URL_NOT_SUCCESSFUL";
+                    }
+                }
+                else
+                {
+                    fileExists = (System.IO.File.Exists(textBox5.Text + form3.srcDir + jsFile)) ? "" : "FILE_NOT_FOUND";
+                }
                 customizejsFileLists.Add(new CustomizeFileList { fileDir = jsFile, fileExists = fileExists });
             }
             foreach (string cssFile in Json.desktop.css)
             {
-                string fileExists = (System.IO.File.Exists(textBox5.Text +form3.srcDir+ cssFile)) ? "" : "FILE_NOT_FOUND";
+                bool response = false;
+                if (Regex.IsMatch(cssFile, @"^s?https?://[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#]+$"))
+                {
+                    using (HttpClient client = new HttpClient())
+                    {
+                        response = client.GetAsync(cssFile).Result.IsSuccessStatusCode;
+                        Console.WriteLine(response);
+                        fileExists = (response) ? "" : "URL_NOT_SUCCESSFUL";
+                    }
+                }
+                else
+                {
+                    fileExists = (System.IO.File.Exists(textBox5.Text + form3.srcDir + cssFile)) ? "" : "FILE_NOT_FOUND";
+                }
                 customizeCssFileLists.Add(new CustomizeFileList { fileDir = cssFile, fileExists = fileExists });
             }
             form3.lists = customizejsFileLists;
@@ -1166,14 +1198,41 @@ namespace AgeAgePlugin
             List<CustomizeFileList> customizeFileLists = new List<CustomizeFileList>();
             List<CustomizeFileList> customizeCssFileLists = new List<CustomizeFileList>();
             Console.WriteLine(CustomizeJson);
+            string fileExists="";
             foreach (string jsFile in CustomizeJson.desktop.js)
             {
-                string fileExists = (System.IO.File.Exists(jsFile)) ? "" : "FILE_NOT_FOUND";
+                bool response=false;
+                if (Regex.IsMatch(jsFile, @"^s?https?://[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#]+$"))
+                {
+                    using (HttpClient client = new HttpClient())
+                    {
+                        response = client.GetAsync(jsFile).Result.IsSuccessStatusCode;
+                        Console.WriteLine(response);
+                        fileExists = (response) ? "" : "URL_NOT_SUCCESSFUL";
+                    }
+                }
+                else
+                {
+                    fileExists = (System.IO.File.Exists(jsFile)) ? "" : "FILE_NOT_FOUND";
+                }
                 customizeFileLists.Add(new CustomizeFileList { fileDir = jsFile, fileExists = fileExists });
             }
             foreach (string cssFile in CustomizeJson.desktop.css)
             {
-                string fileExists = (System.IO.File.Exists(cssFile)) ? "" : "FILE_NOT_FOUND";
+                bool response = false;
+                if (Regex.IsMatch(cssFile, @"^s?https?://[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#]+$"))
+                {
+                    using (HttpClient client = new HttpClient())
+                    {
+                        response = client.GetAsync(cssFile).Result.IsSuccessStatusCode;
+                        Console.WriteLine(response);
+                        fileExists = (response) ? "" : "URL_NOT_SUCCESSFUL";
+                    }
+                }
+                else
+                {
+                    fileExists = (System.IO.File.Exists(cssFile)) ? "" : "FILE_NOT_FOUND";
+                }
                 customizeCssFileLists.Add(new CustomizeFileList { fileDir = cssFile, fileExists = fileExists });
             }
             customizeVisibleForm.lists = customizeFileLists;
