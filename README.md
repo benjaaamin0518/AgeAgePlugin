@@ -23,7 +23,7 @@ npm install -g @kintone/plugin-uploader
 npm install -g @kintone/customize-uploader
 ```
 # ドキュメント
-[AgeAgePlugin利用方法](https://github.com/nishikawa-r/AgeAgePlugin/blob/main/AgeAgePlugin%E5%88%A9%E7%94%A8%E6%96%B9%E6%B3%95.pdf)
+[AgeAgePlugin利用方法](https://github.com/nishikawa-r/AgeAgePlugin/blob/main/Document-AgeAgePlugin-v1.pdf)
 # リリース
 
 ・[v1.1.5(Pre-Release版)](https://github.com/nishikawa-r/AgeAgePlugin/releases)
