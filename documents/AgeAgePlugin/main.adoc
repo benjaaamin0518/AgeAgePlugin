@@ -1,0 +1,41 @@
+= AgeAgePlugin 利用方法
+nishikawa-r
+第1版
+:encoding: utf-8
+:lang: ja
+:doctype: book
+:toc: left
+:toc-title: 目次
+:sectanchors:
+:sectlinks:
+:sectnums:
+:section-refsig:
+:version-label:
+:chapter-label:
+:figure-caption: 図
+:table-caption: 表
+:last-update-label!:
+:icons: font
+:pdf-fontsdir: ../resources/fonts
+:pdf-style: ../resources/themes/pdf_theme.yml
+:xrefstyle: full
+:scripts: cjk
+ 
+:product-name: SmartFit03
+ 
+include::__intro.adoc[]
+
+include::__intro2.adoc[]
+
+include::01_app-AgeAgePlgn.adoc[]
+
+include::02_app-AgeAgePlgn.adoc[]
+
+include::03_app-AgeAgePlgn.adoc[]
+
+include::04_app-AgeAgePlgn.adoc[]
+
+include::CHANGES_app-AgeAgePlgn.adoc[]
+
+
+ 
