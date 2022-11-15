@@ -1,0 +1,192 @@
+font:
+  catalog:
+    MPlus:
+      normal: mplus-1p-regular.ttf
+      bold: mplus-1p-bold.ttf
+      italic: mplus-1p-regular.ttf
+      bold_italic: mplus-1p-bold.ttf
+    MPlusMono:
+      normal: mplus-1m-regular.ttf
+      bold: mplus-1m-bold.ttf
+      italic: mplus-1m-regular.ttf
+      bold_italic: mplus-1m-bold.ttf
+    # M+ 1p supports Latin, Latin-1 Supplement, Latin Extended, Greek, Cyrillic, Vietnamese, Japanese & an assortment of symbols
+    # It also provides arrows for ->, <-, => and <= replacements in case these glyphs are missing from font
+    M+ 1p Fallback:
+      normal: mplus1p-regular-fallback.ttf
+      bold: mplus1p-regular-fallback.ttf
+      italic: mplus1p-regular-fallback.ttf
+      bold_italic: mplus1p-regular-fallback.ttf
+  fallbacks:
+    - M+ 1p Fallback
+page:
+  background_color: ffffff
+  layout: portrait
+  margin: [20mm, 15mm, 15mm, 15mm]
+  size: A4
+base:
+  font_color: 333333
+  font_family: MPlus
+  font_size: 10.5
+  line_height_length: 15
+  line_height: $base_line_height_length / $base_font_size
+  font_size_large: round($base_font_size * 1.25)
+  font_size_small: round($base_font_size * 0.85)
+  font_size_min: $base_font_size * 0.75
+  font_style: normal
+  align: left
+  border_radius: 4
+  border_width: 0.5
+  border_color: eeeeee
+vertical_rhythm: $base_line_height_length
+horizontal_rhythm: $base_line_height_length
+link:
+  font_color: 428bca
+literal:
+  font_color: b12146
+  font_family: MPlusMono
+heading:
+  font_color: 2d466b
+  font_family: $base_font_family
+  h1_font_size: floor($base_font_size * 2.4)
+  h2_font_size: floor($base_font_size * 1.8)
+  h3_font_size: round($base_font_size * 1.5)
+  h4_font_size: $base_font_size_large
+  h5_font_size: $base_font_size
+  h6_font_size: $base_font_size_small
+  font_style: bold
+  line_height: 1
+  margin_top: $vertical_rhythm * 0.4
+  margin_bottom: $vertical_rhythm * 0.8
+title_page:
+  align: right
+  title_top: 40%
+  title_font_size: $heading_h1_font_size
+  title_font_color: 666666
+  title_line_height: 1.5
+  subtitle_font_size: $heading_h2_font_size
+  subtitle_font_style: bold
+  subtitle_line_height: 1
+  authors_margin_top: $base_font_size * 1.25
+  authors_font_size: $heading_h2_font_size
+  authors_font_color: 181818
+  revision_margin_top: $base_font_size * 1.25
+  revision_font_size: $heading_h2_font_size
+block:
+  padding: [$vertical_rhythm, $vertical_rhythm * 1.25, $vertical_rhythm, $vertical_rhythm * 1.25]
+caption:
+  font_color: 2d466b
+  align: left
+  margin_inside: $vertical_rhythm * 0.25
+  margin_outside: 0
+code:
+  font_color: $base_font_color
+  font_family: $literal_font_family
+  font_size: 10
+  padding: $code_font_size
+  line_height: 1.25
+  background_color: f5f5f5
+  border_color: cccccc
+  border_radius: $base_border_radius
+  border_width: 0.75
+blockquote:
+  font_color: $base_font_color
+  font_size: $base_font_size_large
+  border_width: 5
+  border_color: $base_border_color
+  cite_font_size: $base_font_size_small
+  cite_font_color: 999999
+sidebar:
+  border_color: $page_background_color
+  border_radius: $base_border_radius
+  border_width: $base_border_width
+  background_color: eeeeee
+  title_font_color: $heading_font_color
+  title_font_family: $heading_font_family
+  title_font_size: $heading_h4_font_size
+  title_font_style: $heading_font_style
+  title_align: center
+example:
+  border_color: $base_border_color
+  border_radius: $base_border_radius
+  border_width: 0.75
+  background_color: transparent
+admonition:
+  border_color: $base_border_color
+  border_width: 0
+conum:
+  font_family: $literal_font_family
+  font_color: $literal_font_color
+  font_size: $base_font_size
+  line_height: 4 / 3
+image:
+  align_default: left
+  scaled_width_default: 0.5
+lead:
+  font_size: $base_font_size_large
+  line_height: 1.4
+abstract:
+  font_color: 5c6266
+  font_size: $lead_font_size
+  line_height: $lead_line_height
+  font_style: italic
+thematic_break:
+  border_color: $base_border_color
+  margin_top: $vertical_rhythm * 0.5
+  margin_bottom: $vertical_rhythm * 1.5
+description_list:
+  term_font_style: bold
+  description_indent: $horizontal_rhythm * 1.25
+outline_list:
+  indent: $horizontal_rhythm * 1.5
+  item_spacing: $vertical_rhythm / 2
+table:
+  head_font_style: bold
+  font_size: $base_font_size_min
+  head_background_color: f0f0f0
+  background_color: $page_background_color
+  even_row_background_color: fcfcfc
+  foot_background_color: f0f0f0
+  border_color: dddddd
+  border_width: $base_border_width
+  cell_padding: 3
+toc:
+  indent: $horizontal_rhythm
+  dot_leader_color: dddddd
+  line_height: 1.8
+header:
+  font_size: $base_font_size_small
+  font_color: $base_font_color
+  border_color: dddddd
+  border_width: 0.25
+  height: $base_line_height_length * 2.0
+  padding: [$base_line_height_length, 1, 0, 1]
+  valign: bottom
+  recto:
+    left:
+      content: '{document-title}'
+    right:
+      content: '{document-subtitle}'
+  verso:
+    left:
+      content: '{document-title}'
+    right:
+      content: '{document-subtitle}'
+footer:
+  font_size: $base_font_size_small
+  font_color: $base_font_color
+  border_color: dddddd
+  border_width: 0.25
+  height: $base_line_height_length * 2.0
+  padding: [0, 1, $base_line_height_length / 2, 1]
+  valign: top
+  recto:
+    center:
+      content: '{page-number} / {page-count}'
+    right:
+      content: ''
+  verso:
+    center:
+      content: '{page-number} / {page-count}'
+    left:
+      content: ''
