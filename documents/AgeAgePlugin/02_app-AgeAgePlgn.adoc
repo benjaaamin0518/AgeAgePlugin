@@ -1,0 +1,449 @@
+== 画面仕様書
+=== メイン画面
+
+==== タブ「プラグイン用」
+image::images/plugin-tab-screen-design.svg[]
+
+.タブ「プラグイン用」の項目{counter2:rownum:0}
+:!rownum:
+[cols=">1,6,18"]
+|===
+^|No. ^|画面オブジェクト ^|説明
+ 
+| {counter:rownum}
+| プラグインアップロード環境名選択コンボボックス
+| 保存されているプラグインをアップロードする環境名の選択を行う。
+ 
+| {counter:rownum}
+| プラグインアップロード環境名追加ボタン
+| プラグインをアップロードする環境名の追加を行う。
+押下時、プラグイン名の作成画面に遷移する。
+
+| {counter:rownum}
+| プラグインアップロード環境削除ボタン
+| プラグインをアップロードする環境情報の削除を行う。
+
+| {counter:rownum}
+| 詳細情報非表示チェックボックス
+| チェック時に詳細情報を非表示にする
+
+| {counter:rownum}
+| URL
+| プラグインのアップロードを行うkintone環境のURLを入力するテキストボックス
+
+| {counter:rownum}
+| ユーザー名
+| プラグインのアップロードを行うkintone環境にて管理者権限を持つユーザーのユーザー名を入力するテキストボックス
+
+| {counter:rownum}
+| パスワード
+| プラグインのアップロードを行うkintone環境にて管理者権限を持つユーザーのパスワードを入力するテキストボックス
+
+| {counter:rownum}
+| パスワード伏字切り替えボタン
+| パスワードの伏字を表示/非表示に切り替えるボタン
+
+| {counter:rownum}
+| プラグインファイルディレクトリ
+| アップロードを行うプラグインのディレクトリが入るテキストボックス
+
+| {counter:rownum}
+| プラグインファイルディレクトリ参照ボタン
+| アップロードを行うプラグインのディレクトリ参照ボタン
+
+| {counter:rownum}
+| マニフェスト変更ボタン
+| プラグインのmanifest.jsonの値の変更を行うボタン。
+押下時、manifest.jsonの変更画面に遷移する。
+
+| {counter:rownum}
+| プラグインのバージョン数
+| プラグインのmanifest.jsonに定義されているバージョン数が表示される。 +
+※自動バージョンアップ有効時は `[現時点のバージョン]→[アップロード実行時のバージョン]` となる。
+
+| {counter:rownum}
+| ppkファイルディレクトリ
+| ppkファイルのディレクトリが入るテキストボックス
+
+| {counter:rownum}
+| ppkファイル参照ボタン
+| ppkファイルの参照ボタン
+
+| {counter:rownum}
+| プラグイン環境詳細情報保存ボタン
+| 詳細情報を保存するボタン。
+
+| {counter:rownum}
+| 実行ログ保存ボタン
+| 押下時、ログ内容を任意の場所に保存するボタン。
+
+| {counter:rownum}
+| 実行ボタン
+| 詳細情報の値を元にplugin-packer/plugin-uploaderを並列に実行するボタン。
+
+| {counter:rownum}
+| 実行ログクリアチェックボックス
+| チェック時、実行するたびににログ内容をクリアにする
+
+| {counter:rownum}
+| ログ内容
+| 標準出力される文字列をログとして表示する。
+
+|===
+==== タブ「カスタマイズファイル用」
+image::images/customize-tab-screen-design.svg[]
+
+.タブ「カスタマイズファイル用」の項目{counter2:rownum:0}
+:!rownum:
+[cols=">1,6,18"]
+|===
+^|No. ^|画面オブジェクト ^|説明
+ 
+| {counter:rownum}
+| カスタマイズファイルアップロード環境選択コンボボックス
+| 保存されているカスタマイズファイルをアップロードする環境の選択を行う。
+ 
+| {counter:rownum}
+| カスタマイズファイルアップロード環境名追加ボタン
+| カスタマイズファイルをアップロードする環境名情報の追加を行う。
+押下時、カスタマイズ名の作成画面に遷移する。
+
+| {counter:rownum}
+| カスタマイズファイルアップロード環境削除ボタン
+| カスタマイズファイルをアップロードする環境情報の削除を行う。
+
+| {counter:rownum}
+| 詳細情報非表示チェックボックス
+| チェック時に詳細情報を非表示にする
+
+| {counter:rownum}
+| URL
+| カスタマイズファイルのアップロードを行うkintone環境のURLを入力するテキストボックス
+
+| {counter:rownum}
+| ユーザー名
+| カスタマイズファイルのアップロードを行うkintone環境にて管理者権限を持つユーザーのユーザー名を入力するテキストボックス
+
+| {counter:rownum}
+| パスワード
+| カスタマイズファイルのアップロードを行うkintone環境にて管理者権限を持つユーザーのパスワードを入力するテキストボックス
+
+| {counter:rownum}
+| パスワード伏字切り替えボタン
+| パスワードの伏字を表示/非表示に切り替えるボタン
+
+| {counter:rownum}
+| カスタマイズファイルディレクトリ
+| アップロードを行うカスタマイズファイルのディレクトリが入るテキストボックス
+
+| {counter:rownum}
+| カスタマイズファイルディレクトリ参照ボタン
+| アップロードを行うカスタマイズファイルのディレクトリ参照ボタン
+
+| {counter:rownum}
+| マニフェスト変更ボタン
+| カスタマイズファイルのcustomize-manifest.jsonの値の変更を行うボタン。
+押下時、customize-manifest.jsonの変更画面に遷移する。
+
+| {counter:rownum}
+| アプリID
+| カスタマイズファイルをアップロードするアプリのIDが入るテキストボックス
+
+| {counter:rownum}
+| カスタマイズファイル環境詳細情報保存ボタン
+| 詳細情報を保存するボタン。
+
+| {counter:rownum}
+| 実行ログ保存ボタン
+| 押下時、ログ内容を任意の場所に保存するボタン。
+
+| {counter:rownum}
+| 実行ボタン
+| 詳細情報の値を元にcustomize-uploaderを実行するボタン。
+
+| {counter:rownum}
+| 実行ログクリアチェックボックス
+| チェック時、実行するたびににログ内容をクリアにする
+
+| {counter:rownum}
+| ログ内容
+| 標準出力される文字列をログとして表示する。
+
+|===
+=== プラグイン名の作成画面
+image::images/plugin-name-setting-screen-design.svg[]
+
+.プラグイン名の作成画面の項目{counter2:rownum:0}
+:!rownum:
+[cols=">1,6,18"]
+|===
+^|No. ^|画面オブジェクト ^|説明
+ 
+| {counter:rownum}
+| プラグインの環境名入力用のテキストボックス
+| プラグインの環境名選択項目に使用する名前を入力する。
+ 
+| {counter:rownum}
+| create-plugin実行選択チェックボックス
+| チェック時、OKボタン押下後、create-pluginを実行しプラグインのひな型を任意のディレクトリに作成する。
+
+| {counter:rownum}
+| キャンセルボタン
+| プラグイン環境名の作成をキャンセルする。
+
+| {counter:rownum}
+| OKボタン
+| プラグインの環境名を環境名選択項目として追加する。
+
+|===
+=== manifest.json変更画面
+==== タブ「基本情報」
+image::images/manifest-visible-basic-tab-scree-design.svg[]
+.タブ「基本情報」の項目{counter2:rownum:0}
+:!rownum:
+[cols=">1,6,18"]
+|===
+^|No. ^|画面オブジェクト ^|説明
+ 
+| {counter:rownum}
+| プラグイン名
+| プラグインの名前を入力する。
+ 
+| {counter:rownum}
+| プラグイン説明
+| プラグインの説明を入力する。
+
+| {counter:rownum}
+| プラグインバージョン数
+| プラグインのバージョン数を入力する。
+
+| {counter:rownum}
+| プラグインアップロード実行時プラスするバージョン数コンボボックス
+| プラグインアップロード実行時にプラスするバージョン数を選択 or 入力する
+
+| {counter:rownum}
+| プラグイン自動バージョンアップチェックボックス
+| チェック時に実行した際、プラグインアップロード実行時プラスするバージョン数コンボボックスの値分をバージョン数にプラスした形で定義ファイルを上書きする。
+
+| {counter:rownum}
+| キャンセルボタン
+| manifest.jsonの変更をキャンセルする。
+
+| {counter:rownum}
+| 変更保存ボタン
+| 押下時、manifest.jsonに変更を加える。
+
+|===
+
+==== タブ「JS」
+image::images/manifest-visible-js-tab-scree-design.svg[]
+.タブ「JS」の項目{counter2:rownum:0}
+:!rownum:
+[cols=">1,6,18"]
+|===
+^|No. ^|画面オブジェクト ^|説明
+ 
+| {counter:rownum}
+| ディレクトリ
+| manifest.jsonに定義されているjsファイルのディレクトリ/URLが表示される。 +
+ダブルクリック:JSファイル=>ディレクトリ変更 +
+            　URL=>URL変更画面に遷移する。
+ 
+| {counter:rownum}
+| ファイルチェック
+| ファイル/URLの存在確認の結果が表示される。 +
+JSファイル=>有:空,無:FILE_NOT_FOUND +
+            　URL=>有:空,無:URL_NOT_SUCCESSFULL
+
+| {counter:rownum}
+| URL追加ボタン
+| URLを追加します。
+押下時、URL追加画面に遷移する。
+
+| {counter:rownum}
+| 追加ボタン
+| JSファイルのディレクトリを追加します。
+押下時、ディレクトリ選択を行い選択したディレクトリの値がディレクトリに追加されます。
+
+| {counter:rownum}
+| 削除ボタン
+| 選択したディレクトリをリストから削除します。
+|===
+
+==== タブ「CSS」
+image::images/manifest-visible-css-tab-scree-design.svg[]
+.タブ「CSS」の項目{counter2:rownum:0}
+:!rownum:
+[cols=">1,6,18"]
+|===
+^|No. ^|画面オブジェクト ^|説明
+ 
+| {counter:rownum}
+| ディレクトリ
+| manifest.jsonに定義されているcssファイルのディレクトリ/URLが表示される。 +
+ダブルクリック:cssファイル=>ディレクトリ変更 +
+            　URL=>URL変更画面に遷移する。
+ 
+| {counter:rownum}
+| ファイルチェック
+| ファイル/URLの存在確認の結果が表示される。 +
+cssファイル=>有:空,無:FILE_NOT_FOUND +
+            　URL=>有:空,無:URL_NOT_SUCCESSFULL
+
+| {counter:rownum}
+| URL追加ボタン
+| URLを追加します。
+押下時、URL追加画面に遷移する。
+
+| {counter:rownum}
+| 追加ボタン
+| CSSファイルのディレクトリを追加します。
+押下時、ディレクトリ選択を行い選択したディレクトリの値がディレクトリに追加されます。
+
+| {counter:rownum}
+| 削除ボタン
+| 選択したディレクトリをリストから削除します。
+|===
+=== カスタマイズ名の作成画面
+image::images/customize-name-setting-screen-design.svg[]
+
+.カスタマイズ名の作成画面の項目{counter2:rownum:0}
+:!rownum:
+[cols=">1,6,18"]
+|===
+^|No. ^|画面オブジェクト ^|説明
+ 
+| {counter:rownum}
+| カスタマイズの環境名入力用のテキストボックス
+| カスタマイズの環境名選択項目に使用する名前を入力する。
+ 
+| {counter:rownum}
+| kintone-customize-uploader実行選択チェックボックス
+| チェック時、OKボタン押下後、cuatomize-uploaderを実行しカスタマイズファイルアップロードに必要なひな型を任意のディレクトリに作成する。
+
+| {counter:rownum}
+| キャンセルボタン
+| カスタマイズ環境名の作成をキャンセルする。
+
+| {counter:rownum}
+| OKボタン
+| カスタマイズの環境名を環境名選択項目として追加する。
+
+|===
+
+=== customize-manifest.json変更画面
+
+==== タブ「JS」
+image::images/customizevisible-js-tab-scree-design.svg[]
+.タブ「JS」の項目{counter2:rownum:0}
+:!rownum:
+[cols=">1,6,18"]
+|===
+^|No. ^|画面オブジェクト ^|説明
+ 
+| {counter:rownum}
+| ディレクトリ
+| custommize-manifest.jsonに定義されているjsファイルのディレクトリ/URLが表示される。 +
+ダブルクリック:JSファイル=>ディレクトリ変更 +
+            　URL=>URL変更画面に遷移する。
+ 
+| {counter:rownum}
+| ファイルチェック
+| ファイル/URLの存在確認の結果が表示される。 +
+JSファイル=>有:空,無:FILE_NOT_FOUND +
+            　URL=>有:空,無:URL_NOT_SUCCESSFULL
+
+| {counter:rownum}
+| URL追加ボタン
+| URLを追加します。
+押下時、URL追加画面に遷移する。
+
+| {counter:rownum}
+| 追加ボタン
+| JSファイルのディレクトリを追加します。
+押下時、ディレクトリ選択を行い選択したディレクトリの値がディレクトリに追加されます。
+
+| {counter:rownum}
+| 削除ボタン
+| 選択したディレクトリをリストから削除します。
+|===
+
+==== タブ「CSS」
+image::images/customizevisible-css-tab-scree-design.svg[]
+.タブ「CSS」の項目{counter2:rownum:0}
+:!rownum:
+[cols=">1,6,18"]
+|===
+^|No. ^|画面オブジェクト ^|説明
+ 
+| {counter:rownum}
+| ディレクトリ
+| customize-manifest.jsonに定義されているcssファイルのディレクトリ/URLが表示される。 +
+ダブルクリック:cssファイル=>ディレクトリ変更 +
+            　URL=>URL変更画面に遷移する。
+ 
+| {counter:rownum}
+| ファイルチェック
+| ファイル/URLの存在確認の結果が表示される。 +
+cssファイル=>有:空,無:FILE_NOT_FOUND +
+            　URL=>有:空,無:URL_NOT_SUCCESSFULL
+
+| {counter:rownum}
+| URL追加ボタン
+| URLを追加します。
+押下時、URL追加画面に遷移する。
+
+| {counter:rownum}
+| 追加ボタン
+| CSSファイルのディレクトリを追加します。
+押下時、ディレクトリ選択を行い選択したディレクトリの値がディレクトリに追加されます。
+
+| {counter:rownum}
+| 削除ボタン
+| 選択したディレクトリをリストから削除します。
+|===
+
+=== URL追加画面
+image::images/url-add-scree-design.svg[]
+.URL追加画面の項目{counter2:rownum:0}
+:!rownum:
+[cols=">1,6,18"]
+|===
+^|No. ^|画面オブジェクト ^|説明
+ 
+| {counter:rownum}
+| 追加URL
+| ディレクトリのリストに追加したいURLを入力します。
+ 
+| {counter:rownum}
+| キャンセルボタン
+| URLの追加をキャンセルする。
+
+| {counter:rownum}
+| OKボタン
+| 入力したURLをディレクトリのリストに追加します。
+
+|===
+
+=== URL変更画面
+image::images/url-edit-screen-design.svg[]
+.URL追加画面の項目{counter2:rownum:0}
+:!rownum:
+[cols=">1,6,18"]
+|===
+^|No. ^|画面オブジェクト ^|説明
+ 
+| {counter:rownum}
+| 変更後URL
+| ディレクトリのリストにて選択したURLを変更します。
+ 
+| {counter:rownum}
+| キャンセルボタン
+| URLの変更をキャンセルする。
+
+| {counter:rownum}
+| OKボタン
+| ディレクトリのリストにて選択したURLを変更します。
+
+|===
+
