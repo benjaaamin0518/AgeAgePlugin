@@ -1,3 +1,4 @@
+using Microsoft.Toolkit.Uwp.Notifications;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -694,7 +695,7 @@ namespace AgeAgePlugin
         {
             try
             {
-                using (var ofd = new OpenFileDialog()
+                using (var ofd = new SaveFileDialog()
                 {
                     FileName = "Log_" + DateTime.Now.ToString("yyMMdd") + ".txt",
                     Filter = "Text files (*.txt)|*.txt",
@@ -1399,6 +1400,16 @@ namespace AgeAgePlugin
             try
             {
                 output = e.Data;
+                if (output.IndexOf("plugin.zip をアップロードしました!") >= 0)
+                {
+                    // Requires Microsoft.Toolkit.Uwp.Notifications NuGet package version 7.0 or greater
+                    new ToastContentBuilder()
+                        .AddArgument("action", "viewConversation")
+                        .AddArgument("conversationId", 9813)
+                        .AddText("プラグインのアップロードが完了しました!")
+                        .AddText("kintoneの環境に正常に反映されました。")
+                        .Show(); // Not seeing the Show() method? Make sure you have version 7.0, and if you're using .NET 6 (or later), then your TFM must be net6.0-windows10.0.17763.0 or greater
+                }
                 output = output?.Replace("\r\r\n", "\n"); // 改行コードの修正
                 if (output != "") Invoke(output);
             }
@@ -1428,7 +1439,17 @@ namespace AgeAgePlugin
                 try
                 {
                     output = e.Data;
-                    output = output?.Replace("\r\r\n", "\n"); // 改行コードの修正
+                if (output.IndexOf("運用環境に反映しました!") >= 0)
+                {
+                    // Requires Microsoft.Toolkit.Uwp.Notifications NuGet package version 7.0 or greater
+                    new ToastContentBuilder()
+                        .AddArgument("action", "viewConversation")
+                        .AddArgument("conversationId", 9813)
+                        .AddText("カスタマイズファイルのアップロードが完了しました!")
+                        .AddText("kintoneの環境に正常に反映されました。")
+                        .Show(); // Not seeing the Show() method? Make sure you have version 7.0, and if you're using .NET 6 (or later), then your TFM must be net6.0-windows10.0.17763.0 or greater
+                }
+                output = output?.Replace("\r\r\n", "\n"); // 改行コードの修正
                     if (output != "") Invoke(output);
                 }
                 catch { };
