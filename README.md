@@ -26,7 +26,7 @@ npm install -g @kintone/customize-uploader
 [AgeAgePlugin利用方法](https://github.com/nishikawa-r/AgeAgePlugin/blob/main/documents/AgeAgePlugin/AgeAgePlugin-Document.pdf)
 # リリース
 
-・[v1.1.5(Pre-Release版)](https://github.com/nishikawa-r/AgeAgePlugin/releases)
+・[v1.1.6(Pre-Release版)](https://github.com/nishikawa-r/AgeAgePlugin/releases)
 
 # 画面
 
