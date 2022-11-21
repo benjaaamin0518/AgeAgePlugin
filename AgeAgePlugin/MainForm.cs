@@ -199,6 +199,8 @@ namespace AgeAgePlugin
                 SaveManifestJson(true);
                 backgroundWorker2.RunWorkerAsync();
                 backgroundWorker1.RunWorkerAsync();
+                output = "[" + DateTime.Now.ToString("yyyy年MM月dd日 HH時mm分ss秒") + "] -----プラグインアップロード開始-----" + "\r\n";
+                Invoke(output);
             }
             else
             {
@@ -245,6 +247,8 @@ namespace AgeAgePlugin
                 catch { };
                 return "Stop";
             });
+            output = "[" + DateTime.Now.ToString("yyyy年MM月dd日 HH時mm分ss秒") + "] -----プラグインアップロード終了-----" + "\r\n";
+            Invoke(output);
             return task;
         }
         private Task<string> CustomizeButtonUp()
@@ -274,6 +278,8 @@ namespace AgeAgePlugin
 
                 return "Stop";
             });
+            output = "[" + DateTime.Now.ToString("yyyy年MM月dd日 HH時mm分ss秒") + "] -----カスタマイズファイルアップロード終了-----" + "\r\n";
+            Invoke(output);
             return task;
         }
         private async void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
@@ -1348,6 +1354,8 @@ namespace AgeAgePlugin
                 cancelToken3 = tokenSource3.Token;
                 SaveManifestCustomize(true);
                 backgroundWorker3.RunWorkerAsync();
+                output = "[" + DateTime.Now.ToString("yyyy年MM月dd日 HH時mm分ss秒") + "] -----カスタマイズファイルアップロード開始-----" + "\r\n";
+                Invoke(output);
             }
             else
             {
@@ -1411,6 +1419,7 @@ namespace AgeAgePlugin
                         .Show(); // Not seeing the Show() method? Make sure you have version 7.0, and if you're using .NET 6 (or later), then your TFM must be net6.0-windows10.0.17763.0 or greater
                 }
                 output = output?.Replace("\r\r\n", "\n"); // 改行コードの修正
+                output = "[" + DateTime.Now.ToString("yyyy年MM月dd日 HH時mm分ss秒") + "] " + output + "\r\n";
                 if (output != "") Invoke(output);
             }
             catch { };
@@ -1426,6 +1435,7 @@ namespace AgeAgePlugin
             {
                 output = e.Data;
                 output = output?.Replace("\r\r\n", "\n"); // 改行コードの修正
+                output = "["+DateTime.Now.ToString("yyyy年MM月dd日 HH時mm分ss秒")+"] "+ output + "\r\n";
                 if (output != "") Invoke(output);
             }
             catch { };
@@ -1450,7 +1460,8 @@ namespace AgeAgePlugin
                         .Show(); // Not seeing the Show() method? Make sure you have version 7.0, and if you're using .NET 6 (or later), then your TFM must be net6.0-windows10.0.17763.0 or greater
                 }
                 output = output?.Replace("\r\r\n", "\n"); // 改行コードの修正
-                    if (output != "") Invoke(output);
+                output = "[" + DateTime.Now.ToString("yyyy年MM月dd日 HH時mm分ss秒") + "] " + output + "\r\n";
+                if (output != "") Invoke(output);
                 }
                 catch { };
         }
