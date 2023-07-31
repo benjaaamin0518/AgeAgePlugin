@@ -614,7 +614,7 @@ namespace AgeAgePlugin
                 try
                 {
                     tokenSource.Cancel();
-                    process.Kill();
+                    KillProcessTree(process);
                     process.WaitForExit();
                     errorLevel = process.ExitCode;
                 }
@@ -630,7 +630,7 @@ namespace AgeAgePlugin
                 try
                 {
                     tokenSource2.Cancel();
-                    process2.Kill();
+                    KillProcessTree(process2);
                     process2.WaitForExit();
                     errorLevel2 = process2.ExitCode;
                 }
@@ -646,7 +646,7 @@ namespace AgeAgePlugin
                 try
                 {
                     tokenSource3.Cancel();
-                    process3.Kill();
+                    KillProcessTree(process3);
                     process3.WaitForExit();
                     errorLevel3 = process3.ExitCode;
                 }
@@ -654,6 +654,19 @@ namespace AgeAgePlugin
                 return "stop";
             });
             return task;
+        }
+        private void KillProcessTree(System.Diagnostics.Process process)
+        {
+            string taskkill = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "taskkill.exe");
+            using (var procKiller = new System.Diagnostics.Process())
+            {
+                procKiller.StartInfo.FileName = taskkill;
+                procKiller.StartInfo.Arguments = string.Format("/PID {0} /T /F", process.Id);
+                procKiller.StartInfo.CreateNoWindow = true;
+                procKiller.StartInfo.UseShellExecute = false;
+                procKiller.Start();
+                procKiller.WaitForExit();
+            }
         }
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
@@ -1485,7 +1498,7 @@ namespace AgeAgePlugin
 
                     UseShellExecute = false,
                     CreateNoWindow = true,
-
+                 
                     RedirectStandardOutput = true, // ログ出力に必要な設定(1)
                     RedirectStandardError = true,
                     StandardOutputEncoding = Encoding.UTF8, // エンコーディング設定
@@ -1567,6 +1580,11 @@ namespace AgeAgePlugin
                     process3.CancelErrorRead();                }
                 catch { };
             }
+        }
+        private void Proc_Exited(object sender, EventArgs e)
+        {
+            var proc = (Process)sender;
+            Console.WriteLine("$HasExited Status is {proc.HasExited} (Exited Event)");
         }
     }
 }
